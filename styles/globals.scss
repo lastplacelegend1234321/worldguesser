@@ -1,7 +1,7 @@
 :root {
-    --r: 20;
-    --g: 65;
-    --b: 25;
+    --r: 34;
+    --g: 197;
+    --b: 94;
     --gradBottomBase: rgba(var(--r), var(--g), var(--b), 1.0) 0%, rgba(var(--r), var(--g), var(--b), 0.612) 50%, rgba(255,255,255,0) 100%;
     --gradTopBase: rgba(var(--r), var(--g), var(--b), 0.9) 0%, rgba(255,255,255,0) 50%;
     --grad1: linear-gradient(90deg, rgba(var(--r), var(--g), var(--b), 1) 0%, rgba(var(--r), var(--g), var(--b), 0.812) 35%, rgba(255,255,255,0) 100%);
@@ -10,16 +10,17 @@
     --gradBottomAngle: linear-gradient(150deg, rgba(var(--r), var(--g), var(--b), 1.0) 0%, rgba(var(--r), var(--g), var(--b), 0.712) 60%, rgba(255,255,255,0) 100%);
     --gradTop: linear-gradient(65deg, rgba(var(--r), var(--g), var(--b), 0.9) 0%, rgba(255,255,255,0) 50%);
     --gradDouble: linear-gradient(90deg, rgba(var(--r), var(--g), var(--b), 1) 0%, rgba(var(--r), var(--g), var(--b), 0.6) 15%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(var(--r), var(--g), var(--b), 0.6) 85%, rgba(var(--r), var(--g), var(--b), 1) 100%);
-    --gradLight: linear-gradient(135deg, rgba(var(--r), var(--g), var(--b), 0.52) 0%, rgba(var(--r), var(--g), var(--b), 0.28) 57%, rgba(255,255,255,0) 100%);
+    --gradLight: linear-gradient(135deg, rgba(var(--r), var(--g), var(--b), 0.6) 0%, rgba(var(--r), var(--g), var(--b), 0.35) 57%, rgba(255,255,255,0) 100%);
     --gradFull: linear-gradient(135deg, rgba(var(--r), var(--g), var(--b), 0.72) 0%, rgba(var(--r), var(--g), var(--b), 0.38) 57%, rgba(var(--r), var(--g), var(--b), 0.3) 100%);
-    --gradRed: linear-gradient(135deg, rgba(156, 82, 39, 0.9) 0%, rgba(91, 29, 29, 0.9) 31%, rgba(255, 112, 112, 0.9) 100%);
-    --gradBlue: linear-gradient(135deg, rgba(30, 62, 156, 0.9) 0%, rgba(29, 29, 91, 0.9) 31%, rgba(112, 112, 255, 0.9) 100%);
-    --gradGreenBtn: linear-gradient(135deg, rgba(var(--r), var(--g), var(--b), 0.9) 0%, rgba(var(--r), var(--g), var(--b), 0.6) 57%, rgba(255, 255, 255, 0) 100%);
+    --gradRed: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+    --gradBlue: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+    --gradGreenBtn: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
 
-    --primary: #245734;
-    --primaryDark: #112b18;
-    --primaryTransparent: rgb(36, 87, 52, 0.85);
-    --darkTransparent: rgb(0, 0, 0, 0.4);
+    --primary: #22c55e;
+    --primaryDark: #15803d;
+    --primaryLight: #4ade80;
+    --primaryTransparent: rgba(34, 197, 94, 0.85);
+    --darkTransparent: rgba(0, 0, 0, 0.4);
 }
 
 
@@ -262,7 +263,7 @@ html {
     height: 100%;
     overflow-y: auto;
     width: 70vw;
-    padding-top: 50px;
+    padding-top: calc(max(env(safe-area-inset-top), 20px) + 70px);
 }
 .g2_content_margin{
     padding-right: 5vw;
@@ -289,7 +290,7 @@ html {
     }
 }
 .g2_nav_ui {
-    padding-top: 50px;
+    padding-top: calc(max(env(safe-area-inset-top), 20px) + 70px);
     left: 0px;
     height: 100%;
     display: flex;
@@ -535,19 +536,27 @@ html {
 
 
 .discord {
-    background-color: #738adb !important;
+    background: linear-gradient(135deg, #5865f2 0%, #4752c4 100%) !important;
+    box-shadow: 0 4px 14px rgba(88, 101, 242, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .discord:hover {
-    background-color: #3e4970 !important;
+    background: linear-gradient(135deg, #7289da 0%, #5865f2 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
 }
 
 .youtube {
-    background-color: #ff000080 !important;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(220, 38, 38, 0.9) 100%) !important;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .youtube:hover {
-    background-color: darkred !important;
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
 }
 
 
@@ -623,9 +632,9 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     //border: solid 1.4px var(--primary);
 }
 
@@ -661,61 +670,94 @@ html {
     font-size: min(clamp(1.3em, 3vw, 5em), clamp(1.1em, 4vh, 3.5em));
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s;
-    //box-shadow: 0px 3px 4px 0px rgb(0 0 0 / 35%);
-    //-webkit-text-stroke: 1px black;
-    //text-shadow: 2px 2px black;
-    border-radius: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-weight: 500;
 }
 
 .gameBtn:hover {
-    background-color: var(--primaryTransparent);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
 }
 // disabled gamebtn
 .gameBtn[disabled] {
     background-color: rgba(40, 40, 40, 0.3);
     cursor: not-allowed;
+    opacity: 0.5;
 }
 
 .homeBtn {
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #444;
+    padding: 14px 24px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 1.5em;
-    background-color: #327A60;
+    font-weight: 600;
     display: block;
     width: 100%;
     white-space: nowrap;
-    text-shadow: 2px 2px black;
-    box-shadow: 10px 3px 4px 0px rgb(0 0 0 / 35%);
+    text-shadow: none;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
     height: 100%;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.homeBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.homeBtn:hover::before {
+    left: 100%;
 }
 
 .homeBtn.singleplayer {
-    background-color: #547a32;
+    background: linear-gradient(135deg, #65a30d 0%, #4d7c0f 100%);
+    box-shadow: 0 4px 14px rgba(101, 163, 13, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 // mobile homebtn has smaller font size and is less bold
 @media screen and (max-width: 600px) {
     .homeBtn {
         font-size: 1.2em;
-        font-weight: 200;
+        font-weight: 500;
+        padding: 12px 20px;
     }
 }
 // disabled homebtn
 .homeBtn[disabled] {
-    background-color: #373737;
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
     cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
 }
 
-.homeBtn:hover {
-    background-color: #225541;
+.homeBtn:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
 }
 
-.homeBtn.singleplayer:hover {
-    background-color: #485522;
+.homeBtn.singleplayer:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(101, 163, 13, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+}
+
+.homeBtn:active:not([disabled]) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
 }
 
 .accountBtn {
@@ -725,9 +767,14 @@ html {
     width: auto;
     z-index: 101;
     font-size: 1.5em;
-    border-radius: 8px;
+    border-radius: 12px;
     pointer-events: all;
-    background-color: var(--primaryTransparent);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(22, 163, 74, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(34, 197, 94, 0.3);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px 16px;
 }
 
 .accountBtn.loggedIn {
@@ -736,20 +783,26 @@ html {
 }
 
 .friendBtn {
-    background: var(--primaryTransparent);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(22, 163, 74, 0.9) 100%);
     width: fit-content;
     display: flex;
     color: white;
-    border-radius: 8px;
+    border-radius: 12px;
     align-items: center;
     justify-content: center;
     pointer-events: all;
     aspect-ratio: 1/1;
     height: 42px;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(34, 197, 94, 0.3);
 }
 
 .friendBtn:hover {
-    background: var(--primary);
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    border-color: rgba(74, 222, 128, 0.5);
 }
 
 .friendBtnFixed {
@@ -799,22 +852,27 @@ html {
 }
 
 .accountBtn:hover {
-    background-color: var(--primary);
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    border-color: rgba(74, 222, 128, 0.5);
 }
 
 // Green styling for account button during onboarding
 .navbar.onboarding .accountBtn:not(.backBtn),
 .navbar.onboarding .navBtn:not(.backBtn) {
-    border: 1.4px solid var(--primaryDark);
-    background: var(--gradGreenBtn);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    border: none;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
 .navbar.onboarding .accountBtn:not(.backBtn):hover,
 .navbar.onboarding .navBtn:not(.backBtn):hover {
-    background-color: var(--primary);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    transform: translateY(-2px);
 }
 
 .navBtn {
@@ -839,42 +897,54 @@ html {
 
 
 .g2_green_button {
-    border: 1.4px solid var(--primaryDark);
-    background: var(--gradGreenBtn);
+    border: none;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
     color: white;
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    padding: 10px 20px;
 }
 .g2_green_button3 {
-    border: 1.4px solid var(--primaryDark);
-    background-color: var(--primaryTransparent);
+    border: 2px solid var(--primary);
+    background-color: rgba(34, 197, 94, 0.1);
     color: white;
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+    font-weight: 500;
+    padding: 10px 20px;
 }
 .g2_green_button2 {
-    border: 1.4px solid var(--primaryDark);
-    filter: brightness(1.8) hue-rotate(-20deg);
-    background: var(--gradLight);
+    border: 2px solid var(--primary);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
     color: white;
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15);
+    font-weight: 500;
+    padding: 10px 20px;
 }
 .g2_green_button3:hover{
-    background-color: var(--primary);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
-
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-color: #4ade80;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+    transform: translateY(-2px);
 }
 .g2_green_button:hover {
-    background-color: var(--primary);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    transform: translateY(-2px);
 }
 .g2_green_button2:hover {
-    background-color: var(--primary);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.2) 100%);
+    border-color: #4ade80;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Fix for game options button overflow in navbar */
@@ -899,36 +969,51 @@ html {
 }
 
 .g2_red_button {
-    border: 1.4px solid #85200c;
-    background: var(--gradRed);
-    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s;
+    border: none;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 .g2_hover_effect {
-    transition: all 0.5s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .g2_hover_effect:hover{
-    background: var(--primary);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
 }
 .g2_red_button:hover {
-    background-color: #49170d;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+    transform: translateY(-2px);
 }
 
 
 .g2_blue_button {
-    border: 1.4px solid #004684;
-    background: var(--gradBlue);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    border: none;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 .g2_blue_button:hover {
-    background-color: #0b5394;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
 }
 .g2_button_style {
-    padding: 10px;
-    border-radius: 16px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .g2_shadow {
@@ -1013,17 +1098,22 @@ html {
     align-items: center;
     justify-content: center;
     aspect-ratio: 1/1;
-    border: 2px solid rgba(29, 29, 91, 0.8);
-    background: var(--gradBlue);
+    border: none;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50%;
     font-weight: 600;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .reloadBtn:hover {
-    background-color: rgba(30, 62, 156, 1);
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
 }
 
 h1, h2, h3, span, label {
@@ -1050,14 +1140,15 @@ h1, h2, h3, span, label {
     // background-color: #0d0d32;
     // backdrop-filter: blur(10px);
     z-index: 1120;
+    padding-top: max(env(safe-area-inset-top), 20px);
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 10px;
     overflow-x: hidden;
     pointer-events: none;
     // enter from top
-
+    min-height: 70px;
     transition: all 0.5s;
-    height: 50px;
 }
 // .navbarColor {
 //     background: var(--primaryTransparent);
@@ -1132,7 +1223,7 @@ h1, h2, h3, span, label {
     font-weight: 600;
     z-index: 102;
     position: fixed;
-    top: 50px;
+    top: calc(max(env(safe-area-inset-top), 20px) + 70px);
     right: 0;
     font-size: clamp(1.1rem, 2vw, 1.5rem);
     background: var(--gradLight);
@@ -2027,19 +2118,28 @@ h1, h2, h3, span, label {
     button {
         font-family: lexend;
         font-size: 1em;
-        padding: 10px 20px;
+        padding: 12px 24px;
         margin: 5px;
-        background-color: var(--primaryTransparent);
-        border: 2px solid var(--primary);
+        background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(22, 163, 74, 0.9) 100%);
+        border: 2px solid rgba(34, 197, 94, 0.3);
         color: white;
-        border: none;
-        border-radius: 5px;
+        border-radius: 12px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+        font-weight: 500;
     }
 
     button:hover {
-        background-color: #666;
+        background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+        border-color: rgba(74, 222, 128, 0.5);
+    }
+
+    button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
     }
 }
 
@@ -2222,30 +2322,33 @@ h1, h2, h3, span, label {
     padding: 16px 24px;
     font-size: min(clamp(1rem, 2.5vw, 1.2rem), clamp(0.9rem, 3vh, 1.1rem));
     font-weight: 600;
-    border: 2px solid var(--primaryDark);
+    border: none;
     border-radius: 12px;
-    background: var(--primary);
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
     color: white;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
     min-width: 100px;
     flex-shrink: 0;
 
     &:hover:not(:disabled) {
-        background: var(--primaryDark);
+        background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
         transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
     }
 
     &:disabled {
         opacity: 0.7;
         cursor: not-allowed;
         transform: none;
-    }
-
-    &:active:not(:disabled) {
-        transform: translateY(-1px);
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+        box-shadow: none;
     }
 }
 
