@@ -1,4 +1,5 @@
 import NextImage from "next/image"
+import earthLoading from "@/styles/images/earth_loading_worldguesser.png";
 
 export default function BannerText({shown, text, hideCompass, subText, position}) {
   return (
@@ -19,7 +20,15 @@ export default function BannerText({shown, text, hideCompass, subText, position}
           {text || 'Loading...'}
         </span>
         { !hideCompass && (
-          <NextImage.default alt="Loading compass" src={'./loader.gif'} width={100} height={100} />
+          <div className="loading-earth">
+            <NextImage.default
+              alt="Loading earth"
+              src={earthLoading}
+              width={120}
+              height={120}
+              priority
+            />
+          </div>
         )}
       </div>
       {subText && (
@@ -27,6 +36,20 @@ export default function BannerText({shown, text, hideCompass, subText, position}
           {subText}
         </span>
       )}
+      <style jsx>{`
+        @keyframes earth-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .loading-earth {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          animation: earth-spin 4s linear infinite;
+          filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+        }
+      `}</style>
     </div>
   )
 }

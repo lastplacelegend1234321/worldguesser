@@ -25,6 +25,7 @@ import initWebsocket from "@/components/utils/initWebsocket";
 import 'react-toastify/dist/ReactToastify.css';
 import dynamic from "next/dynamic";
 import NextImage from "next/image";
+import destinationImage from "@/styles/images/worldguessrdestination.png";
 import OnboardingText from "@/components/onboardingText";
 // import RoundOverScreen from "@/components/roundOverScreen";
 const RoundOverScreen = dynamic(() => import('@/components/roundOverScreen'), { ssr: false });
@@ -658,8 +659,8 @@ export default function Home({ }) {
       display: flex;
       justify-content: center;
       align-items: center;
-      background: url('https://www.worldguessr.com/street1.jpg') no-repeat center center/cover;
-      font-family: 'Arial', sans-serif;
+      background: url('/eiffeltowerimage.png') no-repeat center center/cover;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .container {
@@ -2142,7 +2143,7 @@ export default function Home({ }) {
                 msUserSelect: 'none',
                 pointerEvents: 'none',
             }}>
-                <NextImage.default src={'./street2.jpg'}
+                <NextImage.default src={'/eiffeltowerimage.png'}
                     draggable={false}
                     width={1920}
                     height={1080}
@@ -2228,17 +2229,39 @@ export default function Home({ }) {
                 />
 
 
-                                {!inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH &&
-
-                                                        <div className={`home_ad `} style={{ display: (screen === 'home' && ( !inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH)) ? '' : 'none' }}>
-                                                          <Ad
-                                                          unit={"worldguessr_home_ad"}
-                                                        inCrazyGames={inCrazyGames} showAdvertisementText={false} screenH={height} types={[[300,250]]} screenW={width} vertThresh={width < 600 ? 0.33 : 0.5} />
-                                                        </div>
-                                }
-                <span id="g2_playerCount" className={`bigSpan onlineText desktop ${screen !== 'home' ? 'notHome' : ''} ${(screen === 'singleplayer' || screen === 'onboarding' || (multiplayerState?.inGame && !['waitingForPlayers', 'findingGame', 'findingOpponent'].includes(multiplayerState?.gameData?.state)) || !multiplayerState?.connected || !multiplayerState?.playerCount) ? 'hide' : ''}`}>
-                    {maintenance ? text("maintenanceMode") : text("onlineCnt", { cnt: multiplayerState?.playerCount || 0 })}
+                                {!inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
+                                    <div
+                                      className={`home_ad home_ad_centered`}
+                                      style={{ display: screen === 'home' ? '' : 'none' }}
+                                    >
+                                      <Ad
+                                        unit={"worldguessr_home_ad"}
+                                        inCrazyGames={inCrazyGames}
+                                        showAdvertisementText={false}
+                                        screenH={height}
+                                        types={[[728, 90], [468, 60], [300, 250]]}
+                                        screenW={width}
+                                        vertThresh={width < 600 ? 0.33 : 0.5}
+                                      />
+                                    </div>
+                                )}
+                <span id="g2_playerCount" className={`home__online_counter ${screen !== 'home' ? 'notHome' : ''} ${(screen === 'singleplayer' || screen === 'onboarding' || (multiplayerState?.inGame && !['waitingForPlayers', 'findingGame', 'findingOpponent'].includes(multiplayerState?.gameData?.state)) || !multiplayerState?.connected || !multiplayerState?.playerCount) ? 'hide' : ''}`}>
+                    {maintenance ? text("maintenanceMode") : `${multiplayerState?.playerCount || 0} online`}
                 </span>
+                
+                {/* Top left buttons */}
+                {screen === "home" && onboardingCompleted && (
+                    <div className="home__top_left_buttons">
+                        <button className="home__top_btn home__settings_btn" aria-label="Settings" onClick={() => setSettingsModal(true)}>
+                            <FaGear />
+                        </button>
+                        <Link href={"/leaderboard" + (inCrazyGames ? "?crazygames" : "")}>
+                            <button className="home__top_btn home__leaderboard_btn" aria-label="Leaderboard">
+                                <FaRankingStar />
+                            </button>
+                        </Link>
+                    </div>
+                )}
 
                 {/* reload button for public game */}
                 {multiplayerState?.gameData?.duel && multiplayerState?.gameData?.state === "guess" && (
@@ -2263,209 +2286,105 @@ export default function Home({ }) {
 
                 {screen == "home" &&
                     <div className={`home__content g2_modal ${screen !== "home" ? "hidden" : "cshown"} `}>
-                        <div className={`g2_nav_ui ${navSlideOut ? 'g2_slide_out' : ''} ${onboardingCompleted !== true ? 'hide' : ''}`} >
-
-
-                            {onboardingCompleted === null ? (
-                                <>
-
-                                </>
-                            ) : (
-                                <>
-
-
-                                    {onboardingCompleted && (
-
-                                        <>
-            <h1 className={`home__title g2_nav_title wg_font ${navSlideOut ? 'g2_slide_out' : ''}`}>WorldGuessr</h1>
-
-            {/* <HomeNotice text={text("maintenanceText1", {date: getMaintenanceDate(), time: getTimeString()})} shown={true} /> */}
-            </>
-
-                                    )}
-
-
-
-                                    {onboardingCompleted && (
-
-                                        <>
-
-                                            <div className="g2_nav_hr"></div>
-                                            <div className="g2_nav_group">
-                                                <button className="g2_nav_text singleplayer"
-
-                                                    onClick={() => {
-                                                            if (loading) return;
-                                                            setNavSlideOut(true);
-                                                            setMiniMapShown(false);
-                                                            setTimeout(() => {
-                                                              crazyMidgame(() => setScreen("singleplayer"));
-                                                              setNavSlideOut(false); // Reset for next use
-                                                            }, 300);
-                                                    }}>
-                                                    {text("singleplayer")}
-                                                </button>
-                                                {/* <span className="bigSpan">{text("playOnline")}</span> */}
-
-                                                {/* <button className="g2_nav_text" aria-label="Duels" onClick={() => { setShowPartyCards(!showPartyCards) }}>{text("duels")}</button> */}
-                                                    { session?.token?.secret && (
-                                                 <button className="g2_nav_text" aria-label="Duels" onClick={() => { handleMultiplayerAction("publicDuel") }}>{text("rankedDuel")}</button>
-                                                    )}
-                                                 <button className="g2_nav_text" aria-label="Duels" onClick={() => { handleMultiplayerAction("unrankedDuel") }}>{
-                                                    session?.token?.secret ? text("unrankedDuel") : text("findDuel")}</button>
-
-
-
-                                            </div>
-                                            <div className="g2_nav_hr"></div>
-
-                                            <div className="g2_nav_group">
-                                                {/*<button className="g2_nav_text" aria-label="Party" onClick={() => { setShowPartyCards(!showPartyCards) }}>{text("privateGame")}</button>*/}
-                                                <button className="g2_nav_text" disabled={maintenance} onClick={() => {
-                                                    if(!ws || !multiplayerState?.connected) {
-                                                        setConnectionErrorModalShown(true);
-                                                        return;
-                                                    }
-
-                                                   setNavSlideOut(true);
-                                                    setTimeout(() => {
-                                                        setNavSlideOut(false); // Reset for next use
-                                                    handleMultiplayerAction("createPrivateGame")
-                                                    }, 300);
-                                                    }}>{text("createGame")}</button>
-                                                <button className="g2_nav_text" disabled={maintenance} onClick={() => {
-                                                    if(!ws || !multiplayerState?.connected) {
-                                                        setConnectionErrorModalShown(true);
-                                                        return;
-                                                    }
-                                                    setNavSlideOut(true);
-                                                    setTimeout(() => {
-                                                        setNavSlideOut(false); // Reset for next use
-                                                        handleMultiplayerAction("joinPrivateGame")
-
-                                                    }, 300);
-
-                                                    }}>{text("joinGame")}</button>
-                                            </div>
-
-                                            <div className="g2_nav_hr"></div>
-
-                                            <div className="g2_nav_group">
-                                                {!process.env.NEXT_PUBLIC_COOLMATH &&
-                                                    <button className="g2_nav_text" aria-label="Community Maps" onClick={() => {
-                                                        setNavSlideOut(true);
-                                                        setTimeout(() => {
-                                                            setNavSlideOut(false); // Reset for next use
-                                                            setMapModal(true);
-                                                        }, 300);
-                                                        }}>{text("communityMaps")}</button>}
-
-                                                {/* Twitch Streamer Link */}
-                                                 {/* <a
-                                                    href="https://kick.com/ulkuemre"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="g2_nav_text"
-                                                    style={{ color: '#ff4444', textDecoration: 'none' }}
-                                                    aria-label="Watch UlkuEmre Live"
-                                                >
-                                                    🔴 Watch UlkuEmre Live
-                                                </a> */}
-
-                                                {inCrazyGames && (
-                                                    <button className="g2_nav_text" aria-label="MapGuessr" onClick={() => {
-                                                        setNavSlideOut(true);
-                                                        setTimeout(() => {
-                                                            setNavSlideOut(false); // Reset for next use
-                                                            setMapGuessrModal(true);
-                                                        }, 300);
-                                                        }}>MapGuessr</button>
-                                                )}
-
-                                            </div>
-                                        </>
-                                    )}
-
-                                </>
-                            )}
-                            <br />
-
-                        </div>
-
-                        {/* Footer moved outside of sliding navigation */}
-                        <div className={`home__footer ${(screen === "home" && onboardingCompleted === true && !mapModal && !merchModal && !friendsModal && !accountModalOpen && !mapGuessrModal) ? "visible" : ""}`}>
-                            <div className="footer_btns">
-                                {!isApp && !inCoolMathGames && (
-                                    <>
-                                        <Link target="_blank" href={"https://discord.gg/ADw47GAyS5"}><button className="g2_hover_effect home__squarebtn gameBtn g2_container discord" aria-label="Discord"><FaDiscord className="home__squarebtnicon" /></button></Link>
-
-                                        {!inCrazyGames && (
-                                            <>
-                                                <Link target="_blank" href={"https://www.youtube.com/@worldguessr?sub_confirmation=1"}><button className="g2_hover_effect home__squarebtn gameBtn g2_container youtube" aria-label="Youtube"><FaYoutube className="home__squarebtnicon" /></button></Link>
-                                                <Link target="_blank" className="desktop" href={"https://www.coolmathgames.com/0-worldguessr"}><button className="g2_hover_effect home__squarebtn gameBtn g2_container_full" aria-label="CoolmathGames">
-                                                    {/* Todo; include coolmath logo here; url is /cmlogo.png*/}
-
-                                                    <NextImage.default src={'/cmlogo.png'} draggable={false} fill alt="Coolmath Games Logo" className="home__squarebtnicon" />
-
-                                                    </button>
-                                                </Link>
-
-                                                <Link target="_blank" href={"https://github.com/codergautam/worldguessr"}><button className="g2_hover_effect home__squarebtn gameBtn g2_container_full" aria-label="Github"><FaGithub className="home__squarebtnicon" /></button></Link>
-                                            </>
-                                        )}
-                                        <Link href={"/leaderboard" + (inCrazyGames ? "?crazygames" : "")}>
-
-                                            <button className="g2_hover_effect home__squarebtn gameBtn g2_container_full " aria-label="Leaderboard"><FaRankingStar className="home__squarebtnicon" /></button></Link>
-                                    </>
-                                )}
-
-                                <button className="g2_hover_effect home__squarebtn gameBtn g2_container_full " aria-label="Settings" onClick={() => setSettingsModal(true)}><FaGear className="home__squarebtnicon" /></button>
+                        {onboardingCompleted && (
+                            <div className="home__centered_content">
+                                <div className="home__destination_image-wrapper">
+                                    <NextImage.default
+                                        src={destinationImage}
+                                        alt="WorldGuessr Destination"
+                                        className="home__destination_image"
+                                        priority
+                                    />
+                                </div>
+                                <h1 className="home__title_centered wg_font">WorldGuessr.io</h1>
+                                <p className="home__subtitle">Guess street views of the world</p>
+                                
+                                <input 
+                                    type="text" 
+                                    className="home__nickname_input" 
+                                    placeholder="Your Nickname..." 
+                                    defaultValue={session?.token?.username || ""}
+                                />
+                                
+                                <button 
+                                    className="homeBtn home__play_btn" 
+                                    onClick={() => {
+                                        if (loading) return;
+                                        setMiniMapShown(false);
+                                        crazyMidgame(() => setScreen("singleplayer"));
+                                    }}
+                                    disabled={loading}
+                                >
+                                    PLAY
+                                </button>
+                                
+                                <button 
+                                    className="homeBtn home__multiplayer_btn" 
+                                    onClick={() => {
+                                        if (loading) return;
+                                        setScreen("multiplayer");
+                                    }}
+                                    disabled={loading}
+                                >
+                                    Multiplayer Mode
+                                </button>
                             </div>
-                        </div>
-
-                        <div className="g2_content g2_content_margin g2_slide_in" style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
-                            {/*
-                            {session?.token?.secret && (
-                                <button className="g2_nav_text " onClick={() => { handleMultiplayerAction("publicDuel"); setShowPartyCards(false); }}
-                                    disabled={!multiplayerState.connected || maintenance}>{text("rankedDuel")}</button>
-                            )}
-                            <button className="g2_nav_text " onClick={() => { handleMultiplayerAction("unrankedDuel"); setShowPartyCards(false); }}
-                                disabled={!multiplayerState.connected || maintenance}>
-
-                                {
-                                    session?.token?.secret ? text("unrankedDuel") :
-                                        text("findDuel")
-
-                                }
-                            </button>*/}
-                            {/* {showPartyCards &&
-                                <>
-                                    <h1>{text("duels")}</h1>
-                                    <div style={{ display: "flex", gap: "20px" }} >
-
-                                        {session?.token?.secret && (
-                                            <div className="g2_container_light g2_container_style g2_card">
-                                                <button className="g2_text" disabled={!multiplayerState.connected || maintenance} onClick={() => { handleMultiplayerAction("publicDuel"); }}>{text("rankedDuel")}</button>
-                                                <hr className="g2_nav_hr"></hr>
-                                            </div>
-                                        )}
-
-
-                                        <div className="g2_container_light g2_container_style g2_card" >
-                                        <button className="g2_text" disabled={!multiplayerState.connected || maintenance} onClick={() => { handleMultiplayerAction("unrankedDuel") }}>
-                                                {
-                                                    session?.token?.secret ? text("unrankedDuel") :
-                                                        text("findDuel")
-                                                }
-                                            </button>
-                                            <hr className="g2_nav_hr"></hr>
-                                        </div>
-                                    </div>
-                                </>
-                            } */}
-                        </div>
+                        )}
                     </div>
                 }
+                {screen === "home" && !inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
+                    <div className="home__footer_stack">
+                        <div className="home__party_buttons">
+                            <button 
+                                className="homeBtn home__create_party_btn" 
+                                disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                onClick={() => {
+                                    if(!ws || !multiplayerState?.connected) {
+                                        setConnectionErrorModalShown(true);
+                                        return;
+                                    }
+                                    handleMultiplayerAction("createPrivateGame");
+                                }}
+                            >
+                                Create Party
+                            </button>
+                            <button 
+                                className="homeBtn home__join_party_btn" 
+                                disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                onClick={() => {
+                                    if(!ws || !multiplayerState?.connected) {
+                                        setConnectionErrorModalShown(true);
+                                        return;
+                                    }
+                                    handleMultiplayerAction("joinPrivateGame");
+                                }}
+                            >
+                                Join Party
+                            </button>
+                            {!process.env.NEXT_PUBLIC_COOLMATH && (
+                                <button 
+                                    className="homeBtn home__custom_maps_btn" 
+                                    onClick={() => {
+                                        setMapModal(true);
+                                    }}
+                                >
+                                    Custom Maps
+                                </button>
+                            )}
+                        </div>
+                        <div className="home__footer_ad">
+                            <Ad
+                                unit={"worldguessr_home_ad"}
+                                inCrazyGames={inCrazyGames}
+                                showAdvertisementText={false}
+                                screenH={height}
+                                types={[[728, 90], [468, 60], [300, 250]]}
+                                screenW={width}
+                                vertThresh={width < 600 ? 0.33 : 0.5}
+                            />
+                        </div>
+                    </div>
+                )}
                 <InfoModal shown={false} />
                 <MapsModal shown={mapModal || gameOptionsModalShown} session={session} onClose={() => {
                     if(mapModalClosing) return;

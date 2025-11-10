@@ -93,11 +93,11 @@ export default function Modal({
         }
 
         .modal {
-          background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 30, 15, 0.9) 50%, rgba(0, 0, 0, 0.95) 100%);
+          background: linear-gradient(135deg, rgba(20, 12, 45, 0.96) 0%, rgba(55, 30, 120, 0.94) 55%, rgba(20, 12, 45, 0.96) 100%);
           border-radius: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(154, 129, 243, 0.25);
           color: white;
-          font-family: "Lexend", sans-serif;
+          font-family: "Montserrat", sans-serif;
           max-width: 500px;
           width: 100%;
           max-height: 80vh;
@@ -169,22 +169,22 @@ export default function Modal({
         }
 
         .modal-actions :global(button) {
-          background: linear-gradient(135deg, rgba(36, 87, 52, 0.9) 0%, rgba(20, 65, 25, 0.8) 100%);
+          background: linear-gradient(135deg, #9a81f3 0%, #7046e3 60%, #5532c6 100%);
           color: white;
-          border: 2px solid #245734;
-          border-radius: 8px;
-          padding: 10px 20px;
-          font-size: 14px;
-          font-weight: 500;
+          border: 2px solid rgba(154, 129, 243, 0.4);
+          border-radius: 12px;
+          padding: 12px 24px;
+          font-size: 15px;
+          font-weight: 600;
           cursor: pointer;
-          transition: all 0.2s ease;
-          font-family: "Lexend", sans-serif;
+          transition: all 0.25s ease;
+          font-family: "Montserrat", sans-serif;
         }
 
         .modal-actions :global(button:hover) {
-          background: linear-gradient(135deg, rgba(36, 87, 52, 1) 0%, rgba(36, 87, 52, 0.9) 100%);
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(36, 87, 52, 0.4);
+          background: linear-gradient(135deg, #b39cff 0%, #7e56ef 60%, #5532c6 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 24px rgba(112, 70, 227, 0.4);
         }
 
         @keyframes fadeIn {

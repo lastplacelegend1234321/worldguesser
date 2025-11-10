@@ -21,16 +21,16 @@ export default function SuggestAccountModal({ shown, setOpen }) {
       id="signUpModal" 
       styles={{
         modal: {
-          background: 'linear-gradient(135deg, rgba(20, 65, 25, 0.95) 0%, rgba(10, 40, 15, 0.98) 100%)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          borderRadius: '16px',
-          padding: '30px',
+          background: 'linear-gradient(135deg, rgba(28, 16, 64, 0.96) 0%, rgba(70, 40, 160, 0.94) 55%, rgba(28, 16, 64, 0.96) 100%)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(154, 129, 243, 0.35)',
+          borderRadius: '20px',
+          padding: '32px',
           maxWidth: '420px',
           textAlign: 'center',
           color: 'white',
-          fontFamily: 'Lexend, sans-serif',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+          fontFamily: 'Montserrat, sans-serif',
+          boxShadow: '0 20px 60px rgba(20, 10, 50, 0.55)',
         }
       }}
       open={shown}
@@ -45,8 +45,8 @@ export default function SuggestAccountModal({ shown, setOpen }) {
       }}>
         <FaTrophy style={{ 
           fontSize: '56px', 
-          color: '#ffd700', 
-          filter: 'drop-shadow(0 4px 8px rgba(255, 215, 0, 0.5))'
+          color: '#b39cff', 
+          filter: 'drop-shadow(0 6px 18px rgba(112, 70, 227, 0.55))'
         }} />
       </div>
       
@@ -110,26 +110,26 @@ export default function SuggestAccountModal({ shown, setOpen }) {
         <button 
           onClick={handleClose}
           style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            background: 'linear-gradient(135deg, rgba(154, 129, 243, 0.2) 0%, rgba(112, 70, 227, 0.12) 100%)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(154, 129, 243, 0.35)',
             color: 'rgba(255, 255, 255, 0.95)',
             padding: '14px 28px',
-            borderRadius: '10px',
+            borderRadius: '12px',
             fontSize: '1rem',
-            fontWeight: '500',
+            fontWeight: '600',
             cursor: 'pointer',
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)',
           }}
           onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(255, 255, 255, 0.15)';
-            e.target.style.borderColor = 'rgba(255, 255, 255, 0.4)';
-            e.target.style.transform = 'translateY(-2px)';
+            e.target.style.background = 'linear-gradient(135deg, rgba(179, 156, 255, 0.32) 0%, rgba(126, 86, 239, 0.2) 100%)';
+            e.target.style.borderColor = 'rgba(179, 156, 255, 0.5)';
+            e.target.style.transform = 'translateY(-3px)';
           }}
           onMouseLeave={(e) => {
-            e.target.style.background = 'rgba(255, 255, 255, 0.08)';
-            e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            e.target.style.background = 'linear-gradient(135deg, rgba(154, 129, 243, 0.2) 0%, rgba(112, 70, 227, 0.12) 100%)';
+            e.target.style.borderColor = 'rgba(154, 129, 243, 0.35)';
             e.target.style.transform = 'translateY(0)';
           }}
         >

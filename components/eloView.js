@@ -13,7 +13,7 @@ export default function EloView({ eloData, session }) {
         flexDirection: 'column',
         gap: 'clamp(15px, 4vw, 30px)',
         color: '#fff',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'Montserrat, sans-serif',
     };
 
     const cardStyle = {

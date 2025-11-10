@@ -108,14 +108,16 @@ export default function FriendsModal({ shown, onClose, session, ws, canSendInvit
         <div id="friendsModal" style={{
 
             zIndex: 100,
-            //background: '#333',
+            background: 'linear-gradient(135deg, rgba(24, 14, 58, 0.95) 0%, rgba(62, 34, 142, 0.93) 55%, rgba(24, 14, 58, 0.95) 100%)',
             color: 'white',
             padding: '20px',
-            borderRadius: '10px',
-            fontFamily: "'Arial', sans-serif",
+            borderRadius: '24px',
+            fontFamily: "'Montserrat', sans-serif",
             textAlign: 'center',
             width: '100%',
             height: '100%',
+            border: '1px solid rgba(154, 129, 243, 0.3)',
+            boxShadow: '0 20px 60px rgba(20, 10, 50, 0.55)'
 
 
         }} className={

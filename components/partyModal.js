@@ -31,15 +31,17 @@ export default function PartyModal({ onClose, ws, setWs, multiplayerError, multi
             <Modal onClose={() => { }} styles={{
                 modal: {
                     zIndex: 100,
-                    background: '#222',
+                    background: 'linear-gradient(135deg, rgba(28, 16, 64, 0.96) 0%, rgba(70, 40, 160, 0.94) 55%, rgba(28, 16, 64, 0.96) 100%)',
                     color: 'white',
-                    padding: '20px',
-                    borderRadius: '50px',
-                    fontFamily: "'Arial', sans-serif",
-                    maxWidth: '500px',
+                    padding: '28px',
+                    borderRadius: '32px',
+                    fontFamily: "'Montserrat', sans-serif",
+                    border: '1px solid rgba(154, 129, 243, 0.35)',
+                    maxWidth: '520px',
                     textAlign: 'center',
                     width: '50vw',
                     height: 'auto',
+                    boxShadow: '0 20px 60px rgba(20, 10, 50, 0.55)'
                 },
                 closeButton: {
                     display: 'none',

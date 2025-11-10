@@ -105,7 +105,7 @@ export default function WsIcon({ connected, shown, onClick, connecting }) {
 
   const getColor = () => {
     if (connected) return '#22c55e';
-    if (connecting) return '#f59e0b';
+    if (connecting) return '#7046e3';
     return '#ef4444';
   };
 
@@ -125,7 +125,7 @@ export default function WsIcon({ connected, shown, onClick, connecting }) {
           }
           50% {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+            box-shadow: 0 8px 24px rgba(112, 70, 227, 0.55);
           }
         }
         @keyframes pulse-disconnect {

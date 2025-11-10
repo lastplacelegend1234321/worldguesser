@@ -3,6 +3,7 @@ import MapView from "./mapView";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { Modal } from "react-responsive-modal";
+import palmBackground from "@/styles/images/palm_tree_guessr.png";
 // import { useMapSearch } from "../hooks/useMapSearch"; // REMOVED TO FIX DUPLICATE SEARCH CALLS - MapView handles search
 
 const initMakeMap = {
@@ -117,9 +118,11 @@ export default function MapsModal({ gameOptions, mapModalClosing, setGameOptions
 const styles = {
     // Full-viewport modal wrapper - fixed container, no scrolling
     modalShell: {
-        background: `linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 30, 15, 0.6) 100%), url("/street2.jpg")`,
+        backgroundImage: `linear-gradient(135deg, rgba(6, 10, 20, 0.55) 0%, rgba(8, 12, 18, 0.82) 65%, rgba(8, 12, 18, 0.92) 100%), url(${palmBackground.src})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
         boxShadow: "none",
         padding: 0,
         margin: 0,

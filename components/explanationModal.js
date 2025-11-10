@@ -67,13 +67,15 @@ export default function ExplanationModal({ lat, long, session, shown, onClose })
       styles={{
         modal: {
           zIndex: 100,
-          background: '#333',
+          background: 'linear-gradient(135deg, rgba(24, 14, 58, 0.95) 0%, rgba(62, 34, 142, 0.93) 55%, rgba(24, 14, 58, 0.95) 100%)',
           color: 'white',
-          padding: '20px',
-          borderRadius: '10px',
-          fontFamily: "'Arial', sans-serif",
-          maxWidth: '500px',
+          padding: '28px',
+          borderRadius: '24px',
+          fontFamily: "'Montserrat', sans-serif",
+          maxWidth: '520px',
           textAlign: 'center',
+          border: '1px solid rgba(154, 129, 243, 0.35)',
+          boxShadow: '0 20px 60px rgba(20, 10, 50, 0.55)'
         }
       }}
       open={shown}
@@ -94,13 +96,13 @@ export default function ExplanationModal({ lat, long, session, shown, onClose })
           width: '100%',
           height: '150px',
           padding: '10px',
-          borderRadius: '5px',
-          border: '1px solid #ccc',
+          borderRadius: '12px',
+          border: '1px solid rgba(154, 129, 243, 0.4)',
           marginBottom: '20px',
           fontSize: '16px',
-          fontFamily: "'Arial', sans-serif",
+          fontFamily: "'Montserrat', sans-serif",
           resize: 'none',
-          background: '#444', // dark mode: #444
+          background: 'rgba(255, 255, 255, 0.05)',
           color: 'white',
         }}
       />
@@ -109,15 +111,18 @@ export default function ExplanationModal({ lat, long, session, shown, onClose })
         onClick={handleSubmit}
         disabled={sending}
         style={{
-          background: sending ? 'gray' : 'green',
+          background: sending ? 'linear-gradient(135deg, rgba(112, 70, 227, 0.35) 0%, rgba(85, 50, 198, 0.35) 100%)' : 'linear-gradient(135deg, #9a81f3 0%, #7046e3 60%, #5532c6 100%)',
           color: 'white',
-          padding: '10px 20px',
-          borderRadius: '5px',
+          padding: '14px 28px',
+          borderRadius: '14px',
           border: 'none',
-          cursor: 'pointer',
+          cursor: sending ? 'not-allowed' : 'pointer',
           fontSize: '16px',
           fontWeight: 'bold',
           marginBottom: '20px',
+          boxShadow: sending ? 'none' : '0 10px 24px rgba(112, 70, 227, 0.4)',
+          transition: 'all 0.3s ease',
+          opacity: sending ? 0.7 : 1
         }}
       >
         {sending ? text("loading") : "Submit Explanation"}

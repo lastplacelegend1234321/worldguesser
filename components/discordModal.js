@@ -9,13 +9,15 @@ export default function DiscordModal({ shown, setOpen }) {
     <Modal id="signUpModal" styles={{
         modal: {
             zIndex: 100,
-            background: '#333', // dark mode: #333
+            background: 'linear-gradient(135deg, rgba(24, 14, 58, 0.95) 0%, rgba(62, 34, 142, 0.93) 55%, rgba(24, 14, 58, 0.95) 100%)',
             color: 'white',
-            padding: '20px',
-            borderRadius: '10px',
-            fontFamily: "'Arial', sans-serif",
-            maxWidth: '500px',
+            padding: '28px',
+            borderRadius: '24px',
+            fontFamily: "'Montserrat', sans-serif",
+            maxWidth: '520px',
             textAlign: 'center',
+            border: '1px solid rgba(154, 129, 243, 0.35)',
+            boxShadow: '0 20px 60px rgba(20, 10, 50, 0.55)'
         }
     }} open={shown} center onClose={() => {
         gameStorage.setItem("shownDiscordModal", Date.now().toString())
@@ -36,16 +38,18 @@ allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-e
 
         setOpen(false)
       }} style={{
-          background: 'transparent',
+          background: 'linear-gradient(135deg, rgba(154, 129, 243, 0.2) 0%, rgba(112, 70, 227, 0.12) 100%)',
           color: 'white',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          border: '1px solid white',
+          padding: '12px 24px',
+          borderRadius: '12px',
+          border: '1px solid rgba(154, 129, 243, 0.35)',
           cursor: 'pointer',
           fontSize: '16px',
           fontWeight: 'bold',
-          marginTop: '20px',
-          marginLeft: '20px'
+          marginTop: '24px',
+          marginLeft: '20px',
+          boxShadow: '0 8px 18px rgba(112, 70, 227, 0.35)',
+          transition: 'all 0.3s ease'
       }}>
         {text("notNow")}
       </button>

@@ -5,7 +5,7 @@ export default function AnimatedCounter({
   duration = 800, 
   className = '',
   showIncrement = true,
-  incrementColor = '#22c55e',
+  incrementColor = '#7046e3',
   formatNumber = true 
 }) {
   const [displayValue, setDisplayValue] = useState(value);

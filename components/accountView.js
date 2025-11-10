@@ -68,7 +68,7 @@ export default function AccountView({ accountData, supporter, eloData, session }
         alignItems: 'flexStart',
         textAlign: "left",
         color: '#fff',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'Montserrat, sans-serif',
         paddingBottom: '20px',
         boxSizing: 'border-box',
         borderRadius: '10px',

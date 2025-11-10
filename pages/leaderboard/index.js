@@ -15,6 +15,7 @@ const Leaderboard = ({ }) => {
   const { data: session, status } = useSession();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const displayName = session?.token?.username;
 
   useEffect(() => {
     const inCrazyGames = window.location.search.includes("crazygames");
@@ -52,13 +53,6 @@ const Leaderboard = ({ }) => {
         <title>{text("leaderboard")}</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <script src="https://unpkg.com/@phosphor/icons"></script>
         <style>
           {`
           body {
@@ -128,11 +122,16 @@ const Leaderboard = ({ }) => {
 
         {!loading && !error && (
           <div className={styles.leaderboardContainer}>
-            {session && leaderboardData.myRank && (
+            {leaderboardData.myRank && (
               <div className={styles.myRankCard}>
                 <div className={styles.rankBadge}>#{leaderboardData.myRank}</div>
                 <div className={styles.playerInfo}>
-                  <span className={styles.playerName}>{session.token.username}</span>
+                  <span className={styles.playerName}>{displayName || 'You'}</span>
+                  {displayName && (
+                    <span className={styles.playerSummary}>
+                      {`${displayName}'s WorldGuessr ${useElo ? 'ELO' : 'XP'} score`}
+                    </span>
+                  )}
                   <span className={styles.playerScore}>
                     {useElo ? leaderboardData?.myElo?.toFixed(0) : leaderboardData?.myXp?.toFixed(0)}
                     <span className={styles.scoreType}>{useElo ? 'Elo' : 'XP'}</span>
