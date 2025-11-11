@@ -57,10 +57,6 @@ Before you start, ensure you have the following installed:
 
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploying to Vercel
-
-The UI can be hosted on Vercel, but the Express API and WebSocket servers still need to run on a separate host. Follow the step-by-step guide in [`docs/vercel-deployment.md`](docs/vercel-deployment.md) for the recommended split deployment setup and required environment variables.
-
 ## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
