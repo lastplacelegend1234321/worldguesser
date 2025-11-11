@@ -1,5 +1,9 @@
 import LocalizedHome from "@/components/localizedHome";
 
-export default function IndexPage() {
+function IndexPage() {
   return <LocalizedHome path="auto" />;
 }
+
+IndexPage.disableDefaultSeo = true;
+
+export default IndexPage;

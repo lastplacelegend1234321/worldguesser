@@ -60,7 +60,16 @@ import Stats from "stats.js";
 import SvEmbedIframe from "./streetview/svHandler";
 import HomeNotice from "./homeNotice";
 import getTimeString, { getMaintenanceDate } from "./maintenanceTime";
-import Ad from "./bannerAdNitro";
+// import Ad from "./bannerAdNitro";
+import {
+    initializeMsStartSdk,
+    isRunningInMsStart,
+    pingMsStartAsync,
+    fetchMsStartEntryPointInfo,
+    fetchMsStartLocale,
+    fetchMsStartShareSourceId,
+    fetchMsStartConsentString,
+} from "@/utils/msStartSdk";
 
 
 const initialMultiplayerState = {
@@ -121,6 +130,7 @@ export default function Home({ }) {
     const [miniMapShown, setMiniMapShown] = useState(false)
     const [accountModalPage, setAccountModalPage] = useState("profile");
     const [mapModalClosing, setMapModalClosing] = useState(false);
+    const msStartContextRef = useRef(null);
 
     useEffect(() => {
       let hideInt = setInterval(() => {
@@ -132,6 +142,63 @@ export default function Home({ }) {
 
       return () => clearInterval(hideInt);
     }, [])
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const bootstrapMsStart = async () => {
+            try {
+                const sdk = await initializeMsStartSdk();
+                if (!sdk) {
+                    return;
+                }
+
+                const isIn = await isRunningInMsStart();
+                if (!isIn) {
+                    return;
+                }
+
+                await pingMsStartAsync();
+
+                const [entryPoint, locale, shareId, consentString] = await Promise.all([
+                    fetchMsStartEntryPointInfo(),
+                    fetchMsStartLocale(),
+                    fetchMsStartShareSourceId(),
+                    fetchMsStartConsentString(),
+                ]);
+
+                if (cancelled) {
+                    return;
+                }
+
+                const context = {
+                    isInMicrosoftStart: true,
+                    entryPointInfo: entryPoint,
+                    locale,
+                    shareId,
+                    consentString,
+                };
+
+                msStartContextRef.current = context;
+
+                if (typeof window !== "undefined") {
+                    window.msStartContext = context;
+                }
+
+                if (process.env.NODE_ENV !== "production") {
+                    console.debug("[MS Start SDK] Context", context);
+                }
+            } catch (error) {
+                console.error("[MS Start SDK] initialization failed", error);
+            }
+        };
+
+        bootstrapMsStart();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     useEffect(() => {
         const { ramUsage } = options;
@@ -2227,8 +2294,7 @@ export default function Home({ }) {
                     mapModalOpen={mapModal}
                     onConnectionError={() => setConnectionErrorModalShown(true)}
                 />
-
-
+                                {/*
                                 {!inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
                                     <div
                                       className={`home_ad home_ad_centered`}
@@ -2245,6 +2311,7 @@ export default function Home({ }) {
                                       />
                                     </div>
                                 )}
+                                */}
                 <span id="g2_playerCount" className={`home__online_counter ${screen !== 'home' ? 'notHome' : ''} ${(screen === 'singleplayer' || screen === 'onboarding' || (multiplayerState?.inGame && !['waitingForPlayers', 'findingGame', 'findingOpponent'].includes(multiplayerState?.gameData?.state)) || !multiplayerState?.connected || !multiplayerState?.playerCount) ? 'hide' : ''}`}>
                     {maintenance ? text("maintenanceMode") : `${multiplayerState?.playerCount || 0} online`}
                 </span>
@@ -2372,7 +2439,7 @@ export default function Home({ }) {
                                 </button>
                             )}
                         </div>
-                        <div className="home__footer_ad">
+                        {/* <div className="home__footer_ad">
                             <Ad
                                 unit={"worldguessr_home_ad"}
                                 inCrazyGames={inCrazyGames}
@@ -2382,7 +2449,7 @@ export default function Home({ }) {
                                 screenW={width}
                                 vertThresh={width < 600 ? 0.33 : 0.5}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 )}
                 <InfoModal shown={false} />

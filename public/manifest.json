@@ -20,6 +20,15 @@
       "type": "image/png"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/worldguessr-thumbnail.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "WorldGuessr gameplay overview"
+    }
+  ],
   "id": "worldguessr",
   "display_override": [
     "fullscreen",

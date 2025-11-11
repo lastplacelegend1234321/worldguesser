@@ -50,9 +50,6 @@ const Leaderboard = ({ }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{text("leaderboard")}</title>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
           {`
           body {
@@ -172,6 +169,11 @@ const Leaderboard = ({ }) => {
       </main>
     </div>
   );
+};
+
+Leaderboard.seo = {
+  title: "WorldGuessr Leaderboard | Top Players & Rankings",
+  description: "Track the best WorldGuessr players by ELO or XP and compare your score against the global community.",
 };
 
 export default Leaderboard;

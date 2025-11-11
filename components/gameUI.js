@@ -16,7 +16,7 @@ import ExplanationModal from "./explanationModal";
 import SaveStreakBanner from "./streakSaveBanner";
 import { toast } from "react-toastify";
 import sendEvent from "./utils/sendEvent";
-import Ad from "./bannerAdNitro";
+// import Ad from "./bannerAdNitro";
 // import Ad from "./bannerAdAdinplay";
 import fixBranding from "./utils/fixBranding";
 import AnimatedCounter from "./AnimatedCounter";
@@ -498,13 +498,15 @@ export default function GameUI({ inCoolMathGames, miniMapShown, setMiniMapShown,
   return (
     <div className="gameUI">
 
-{ !onboarding && !inCrazyGames && !inCoolMathGames && (!session?.token?.supporter) && !singlePlayerRound?.done && !onboarding?.completed && (
+{/*
+!onboarding && !inCrazyGames && !inCoolMathGames && (!session?.token?.supporter) && !singlePlayerRound?.done && !onboarding?.completed && (
     <div className={`topAdFixed ${(multiplayerTimerShown || onboardingTimerShown || singlePlayerRound)?'moreDown':''}`}>
       <Ad
       unit={"worldguessr_gameui_ad"}
     inCrazyGames={inCrazyGames} showAdvertisementText={false} screenH={height} types={[[728,90]]} centerOnOverflow={600} screenW={Math.max(400, width-450)} vertThresh={0.3} />
     </div>
-)}
+)
+*/}
 
 
 { multiplayerState?.gameData?.duel && multiplayerState?.gameData?.state !== 'end' && (

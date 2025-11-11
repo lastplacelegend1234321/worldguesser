@@ -18,7 +18,7 @@ const initMakeMap = {
     mapId: "",
 };
 
-export default function MapsPage({  }) {
+function MapsPage({  }) {
     const router = useRouter();
     const { t: text } = useTranslation("common");
     const { data: session, status } = useSession();
@@ -59,6 +59,13 @@ export default function MapsPage({  }) {
         </div>
     );
 }
+
+MapsPage.seo = {
+    title: "WorldGuessr Custom Maps | Discover Community Creations",
+    description: "Browse spotlight, popular, and recent custom WorldGuessr maps created by the community, or search for a specific challenge.",
+};
+
+export default MapsPage;
 
 const styles = {
     pageContainer: {

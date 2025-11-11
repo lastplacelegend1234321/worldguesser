@@ -11,7 +11,7 @@
 A free and open-source version of the popular geography game inspired by GeoGuessr. This React based project aims to provide a fun and educational way to explore the world through Google Street View imagery.
 
 ### Play now [here](https://worldguessr.com)!
-#### [Join the Discord community](https://discord.gg/yenVspFmkB)
+#### [Join the Discord community](https://discord.gg/azbS3F2wmb)
 
 ## Features
 
@@ -76,6 +76,6 @@ Distributed under the MIT License. You are free to use, modify, and distribute t
 
 ## Community
 
-Join the Discord community [here](https://discord.gg/yenVspFmkB) to discuss new features, report bugs, talk to the developers and connect with other players.
+Join the Discord community [here](https://discord.gg/azbS3F2wmb) to discuss new features, report bugs, talk to the developers and connect with other players.
 
 You can email me privately at gautam@worldguessr.com

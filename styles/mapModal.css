@@ -265,6 +265,11 @@
 }
 .comm_map_category_header {
   font-size: clamp(1.1em, 1.7vw, 2.8em);
+  font-weight: 700;
+}
+
+.map-modal-sidebar .g2_nav_text.red {
+  font-weight: 700;
 }
 
 /* Map Grid */
