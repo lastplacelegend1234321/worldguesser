@@ -69,6 +69,7 @@ import {
     fetchMsStartLocale,
     fetchMsStartShareSourceId,
     fetchMsStartConsentString,
+    promptMsStartInstallAsync,
 } from "@/utils/msStartSdk";
 
 
@@ -131,6 +132,7 @@ export default function Home({ }) {
     const [accountModalPage, setAccountModalPage] = useState("profile");
     const [mapModalClosing, setMapModalClosing] = useState(false);
     const msStartContextRef = useRef(null);
+    const msStartInstallPromptedRef = useRef(false);
 
     useEffect(() => {
       let hideInt = setInterval(() => {
@@ -242,6 +244,35 @@ export default function Home({ }) {
 
 
     }, [options?.ramUsage])
+
+    const handleSettingsButtonClick = async () => {
+        setSettingsModal(true);
+
+        if (msStartInstallPromptedRef.current) {
+            return;
+        }
+
+        const context = msStartContextRef.current;
+        if (!context?.isInMicrosoftStart) {
+            return;
+        }
+
+        try {
+            const response = await promptMsStartInstallAsync();
+            msStartInstallPromptedRef.current = true;
+
+            if (response === "accepted") {
+                toast.success("Install prompt accepted – check your browser to continue.");
+            } else if (response === "dismissed") {
+                toast.info("Install prompt dismissed.");
+            } else if (response) {
+                toast.info(response);
+            }
+        } catch (error) {
+            msStartInstallPromptedRef.current = true;
+            console.error("[MS Start SDK] promptInstallAsync failed", error);
+        }
+    };
 
     let login = null;
     if (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
@@ -2319,7 +2350,7 @@ export default function Home({ }) {
                 {/* Top left buttons */}
                 {screen === "home" && onboardingCompleted && (
                     <div className="home__top_left_buttons">
-                        <button className="home__top_btn home__settings_btn" aria-label="Settings" onClick={() => setSettingsModal(true)}>
+                        <button className="home__top_btn home__settings_btn" aria-label="Settings" onClick={handleSettingsButtonClick}>
                             <FaGear />
                         </button>
                         <Link href={"/leaderboard" + (inCrazyGames ? "?crazygames" : "")}>
