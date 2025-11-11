@@ -206,6 +206,14 @@ export default function Home({ }) {
                         console.error("[MS Start SDK] failed to log share source", shareError);
                     }
                 }
+
+                if (context.consentString) {
+                    try {
+                        sendEvent("msstart_consent_string", { consentString: context.consentString });
+                    } catch (consentError) {
+                        console.error("[MS Start SDK] failed to log consent string", consentError);
+                    }
+                }
             } catch (error) {
                 console.error("[MS Start SDK] initialization failed", error);
             }
