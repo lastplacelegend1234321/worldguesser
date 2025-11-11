@@ -198,6 +198,14 @@ export default function Home({ }) {
                         console.error("[MS Start SDK] failed to log entry point", eventError);
                     }
                 }
+
+                if (context.shareId) {
+                    try {
+                        sendEvent("msstart_share_source", { shareId: context.shareId });
+                    } catch (shareError) {
+                        console.error("[MS Start SDK] failed to log share source", shareError);
+                    }
+                }
             } catch (error) {
                 console.error("[MS Start SDK] initialization failed", error);
             }
