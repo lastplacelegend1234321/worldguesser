@@ -10,10 +10,30 @@ export default function LocalizedHome({ path }) {
     if(typeof window !== "undefined") {
 
       try {
+        const msContext = window.msStartContext;
+        if (msContext?.locale) {
+          const normalizedMsLocale = msContext.locale
+            .toLowerCase()
+            .replace("_", "-")
+            .split("-")[0];
+          if (langs.includes(normalizedMsLocale)) {
+            language = normalizedMsLocale;
+            try {
+              window.localStorage.setItem("lang", normalizedMsLocale);
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      try {
         var userLang = navigator.language || navigator.userLanguage;
         // convert to 2 letter code
         userLang = userLang.split("-")[0];
-        if(langs.includes(userLang)){
+        if(langs.includes(userLang) && language === "en"){
           language = userLang;
         }
 
@@ -24,7 +44,7 @@ export default function LocalizedHome({ path }) {
       try{
         let lang = window.localStorage.getItem("lang");
         console.log("in localstorage", lang);
-        if(lang && langs.includes(lang)) {
+        if(lang && langs.includes(lang) && language === "en") {
           language = lang;
         }
       } catch(e) {
