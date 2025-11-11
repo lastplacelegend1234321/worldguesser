@@ -2367,9 +2367,14 @@ export default function Home({ }) {
                                     </div>
                                 )}
                                 */}
-                <span id="g2_playerCount" className={`home__online_counter ${screen !== 'home' ? 'notHome' : ''} ${(screen === 'singleplayer' || screen === 'onboarding' || (multiplayerState?.inGame && !['waitingForPlayers', 'findingGame', 'findingOpponent'].includes(multiplayerState?.gameData?.state)) || !multiplayerState?.connected || !multiplayerState?.playerCount) ? 'hide' : ''}`}>
-                    {maintenance ? text("maintenanceMode") : `${multiplayerState?.playerCount || 0} online`}
-                </span>
+                {screen === "home" && onboardingCompleted && (
+                    <span
+                        id="g2_playerCount"
+                        className={`home__online_counter ${((screen === 'singleplayer' || screen === 'onboarding' || (multiplayerState?.inGame && !['waitingForPlayers', 'findingGame', 'findingOpponent'].includes(multiplayerState?.gameData?.state)) || !multiplayerState?.connected || !multiplayerState?.playerCount) ? 'hide' : '')}`}
+                    >
+                        {maintenance ? text("maintenanceMode") : `${multiplayerState?.playerCount || 0} online`}
+                    </span>
+                )}
                 
                 {/* Top left buttons */}
                 {screen === "home" && onboardingCompleted && (
@@ -2450,63 +2455,51 @@ export default function Home({ }) {
                                 >
                                     Multiplayer Mode
                                 </button>
+
+                                {!inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
+                                    <div className="home__party_buttons home__party_buttons-inline">
+                                        <button 
+                                            className="homeBtn home__create_party_btn" 
+                                            disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                            onClick={() => {
+                                                if(!ws || !multiplayerState?.connected) {
+                                                    setConnectionErrorModalShown(true);
+                                                    return;
+                                                }
+                                                handleMultiplayerAction("createPrivateGame");
+                                            }}
+                                        >
+                                            Create Party
+                                        </button>
+                                        <button 
+                                            className="homeBtn home__join_party_btn" 
+                                            disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                            onClick={() => {
+                                                if(!ws || !multiplayerState?.connected) {
+                                                    setConnectionErrorModalShown(true);
+                                                    return;
+                                                }
+                                                handleMultiplayerAction("joinPrivateGame");
+                                            }}
+                                        >
+                                            Join Party
+                                        </button>
+                                        {!process.env.NEXT_PUBLIC_COOLMATH && (
+                                            <button 
+                                                className="homeBtn home__custom_maps_btn" 
+                                                onClick={() => {
+                                                    setMapModal(true);
+                                                }}
+                                            >
+                                                Custom Maps
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
                 }
-                {screen === "home" && !inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
-                    <div className="home__footer_stack">
-                        <div className="home__party_buttons">
-                            <button 
-                                className="homeBtn home__create_party_btn" 
-                                disabled={maintenance || !ws || !multiplayerState?.connected} 
-                                onClick={() => {
-                                    if(!ws || !multiplayerState?.connected) {
-                                        setConnectionErrorModalShown(true);
-                                        return;
-                                    }
-                                    handleMultiplayerAction("createPrivateGame");
-                                }}
-                            >
-                                Create Party
-                            </button>
-                            <button 
-                                className="homeBtn home__join_party_btn" 
-                                disabled={maintenance || !ws || !multiplayerState?.connected} 
-                                onClick={() => {
-                                    if(!ws || !multiplayerState?.connected) {
-                                        setConnectionErrorModalShown(true);
-                                        return;
-                                    }
-                                    handleMultiplayerAction("joinPrivateGame");
-                                }}
-                            >
-                                Join Party
-                            </button>
-                            {!process.env.NEXT_PUBLIC_COOLMATH && (
-                                <button 
-                                    className="homeBtn home__custom_maps_btn" 
-                                    onClick={() => {
-                                        setMapModal(true);
-                                    }}
-                                >
-                                    Custom Maps
-                                </button>
-                            )}
-                        </div>
-                        {/* <div className="home__footer_ad">
-                            <Ad
-                                unit={"worldguessr_home_ad"}
-                                inCrazyGames={inCrazyGames}
-                                showAdvertisementText={false}
-                                screenH={height}
-                                types={[[728, 90], [468, 60], [300, 250]]}
-                                screenW={width}
-                                vertThresh={width < 600 ? 0.33 : 0.5}
-                            />
-                        </div> */}
-                    </div>
-                )}
                 <InfoModal shown={false} />
                 <MapsModal shown={mapModal || gameOptionsModalShown} session={session} onClose={() => {
                     if(mapModalClosing) return;

@@ -93,6 +93,7 @@ const GameSummary = ({
   const [animatedElo, setAnimatedElo] = useState(data?.oldElo || 0);
   const [stars, setStars] = useState([]);
   const [eloAnimationComplete, setEloAnimationComplete] = useState(false);
+  const playerDisplayName = session?.token?.username || session?.token?.name || null;
 
   // Initialize Leaflet icons when available
   useEffect(() => {
@@ -912,6 +913,9 @@ const GameSummary = ({
               <h1 className="summary-title">
                 {draw ? text("draw") : winner ? text("victory") : text("defeat")}
               </h1>
+              {playerDisplayName && (
+                <div className="summary-player-name">{playerDisplayName}</div>
+              )}
 
               {typeof data.oldElo === "number" && typeof data.newElo === "number" && (
                 <div className="elo-container">
@@ -1296,7 +1300,11 @@ const GameSummary = ({
             }}
           >
 
-            <div
+          {playerDisplayName && (
+            <div className="summary-player-name">{playerDisplayName}</div>
+          )}
+
+          <div
               className="star-container"
               style={{
                 transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',

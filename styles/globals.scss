@@ -39,7 +39,8 @@ button {
 
 .home {
     background-color: black;
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     height: 100vh;
     height: 100svh; /* Dynamic viewport height for modern browsers */
@@ -53,6 +54,7 @@ body,
 html {
     touch-action: pan-x, pan-y !important;
     background-color: #000000 !important;
+    overflow-x: hidden;
 }
 
 /* Leaflet map optimizations for sharp rendering */
@@ -729,22 +731,6 @@ html {
         inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
-.home__footer_stack {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 960px;
-    padding: 0 20px 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    z-index: 999;
-    pointer-events: none;
-}
-
 .home__party_buttons {
     display: flex;
     flex-direction: row;
@@ -753,6 +739,10 @@ html {
     max-width: 728px;
     justify-content: center;
     pointer-events: auto;
+}
+
+.home__party_buttons-inline {
+    margin-top: 20px;
 }
 
 .home__party_buttons .homeBtn {
@@ -777,11 +767,6 @@ html {
 }
 
 @media (max-width: 800px) {
-    .home__footer_stack {
-        max-width: 100%;
-        padding: 0 12px 12px;
-    }
-
     .home__party_buttons {
         flex-wrap: wrap;
     }
@@ -968,6 +953,10 @@ html {
 .home__online_counter::before {
     content: '🟢';
     font-size: 0.9em;
+}
+
+.home__online_counter.notHome {
+    display: none !important;
 }
 
 .home_ad_centered {
@@ -3442,6 +3431,20 @@ img[alt="Google"] {
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
+}
+
+.summary-player-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 8px;
+    letter-spacing: 0.015em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.summary-header.compact .summary-player-name {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
 }
 
 .summary-score {
