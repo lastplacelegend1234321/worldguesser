@@ -190,6 +190,14 @@ export default function Home({ }) {
                 if (process.env.NODE_ENV !== "production") {
                     console.debug("[MS Start SDK] Context", context);
                 }
+
+                if (context.entryPointInfo) {
+                    try {
+                        sendEvent("msstart_entry_point", context.entryPointInfo);
+                    } catch (eventError) {
+                        console.error("[MS Start SDK] failed to log entry point", eventError);
+                    }
+                }
             } catch (error) {
                 console.error("[MS Start SDK] initialization failed", error);
             }
