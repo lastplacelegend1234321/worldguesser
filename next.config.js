@@ -5,6 +5,7 @@
 import path from 'path';
 import process from 'process';
 import { execSync } from 'child_process';
+import withPWAInit from 'next-pwa';
 
 const pathBuilder = (subpath) => path.join(process.cwd(), subpath);
 
@@ -22,6 +23,13 @@ const getBuildTime = () => {
 };
 
 const __dirname = path.resolve();
+const withPWA = withPWAInit({
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development',
+    register: false,
+    skipWaiting: true,
+    buildExcludes: [/middleware-manifest\.json$/],
+});
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
@@ -51,4 +59,4 @@ const nextConfig = {
 };
 
 // module.exports = nextConfig;
-export default nextConfig;
+export default withPWA(nextConfig);

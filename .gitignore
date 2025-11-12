@@ -43,3 +43,7 @@ next-env.d.ts
 public/wiki
 
 /scripts/*.json
+
+# PWA build artifacts
+public/sw.js
+public/workbox-*.js
