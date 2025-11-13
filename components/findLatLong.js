@@ -2,8 +2,12 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import findCountry from './findCountry';
 import { getRandomPointInCountry } from '@/components/randomLoc';
+
+// Get Google Maps API key from environment variable
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
+
 const loader = new Loader({
-  apiKey: "",
+  apiKey: GOOGLE_MAPS_API_KEY,
   version: "weekly",
   libraries: ["places"]
 });

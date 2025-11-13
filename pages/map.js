@@ -58,8 +58,11 @@ export default function MapPage({ }) {
   useEffect(() => {
     if (!mapData.data) return;
 
+    // Get Google Maps API key from environment variable
+    const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ";
+    
     const urls = mapData.data.map(location =>
-      `//www.google.com/maps/embed/v1/streetview?key=AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ&location=${location.lat},${location.lng}&fov=60`
+      `//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_MAPS_API_KEY}&location=${location.lat},${location.lng}&fov=60`
     );
     setLocationUrls(urls);
 

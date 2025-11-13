@@ -82,6 +82,9 @@ NEXT_PUBLIC_POKI=true
 
 # Maps.co API key for geocoding (if using)
 NEXT_PUBLIC_MAPSCO=your_mapsco_api_key
+
+# Google Maps API key (required for Street View and map features)
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 ```
 
 ## 🔧 Optional Features
