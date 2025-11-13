@@ -24,7 +24,7 @@ npm run build
 
 # Restart PM2 processes
 echo "🔄 Restarting PM2 processes..."
-pm2 restart all
+pm2 restart ecosystem.config.cjs || pm2 start ecosystem.config.cjs
 
 # Show status
 echo "✅ Deployment complete!"

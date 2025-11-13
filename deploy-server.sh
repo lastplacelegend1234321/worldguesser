@@ -221,7 +221,7 @@ echo ""
 echo "📦 Step 12: Starting services with PM2..."
 cd ~/worldguesser
 pm2 delete all 2>/dev/null || true
-pm2 start ecosystem.config.js
+pm2 start ecosystem.config.cjs
 pm2 save
 
 echo ""
