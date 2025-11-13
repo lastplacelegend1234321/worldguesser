@@ -7,17 +7,17 @@ let mapCache = {
   popular: {
     data: [],
     timeStamp: 0,
-    persist: 9600000
+    persist: 3600000 // 1 hour (was 111 days - way too long!)
   },
   recent: {
     data: [],
     timeStamp: 0,
-    persist: 4800000
+    persist: 300000 // 5 minutes (was 55 days - way too long!)
   },
   spotlight: {
     data: [],
     timeStamp: 0,
-    persist: 48000000
+    persist: 7200000 // 2 hours (was 555 days - way too long!)
   }
 }
 
