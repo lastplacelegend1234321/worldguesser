@@ -103,7 +103,7 @@ ads.js"></script>*/
   const gameSchema = {
     "@context": "https://schema.org",
     "@type": "VideoGame",
-    name: "WorldGuessr",
+    name: "Proguessr",
     url: SITE_URL,
     image: `${SITE_URL}/worldguessr-thumbnail.png`,
     description: text("fullDescMeta"),
@@ -117,7 +117,7 @@ ads.js"></script>*/
       <Seo
         title={
           inCoolMathGames
-            ? "WorldGuessr - Play it now at CoolmathGames.com"
+            ? "Proguessr - Play it now at CoolmathGames.com"
             : text("tabTitle")
         }
         description={text("shortDescMeta")}
@@ -129,7 +129,7 @@ ads.js"></script>*/
           name="viewport"
           content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover, user-scalable=no"
         />
-        <link rel="icon" type="image/x-icon" href="/icon.ico" />
+        <link rel="icon" type="image/png" href="/proguessr_favicon.png" />
         <meta
           name="google-site-verification"
           content="7s9wNJJCXTQqp6yr1GiQxREhloXKjtlbOIPTHZhtY04"

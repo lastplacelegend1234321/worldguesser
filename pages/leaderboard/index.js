@@ -126,7 +126,7 @@ const Leaderboard = ({ }) => {
                   <span className={styles.playerName}>{displayName || 'You'}</span>
                   {displayName && (
                     <span className={styles.playerSummary}>
-                      {`${displayName}'s WorldGuessr ${useElo ? 'ELO' : 'XP'} score`}
+                      {`${displayName}'s Proguessr ${useElo ? 'ELO' : 'XP'} score`}
                     </span>
                   )}
                   <span className={styles.playerScore}>
@@ -172,8 +172,8 @@ const Leaderboard = ({ }) => {
 };
 
 Leaderboard.seo = {
-  title: "WorldGuessr Leaderboard | Top Players & Rankings",
-  description: "Track the best WorldGuessr players by ELO or XP and compare your score against the global community.",
+  title: "Proguessr Leaderboard | Top Players & Rankings",
+  description: "Track the best Proguessr players by ELO or XP and compare your score against the global community.",
 };
 
 export default Leaderboard;

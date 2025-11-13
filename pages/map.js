@@ -293,11 +293,11 @@ export default function MapPage({ }) {
     <div className={styles.container}>
       <Head>
         <title>{
-          mapData?.name ? `${mapData.name} - WorldGuessr` :
+          mapData?.name ? `${mapData.name} - Proguessr` :
         ""
         }</title>
-        <meta name="description" content={`Explore the world on WorldGuessr, a free GeoGuessr alternative. `} />
-        <link rel="icon" type="image/x-icon" href="/icon.ico" />
+        <meta name="description" content={`Explore the world on Proguessr, a free GeoGuessr alternative. `} />
+        <link rel="icon" type="image/png" href="/proguessr_favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Head>
       <style>

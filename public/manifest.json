@@ -3,19 +3,19 @@
   "description": "The #1 free alternative to GeoGuessr, enjoy unlimited games and play to your hearts content! Engage in the fun of discovering new places and learn geography.",
   "dir": "ltr",
   "display": "fullscreen",
-  "name": "WorldGuessr",
+  "name": "Proguessr",
   "orientation": "portrait",
   "scope": "/",
-  "short_name": "WorldGuessr",
+  "short_name": "Proguessr",
   "start_url": "/",
   "theme_color": "#164785",
   "icons": [
     {
-      "src": "/icon.ico",
-      "type": "image/x-icon"
+      "src": "/proguessr_favicon.png",
+      "type": "image/png"
     },
     {
-      "src": "/icon.png",
+      "src": "/proguessr_favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -26,7 +26,7 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "WorldGuessr gameplay overview"
+      "label": "Proguessr gameplay overview"
     }
   ],
   "id": "worldguessr",
