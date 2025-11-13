@@ -424,7 +424,7 @@ const StreetView = ({
     `https://www.google.com/maps/embed/v1/streetview?pano=${panoId}&key=${GOOGLE_MAPS_API_KEY}&fov=100&language=iw${heading !== null ? `&heading=${heading}` : ''}${pitch !== null ? `&pitch=${pitch}` : ''}` :
     `https://www.google.com/maps/embed/v1/streetview?location=${lat},${long}&key=${GOOGLE_MAPS_API_KEY}&fov=100&language=iw${heading !== null ? `&heading=${heading}` : ''}${pitch !== null ? `&pitch=${pitch}` : ''}`
   }
-  referrerPolicy="no-referrer-when-downgrade"
+  referrerPolicy="origin"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
   onLoad={() => {
     setLoading(false);

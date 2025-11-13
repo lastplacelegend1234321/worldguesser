@@ -62,7 +62,7 @@ export default function MapPage({ }) {
     const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ";
     
     const urls = mapData.data.map(location =>
-      `//www.google.com/maps/embed/v1/streetview?key=${GOOGLE_MAPS_API_KEY}&location=${location.lat},${location.lng}&fov=60`
+      `https://www.google.com/maps/embed/v1/streetview?key=${GOOGLE_MAPS_API_KEY}&location=${location.lat},${location.lng}&fov=60`
     );
     setLocationUrls(urls);
 
