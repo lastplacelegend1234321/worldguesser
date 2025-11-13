@@ -25,7 +25,7 @@ const getBuildTime = () => {
 const __dirname = path.resolve();
 const withPWA = withPWAInit({
     dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
+    disable: true, // Temporarily disabled to fix build timeout
     register: false,
     skipWaiting: true,
     buildExcludes: [/middleware-manifest\.json$/],
