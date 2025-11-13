@@ -1,0 +1,56 @@
+module.exports = {
+  apps: [
+    {
+      name: 'worldguessr-api',
+      script: 'server.js',
+      instances: 1,
+      exec_mode: 'fork',
+      env: {
+        NODE_ENV: 'production',
+        API_PORT: 3001,
+      },
+      error_file: './logs/api-error.log',
+      out_file: './logs/api-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      merge_logs: true,
+      autorestart: true,
+      max_restarts: 10,
+      min_uptime: '10s',
+    },
+    {
+      name: 'worldguessr-ws',
+      script: 'ws/ws.js',
+      instances: 1,
+      exec_mode: 'fork',
+      env: {
+        NODE_ENV: 'production',
+        WS_PORT: 8002,
+        UWS_HTTP_MAX_HEADERS_SIZE: 16384,
+      },
+      error_file: './logs/ws-error.log',
+      out_file: './logs/ws-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      merge_logs: true,
+      autorestart: true,
+      max_restarts: 10,
+      min_uptime: '10s',
+    },
+    {
+      name: 'worldguessr-cron',
+      script: 'cron.js',
+      instances: 1,
+      exec_mode: 'fork',
+      env: {
+        NODE_ENV: 'production',
+      },
+      error_file: './logs/cron-error.log',
+      out_file: './logs/cron-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+      merge_logs: true,
+      autorestart: true,
+      max_restarts: 10,
+      min_uptime: '10s',
+    },
+  ],
+};
+
