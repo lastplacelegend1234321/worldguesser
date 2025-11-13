@@ -1,6 +1,7 @@
 import { inIframe } from "../utils/inIframe";
 import { toast } from "react-toastify";
 import retryManager from "../utils/retryFetch";
+import gameStorage from "../utils/localStorage";
 
 // secret: userDb.secret, username: userDb.username, email: userDb.email, staff: userDb.staff, canMakeClues: userDb.canMakeClues, supporter: userDb.supporter
 let session = false;
@@ -8,7 +9,14 @@ let session = false;
 // false = session loading/fetching
 
 export function signOut() {
-  window.localStorage.removeItem("wg_secret");
+  try {
+    // Use gameStorage wrapper which handles incognito mode
+    gameStorage.removeItem("wg_secret");
+  } catch (e) {
+    try {
+      window.localStorage.removeItem("wg_secret");
+    } catch (e2) {}
+  }
   session = null;
   if(window.dontReconnect) {
     return;
@@ -78,11 +86,16 @@ export function useSession() {
   if(session === false && !window.fetchingSession && window.cConfig?.apiUrl) {
     let secret = null;
     try {
-
-      secret = window.localStorage.getItem("wg_secret");
-
+      // Use gameStorage wrapper which handles incognito mode
+      secret = gameStorage.getItem("wg_secret");
     } catch (e) {
-      console.error(e);
+      console.error("[Auth] Error getting secret:", e);
+      // Try direct localStorage as fallback
+      try {
+        secret = window.localStorage.getItem("wg_secret");
+      } catch (e2) {
+        console.error("[Auth] localStorage unavailable (incognito mode)");
+      }
     }
     if(secret) {
 
@@ -113,7 +126,17 @@ export function useSession() {
         }
 
         if (data.secret) {
-          window.localStorage.setItem("wg_secret", data.secret);
+          // Use gameStorage wrapper which handles incognito mode
+          try {
+            gameStorage.setItem("wg_secret", data.secret);
+          } catch (e) {
+            // Fallback to direct localStorage
+            try {
+              window.localStorage.setItem("wg_secret", data.secret);
+            } catch (e2) {
+              console.warn("[Auth] Could not save secret (incognito mode - session will be lost on refresh)");
+            }
+          }
           session = {token: data};
           console.log(`[Auth] Session established for user:`, data.username);
         } else {
@@ -156,9 +179,14 @@ export function getHeaders() {
     secret = session.secret;
   } else {
     try {
-      secret = window.localStorage.getItem("wg_secret");
+      // Use gameStorage wrapper which handles incognito mode
+      secret = gameStorage.getItem("wg_secret");
     } catch (e) {
-      console.error(e);
+      try {
+        secret = window.localStorage.getItem("wg_secret");
+      } catch (e2) {
+        console.error("[Auth] Error getting secret for headers:", e2);
+      }
     }
   }
   if(!secret) {

@@ -21,21 +21,29 @@ function App({ Component, pageProps }) {
     if (typeof window === "undefined") return;
     if (!("serviceWorker" in navigator)) return;
 
-    const wb = new Workbox("/sw.js");
+    // Handle incognito mode - service workers may not be available
+    const registerServiceWorker = async () => {
+      try {
+        const wb = new Workbox("/sw.js");
 
-    const promptUpdate = () => {
-      wb.addEventListener("controlling", () => {
-        window.location.reload();
-      });
-      wb.messageSW({ type: "SKIP_WAITING" });
+        const promptUpdate = () => {
+          wb.addEventListener("controlling", () => {
+            window.location.reload();
+          });
+          wb.messageSW({ type: "SKIP_WAITING" });
+        };
+
+        wb.addEventListener("waiting", promptUpdate);
+        await wb.register();
+      } catch (error) {
+        // Silently fail in incognito mode or when service workers are unavailable
+        if (process.env.NODE_ENV !== "production") {
+          console.log("[PWA] Service worker registration failed (may be incognito mode):", error);
+        }
+      }
     };
 
-    wb.addEventListener("waiting", promptUpdate);
-    wb.register().catch(() => {});
-
-    return () => {
-      wb.removeEventListener("waiting", promptUpdate);
-    };
+    registerServiceWorker();
   }, []);
 
   useEffect(() => {

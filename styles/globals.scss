@@ -3131,6 +3131,28 @@ input[placeholder="Please login to chat"] {
         bottom: 10px;
         left: calc(50% - 150px);
     }
+
+    /* Better touch targets for mobile */
+    button, .homeBtn, a {
+        min-height: 44px; /* iOS recommended touch target */
+        min-width: 44px;
+        -webkit-tap-highlight-color: rgba(112, 70, 227, 0.3);
+        touch-action: manipulation; /* Prevent double-tap zoom */
+    }
+
+    /* Improve button spacing on mobile */
+    .home__play_btn,
+    .home__multiplayer_btn {
+        min-height: 56px !important; /* Larger touch target for primary actions */
+        padding: 18px 28px !important;
+    }
+
+    /* Better mobile input handling */
+    input, textarea, select {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        -webkit-appearance: none;
+        border-radius: 8px;
+    }
 }
 
 
