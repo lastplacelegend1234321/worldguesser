@@ -46,14 +46,7 @@ const nextConfig = {
         unoptimized: true,
     },
     output: 'export',
-    async rewrites() {
-        return [
-            {
-                source: '/map/:slug',
-                destination: '/map?s=:slug',
-            },
-        ];
-    },
+    // rewrites() removed - not compatible with static export
 
     // assetPrefix: './', we cant use this because it breaks dynamic paths (https://nextjs.org/docs/app/api-reference/config/next-config-js/assetPrefix)
 };
