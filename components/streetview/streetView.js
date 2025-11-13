@@ -415,7 +415,7 @@ const StreetView = ({
 
 
   // Get Google Maps API key from environment variable
-  const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AQ.Ab8RN6LqubYpuWk-Jm4-gspydqbKkfnXTrhfDhhBaecgXcaFGw";
+  const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ";
 
   return shouldUseEmbed ? (
     <iframe
