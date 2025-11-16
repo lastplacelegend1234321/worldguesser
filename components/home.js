@@ -679,7 +679,12 @@ export default function Home({ }) {
         if (country) {
             officialCountryMap = officialCountryMaps.find((c) => c.countryCode === mapSlug);
         }
+        // Clear locations array to force refetch when map changes
         setAllLocsArray([])
+        // Trigger loadLocation to fetch new map data
+        setTimeout(() => {
+            loadLocation();
+        }, 100); // Small delay to ensure gameOptions is updated first
 
         if (!country && mapSlug !== gameOptions.location) {
             if (((window?.lastPlayTrack || 0) + 20000 < Date.now())) {
@@ -2077,6 +2082,10 @@ export default function Home({ }) {
                         // shuffle data.locations
                         data.locations = data.locations.sort(() => Math.random() - 0.5)
 
+                        // Store the location/map identifier with the locations array to detect map changes
+                        data.locations.forEach(loc => {
+                            loc._mapLocation = gameOptions.location; // Tag locations with their map
+                        });
 
                         setAllLocsArray(data.locations)
 
