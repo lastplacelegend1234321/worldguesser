@@ -987,9 +987,10 @@ const GameSummary = ({
                   {mobileExpanded ? text("hideDetails") : text("viewDetails")}
                 </button>
 
-                {button1Text && (
+                {/* Always show Play Again button if button1Press is provided, or default to Play Again */}
+                {(button1Text || button1Press) && (
                   <button className="action-btn primary" onClick={button1Press}>
-                    {button1Text}
+                    {button1Text || text("playAgain")}
                   </button>
                 )}
                 {button2Text && (
@@ -1446,9 +1447,10 @@ const GameSummary = ({
               {mobileExpanded ? text("hideDetails") : text("viewDetails")}
             </button>
 
-            {button1Text && (
+            {/* Always show Play Again button if button1Press is provided, or default to Play Again */}
+            {(button1Text || button1Press) && (
             <button className="action-btn primary" onClick={button1Press}>
-                {button1Text || 'Play Again'}
+                {button1Text || text("playAgain")}
             </button>
             )}
             {button2Text && (

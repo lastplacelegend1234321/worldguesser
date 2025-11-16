@@ -2398,6 +2398,8 @@ export default function Home({ }) {
                     selectCountryModalShown={selectCountryModalShown}
                     mapModalOpen={mapModal}
                     onConnectionError={() => setConnectionErrorModalShown(true)}
+                    singlePlayerRound={singlePlayerRound}
+                    onboarding={onboarding}
                 />
                                 {/*
                                 {!inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
