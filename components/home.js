@@ -2011,21 +2011,54 @@ export default function Home({ }) {
             setOtherOptions(options)
         } else {
             function defaultMethod() {
+                // Fallback: Use client-side location generation
+                console.log("Using fallback location generation");
                 findLatLongRandom(gameOptions).then((latLong) => {
-                    setLatLong(latLong);
+                    if (latLong) {
+                        setLatLong(latLong);
+                        setLoading(false);
+                    } else {
+                        console.error("Failed to generate location");
+                        toast(text("errorLoadingMap"), { type: 'error' });
+                        setLoading(false);
+                    }
+                }).catch((e) => {
+                    console.error("Error in defaultMethod:", e);
+                    toast(text("errorLoadingMap"), { type: 'error' });
+                    setLoading(false);
                 });
             }
             function fetchMethod() {
                 //gameOptions.countryMap && gameOptions.offical
                 const config = clientConfig();
-                if (!config?.apiUrl) {
+                
+                // Check if apiUrl is valid (not localhost when not in development)
+                const isLocalhost = config?.apiUrl?.includes('localhost') || config?.apiUrl?.includes('127.0.0.1');
+                const isDevelopment = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+                
+                if (!config?.apiUrl || (isLocalhost && !isDevelopment)) {
+                    console.warn("API URL not configured or pointing to localhost in production, using fallback");
                     defaultMethod();
                     return;
                 }
+                
                 const url = config.apiUrl + ((gameOptions.location === "all") ? `/${window?.learnMode ? 'clue' : 'all'}Countries.json` :
                     gameOptions.countryMap && gameOptions.official ? `/countryLocations/${gameOptions.countryMap}` :
                         `/mapLocations/${gameOptions.location}`);
-                fetch(url).then((res) => {
+                
+                console.log("Fetching locations from:", url);
+                
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    // Add timeout to prevent hanging
+                    signal: AbortSignal.timeout(10000) // 10 second timeout
+                }).then((res) => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
                     return res.json();
                 }).then((data) => {
                     if (data.ready) {
@@ -2047,6 +2080,7 @@ export default function Home({ }) {
                             // Pick a random location instead of always using the first one
                             const loc = data.locations[Math.floor(Math.random() * data.locations.length)]
                             setLatLong(loc)
+                            setLoading(false);
                             console.log("setting latlong", loc)
                                 } else {
                             let loc = data.locations[Math.floor(Math.random() * data.locations.length)];
@@ -2056,6 +2090,7 @@ export default function Home({ }) {
                             }
 
                             setLatLong(loc)
+                            setLoading(false);
                             if (data.name) {
 
                                 // calculate extent (for openlayers)
@@ -2076,13 +2111,18 @@ export default function Home({ }) {
                                 }
 
                     } else {
+                        console.warn("API returned data.ready = false");
                         if (gameOptions.location !== "all") {
                             toast(text("errorLoadingMap"), { type: 'error' })
                         }
-                            defaultMethod()
+                        defaultMethod()
                     }
                 }).catch((e) => {
-                    toast(text("errorLoadingMap"), { type: 'error' })
+                    console.error("Error fetching locations:", e);
+                    // Only show error toast if it's not a timeout (timeout will be handled by fallback)
+                    if (e.name !== 'AbortError' && e.name !== 'TimeoutError') {
+                        toast(text("errorLoadingMap"), { type: 'error' })
+                    }
                     defaultMethod()
                 });
             }
