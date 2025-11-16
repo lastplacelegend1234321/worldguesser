@@ -2048,14 +2048,18 @@ export default function Home({ }) {
                 
                 console.log("Fetching locations from:", url);
                 
+                // Create abort controller for timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                
                 fetch(url, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    // Add timeout to prevent hanging
-                    signal: AbortSignal.timeout(10000) // 10 second timeout
+                    signal: controller.signal
                 }).then((res) => {
+                    clearTimeout(timeoutId);
                     if (!res.ok) {
                         throw new Error(`HTTP error! status: ${res.status}`);
                     }
@@ -2118,8 +2122,9 @@ export default function Home({ }) {
                         defaultMethod()
                     }
                 }).catch((e) => {
+                    clearTimeout(timeoutId);
                     console.error("Error fetching locations:", e);
-                    // Only show error toast if it's not a timeout (timeout will be handled by fallback)
+                    // Only show error toast if it's not a timeout/abort (timeout will be handled by fallback)
                     if (e.name !== 'AbortError' && e.name !== 'TimeoutError') {
                         toast(text("errorLoadingMap"), { type: 'error' })
                     }
