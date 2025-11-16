@@ -5,6 +5,10 @@ import { useTranslation } from '@/components/useTranslations';
 import 'leaflet/dist/leaflet.css';
 import customPins from '../public/customPins.json' with { type: "module" };
 import guestNameString from "@/serverUtils/guestNameFromString";
+
+// Get Google Maps API key from environment variable
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ";
+
 const hintMul = 5000000 / 20000; //5000000 for all countries (20,000 km)
 
 // Dynamic import of react-leaflet components
@@ -237,7 +241,7 @@ const MapComponent = ({ shown, options, ws, session, pinPoint, setPinPoint, answ
 
       <TileLayer
         noWrap={true}
-        url={`https://mt{s}.google.com/vt/lyrs=${options?.mapType ?? 'm'}&x={x}&y={y}&z={z}&hl=${text("lang")}`}
+        url={`https://mt{s}.google.com/vt/lyrs=${options?.mapType ?? 'm'}&x={x}&y={y}&z={z}&hl=${text("lang")}&key=${GOOGLE_MAPS_API_KEY}`}
         subdomains={['0', '1', '2', '3']}
         attribution='&copy; <a href="https://maps.google.com">Google</a>'
         maxZoom={22}

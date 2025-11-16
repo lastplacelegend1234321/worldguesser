@@ -8,6 +8,9 @@ import formatTime from "../utils/formatTime";
 import { toast } from "react-toastify";
 import 'leaflet/dist/leaflet.css';
 
+// Get Google Maps API key from environment variable
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ";
+
 const MapContainer = dynamic(
   () => import("react-leaflet").then((module) => module.MapContainer),
   { ssr: false }
@@ -785,7 +788,7 @@ const GameSummary = ({
               />
 
               <TileLayer
-                url={`https://mt2.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=${text("lang")}`}
+                url={`https://mt2.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=${text("lang")}&key=${GOOGLE_MAPS_API_KEY}`}
               />
 
               {finalHistory.map((round, index) => {
