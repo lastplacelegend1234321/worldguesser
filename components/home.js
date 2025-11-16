@@ -44,7 +44,6 @@ import { boundingExtent } from "ol/extent";
 import countries from "@/public/countries.json";
 import officialCountryMaps from "@/public/officialCountryMaps.json";
 
-import fixBranding from "@/components/utils/fixBranding";
 import gameStorage from "@/components/utils/localStorage";
 import DiscordModal from "@/components/discordModal";
 import MerchModal from "@/components/merchModal";
@@ -1542,6 +1541,8 @@ export default function Home({ }) {
 
                     if ((!prev.gameData || (prev?.gameData?.state === "getready")) && data.state === "guess") {
                         setPinPoint(null)
+                        // Set loading state when new round starts to show loading animation
+                        setLoading(true)
                         if (!prev?.gameData?.locations && data.locations) {
                             setLatLong(data.locations[data.curRound - 1])
 
