@@ -2088,11 +2088,6 @@ export default function Home({ }) {
                             loc._mapLocation = gameOptions.location; // Tag locations with their map
                         });
 
-                        // Store the location/map identifier with the locations array to detect map changes
-                        data.locations.forEach(loc => {
-                            loc._mapLocation = gameOptions.location; // Tag locations with their map
-                        });
-
                         setAllLocsArray(data.locations)
 
                         if (gameOptions.location === "all") {
