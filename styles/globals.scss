@@ -3717,10 +3717,10 @@ img[alt="Google"] {
     display: block;
 }
 
-/* Ensure top padding is persistent on desktop to avoid conflicts with logo */
+/* Ensure top padding is persistent on desktop to avoid conflicts with Back button */
 @media (min-width: 1025px) {
     .summary-header {
-        padding-top: 60px !important;
+        padding-top: 100px !important;
     }
 
 

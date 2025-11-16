@@ -909,7 +909,14 @@ const GameSummary = ({
           </div>
 
           <div className={`game-summary-sidebar ${mobileExpanded ? 'mobile-expanded' : ''}`}>
-            <div className={`summary-header duel-header ${headerCompact && typeof window !== 'undefined' && window.innerWidth > 1024 ? 'compact' : ''}`}>
+            <div 
+              className={`summary-header duel-header ${headerCompact && typeof window !== 'undefined' && window.innerWidth > 1024 ? 'compact' : ''}`}
+              style={{
+                ...(typeof window !== 'undefined' && window.innerWidth >= 1025 && !mobileExpanded ? {
+                  paddingTop: '100px' // Prevent overlap with Back button
+                } : {})
+              }}
+            >
               <h1 className="summary-title">
                 {draw ? text("draw") : winner ? text("victory") : text("defeat")}
               </h1>
@@ -1295,7 +1302,7 @@ const GameSummary = ({
                 minHeight: 'auto',
                 transform: 'scale(0.95)'
               } : {
-                paddingTop: window.innerWidth < 1024 ? '15px' : '60px' // Ensure top padding is persistent on desktop
+                paddingTop: window.innerWidth < 1024 ? '15px' : '100px' // Increased padding to prevent overlap with Back button
               })
             }}
           >
