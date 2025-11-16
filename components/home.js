@@ -2044,7 +2044,8 @@ export default function Home({ }) {
                         setAllLocsArray(data.locations)
 
                         if (gameOptions.location === "all") {
-                            const loc = data.locations[0]
+                            // Pick a random location instead of always using the first one
+                            const loc = data.locations[Math.floor(Math.random() * data.locations.length)]
                             setLatLong(loc)
                             console.log("setting latlong", loc)
                                 } else {
@@ -2094,7 +2095,10 @@ export default function Home({ }) {
                     fetchMethod()
                 } else {
                     if (gameOptions.location === "all") {
-                        const loc = allLocsArray[locIndex + 1] ?? allLocsArray[0];
+                        // Pick a random location instead of sequential access
+                        // Filter out the current location to avoid repeats
+                        const availableLocs = allLocsArray.filter((l) => l.lat !== latLong.lat || l.long !== latLong.long);
+                        const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)] || allLocsArray[0];
                         setLatLong(loc);
                         } else {
                         // prevent repeats: remove the prev location from the array
