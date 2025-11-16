@@ -2141,7 +2141,11 @@ export default function Home({ }) {
                 });
             }
 
-            if (allLocsArray.length === 0) {
+            // Check if we need to refetch: empty array OR location changed (map switching)
+            const currentMapLocation = allLocsArray.length > 0 ? allLocsArray[0]?._mapLocation : null;
+            const needsRefetch = allLocsArray.length === 0 || currentMapLocation !== gameOptions.location;
+            
+            if (needsRefetch) {
                 fetchMethod()
             } else if (allLocsArray.length > 0) {
                 const locIndex = allLocsArray.findIndex((l) => l.lat === latLong.lat && l.long === latLong.long);
@@ -2154,6 +2158,7 @@ export default function Home({ }) {
                         const availableLocs = allLocsArray.filter((l) => l.lat !== latLong.lat || l.long !== latLong.long);
                         const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)] || allLocsArray[0];
                         setLatLong(loc);
+                        setLoading(false); // Ensure loading stops
                         } else {
                         // prevent repeats: remove the prev location from the array
                         setAllLocsArray((prev) => {
@@ -2165,6 +2170,7 @@ export default function Home({ }) {
 
 
                             setLatLong(loc);
+                            setLoading(false); // Ensure loading stops
                                     return newArr;
                         })
 
