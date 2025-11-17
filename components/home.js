@@ -691,13 +691,22 @@ export default function Home({ }) {
         setShowCountryButtons(false)
     }
     function openMap(mapSlug) {
-        const mapSlugUpper = mapSlug.toUpperCase();
-        const country = countries.find((c) => c === mapSlugUpper);
-        let officialCountryMap = null;
-        if (country) {
-            // Find official map using uppercase country code
-            officialCountryMap = officialCountryMaps.find((c) => c.countryCode === mapSlugUpper || c.countryCode === mapSlug);
+        // First, try to find the official country map by slug (e.g., "indonesia" -> find map with slug "indonesia")
+        let officialCountryMap = officialCountryMaps.find((c) => c.slug === mapSlug || c.slug === mapSlug.toLowerCase());
+        
+        // If found, get the country code from the map
+        let country = null;
+        if (officialCountryMap) {
+            country = officialCountryMap.countryCode; // e.g., "ID" for Indonesia
+        } else {
+            // Fallback: try to find by country code directly (for backwards compatibility)
+            const mapSlugUpper = mapSlug.toUpperCase();
+            country = countries.find((c) => c === mapSlugUpper);
+            if (country) {
+                officialCountryMap = officialCountryMaps.find((c) => c.countryCode === mapSlugUpper || c.countryCode === mapSlug);
+            }
         }
+        
         // Clear locations array to force refetch when map changes
         setAllLocsArray([])
         // Don't reset latLong here - let loadLocation handle it to avoid comparison issues
@@ -721,7 +730,7 @@ export default function Home({ }) {
                 ...prev,
                 location: mapSlug,
                 official: (country || mapSlug === 'all') ? true : false,
-                countryMap: country,
+                countryMap: country, // This will be the country code (e.g., "ID") if found
                 communityMapName: (country || mapSlug === 'all') ? "" : prev.communityMapName, // Clear community map name for official maps
                 maxDist: country ? countryMaxDists[country] : 20000,
                 extent: country && officialCountryMap && officialCountryMap.extent ? officialCountryMap.extent : null
@@ -730,6 +739,7 @@ export default function Home({ }) {
             console.log("Setting gameOptions for map switch:", {
                 mapSlug,
                 country,
+                officialCountryMap: officialCountryMap?.name,
                 newOptions,
                 willUseCountryEndpoint: newOptions.countryMap && newOptions.official
             });
