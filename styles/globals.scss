@@ -5061,15 +5061,18 @@ div[dir="ltr"] {
     position: fixed;
     top: 10px;
     height: min-content;
-    /* Position to the left of friends button (which is at right: 10px, width ~60px) */
-    /* Friends button: right 10px + width ~60px = 70px from right */
-    /* ELO button: right calc(70px + 10px gap) = 80px from right */
-    right: calc(70px + 10px); /* Friends button width + gap */
+    /* Position to the left of friends button */
+    /* Friends button: right 10px, width varies:
+       - Icon only: ~60px
+       - With username: min-width 120px, max-width 250px
+    */
+    /* Account for widest friends button (250px) + gap (10px) + right margin (10px) = 270px */
+    right: calc(250px + 20px); /* Max friends button width + gap + margin */
     animation: bounce 0.5s;
     z-index: 1000;
     width: fit-content;
     min-width: 60px;
-    max-width: calc(100vw - 160px); /* Responsive: ensures it never touches friends button (80px right + 60px friends + 20px margin) */
+    max-width: calc(100vw - 280px); /* Responsive: ensures it never touches friends button */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5094,8 +5097,9 @@ div[dir="ltr"] {
     .leagueBtn {
         top: 10px;
         font-size: 1.1em;
-        right: calc(65px + 10px); /* Smaller friends button on tablet */
-        max-width: calc(100vw - 150px);
+        /* Friends button on tablet: min-width 100px when showing username */
+        right: calc(100px + 20px); /* Max friends button width + gap + margin */
+        max-width: calc(100vw - 130px);
         padding-left: 12px;
         padding-right: 12px;
     }
@@ -5105,8 +5109,9 @@ div[dir="ltr"] {
     .leagueBtn {
         top: 10px;
         font-size: 1em;
-        right: calc(60px + 8px); /* Smaller friends button on mobile */
-        max-width: calc(100vw - 140px);
+        /* Friends button on mobile: min-width 90px when showing username */
+        right: calc(90px + 18px); /* Max friends button width + gap + margin */
+        max-width: calc(100vw - 118px);
         padding-left: 10px;
         padding-right: 10px;
         min-width: 50px;
