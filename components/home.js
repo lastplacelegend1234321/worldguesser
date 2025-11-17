@@ -2032,16 +2032,27 @@ export default function Home({ }) {
             function defaultMethod() {
                 // Fallback: Use client-side location generation
                 console.log("Using fallback location generation for:", optionsToUse.location);
+                
+                // Set a timeout to ensure loading stops even if findLatLongRandom hangs
+                const fallbackTimeout = setTimeout(() => {
+                    console.warn("Fallback location generation timed out");
+                    setLoading(false);
+                    toast(text("errorLoadingMap"), { type: 'error' });
+                }, 15000); // 15 second timeout for fallback
+                
                 findLatLongRandom(optionsToUse).then((latLong) => {
+                    clearTimeout(fallbackTimeout);
                     if (latLong) {
                         setLatLong(latLong);
                         setLoading(false);
+                        console.log("Fallback generated location:", latLong);
                     } else {
-                        console.error("Failed to generate location");
+                        console.error("Failed to generate location - findLatLongRandom returned null");
                         toast(text("errorLoadingMap"), { type: 'error' });
                         setLoading(false);
                     }
                 }).catch((e) => {
+                    clearTimeout(fallbackTimeout);
                     console.error("Error in defaultMethod:", e);
                     toast(text("errorLoadingMap"), { type: 'error' });
                     setLoading(false);
@@ -2066,11 +2077,14 @@ export default function Home({ }) {
                     optionsToUse.countryMap && optionsToUse.official ? `/countryLocations/${optionsToUse.countryMap}` :
                         `/mapLocations/${optionsToUse.location}`);
                 
-                console.log("Fetching locations from:", url);
+                console.log("Fetching locations from:", url, "for map:", optionsToUse.location, "countryMap:", optionsToUse.countryMap, "official:", optionsToUse.official);
                 
                 // Create abort controller for timeout
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+                const timeoutId = setTimeout(() => {
+                    console.warn("Fetch timeout after 10 seconds for:", url);
+                    controller.abort();
+                }, 10000); // 10 second timeout
                 
                 fetch(url, {
                     method: 'GET',
@@ -2085,7 +2099,8 @@ export default function Home({ }) {
                     }
                     return res.json();
                 }).then((data) => {
-                    if (data.ready) {
+                    console.log("API response for", optionsToUse.location, ":", { ready: data.ready, locationCount: data.locations?.length });
+                    if (data.ready && data.locations && data.locations.length > 0) {
                         // this uses long for lng
                         for (let i = 0; i < data.locations.length; i++) {
                             if (data.locations[i].lng && !data.locations[i].long) {
@@ -2148,12 +2163,13 @@ export default function Home({ }) {
                                 }
 
                     } else {
-                        console.warn("API returned data.ready = false for", optionsToUse.location, data);
+                        console.warn("API returned data.ready = false or no locations for", optionsToUse.location, data);
                         if (optionsToUse.location !== "all") {
                             toast(text("errorLoadingMap"), { type: 'error' })
                         }
                         // Always stop loading and use fallback
                         setLoading(false);
+                        // Use fallback method to generate location client-side
                         defaultMethod()
                     }
                 }).catch((e) => {
@@ -2237,7 +2253,8 @@ export default function Home({ }) {
                 }
             } else {
                 // No locations and not refetching - this shouldn't happen, but fallback to defaultMethod
-                console.warn("No locations available and not refetching, using fallback");
+                console.warn("No locations available and not refetching, using fallback for:", optionsToUse.location);
+                setLoading(false); // Ensure loading stops
                 defaultMethod();
             }
         }
