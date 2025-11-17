@@ -2099,7 +2099,7 @@ export default function Home({ }) {
                         // Tag the location with the map it belongs to
                         latLong._mapLocation = optionsToUse.location;
                         setLatLong(latLong);
-                        setLoading(false);
+                        // Don't set loading to false here - wait for street view to load
                         console.log("Fallback generated location for", optionsToUse.location, ":", latLong);
                         // Clear error tracking on success
                         window[errorKey] = 0;
@@ -2203,7 +2203,7 @@ export default function Home({ }) {
                             // Pick a random location instead of always using the first one
                             const loc = data.locations[Math.floor(Math.random() * data.locations.length)]
                             setLatLong(loc)
-                            setLoading(false);
+                            // Don't set loading to false here - wait for street view to load
                             console.log("setting latlong", loc)
                         } else {
                             // Handle case where latLong might be null/undefined or invalid (first load or map switch)
@@ -2229,7 +2229,7 @@ export default function Home({ }) {
                             }
 
                             setLatLong(loc)
-                            setLoading(false);
+                            // Don't set loading to false here - wait for street view to load
                             console.log("Setting location for map:", optionsToUse.location, loc);
                             if (data.name) {
 
@@ -2304,7 +2304,7 @@ export default function Home({ }) {
                     // Pick a random location from available ones
                     const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)];
                     setLatLong(loc);
-                    setLoading(false);
+                    // Don't set loading to false here - wait for street view to load
                     
                     // Update array to remove used location immediately
                     setAllLocsArray(availableLocs.filter((l) => !locationsMatch(l, loc)));
@@ -2508,11 +2508,9 @@ export default function Home({ }) {
                         screen === "home" || (screen === "multiplayer" && (multiplayerState?.gameData?.state === "waiting" || multiplayerState?.enteringGameCode))
                     )}
                     onLoad={() => {
-                        console.log("loaded")
-                        setTimeout(() => {
-                            setLoading(false)
-                        }, 500)
-
+                        console.log("Street view iframe loaded for location:", latLong);
+                        // Only set loading to false when street view is actually loaded
+                        setLoading(false);
                     }}
                 />
 
