@@ -75,7 +75,7 @@ export default function Navbar({ maintenance, joinCodePress, inCrazyGames, inCoo
                             onClick={joinCodePress}>{text("joinGame")}</button>
                     )}
 
-                    {!inGame && showAccBtn && !inCoolMathGames && !accountModalOpen && !mapModalOpen && (<AccountBtn inCrazyGames={inCrazyGames} session={session} navbarMode={screen !== "home"} openAccountModal={openAccountModal} />)}
+                    {/* Account button removed - access account via other means */}
 
                     {session?.token?.secret && !accountModalOpen && !gameOptionsModalShown && !mapModalOpen && !["getready", "guess"].includes(multiplayerState?.gameData?.state) && (
                         <button className={`gameBtn friendBtn ${screen === "home" ? "friendBtnFixed" : ""}`} onClick={onFriendsPress} disabled={!multiplayerState?.connected}>
