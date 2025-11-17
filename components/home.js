@@ -2031,7 +2031,11 @@ export default function Home({ }) {
         // Use override options if provided, otherwise use current gameOptions state
         const optionsToUse = overrideGameOptions || gameOptions;
         
-        if (loading) return;
+        // Prevent multiple simultaneous loadLocation calls
+        if (loading) {
+            console.log("loadLocation already in progress, skipping");
+            return;
+        }
         setLoading(true)
         setShowAnswer(false)
         setPinPoint(null)
@@ -2202,12 +2206,10 @@ export default function Home({ }) {
 
                     } else {
                         console.warn("API returned data.ready = false or no locations for", optionsToUse.location, data);
-                        if (optionsToUse.location !== "all") {
-                            toast(text("errorLoadingMap"), { type: 'error' })
-                        }
                         // Always stop loading and use fallback
                         setLoading(false);
                         // Use fallback method to generate location client-side
+                        // Don't show error toast here - let defaultMethod handle it with rate limiting
                         defaultMethod()
                     }
                 }).catch((e) => {
@@ -2215,10 +2217,8 @@ export default function Home({ }) {
                     console.error("Error fetching locations:", e, "URL:", url);
                     // Always stop loading on error
                     setLoading(false);
-                    // Only show error toast if it's not a timeout/abort (timeout will be handled by fallback)
-                    if (e.name !== 'AbortError' && e.name !== 'TimeoutError') {
-                        toast(text("errorLoadingMap"), { type: 'error' })
-                    }
+                    // Don't show error toast here - let defaultMethod handle it with rate limiting
+                    // Timeout/abort errors will be handled by defaultMethod
                     defaultMethod()
                 });
             }
