@@ -1118,6 +1118,11 @@ export default function Home({ }) {
         if (multiplayerState.gameQueued || multiplayerState.connecting) return;
 
         if (action === "publicDuel") {
+            // Require login for ranked duels
+            if (!session?.token?.secret) {
+                toast.error("Please log in to play ranked duels");
+                return;
+            }
             setScreen("multiplayer")
             setMultiplayerState((prev) => ({
                 ...prev,
@@ -2731,6 +2736,13 @@ export default function Home({ }) {
                                         if (loading) return;
                                         if (!ws || !multiplayerState?.connected) {
                                             setConnectionErrorModalShown(true);
+                                            return;
+                                        }
+                                        // Check if user is logged in for ranked duels
+                                        if (!session?.token?.secret) {
+                                            setAccountModalOpen(true);
+                                            setAccountModalPage("profile");
+                                            toast.error("Please log in to play ranked duels");
                                             return;
                                         }
                                         // Start ranked duel queue
