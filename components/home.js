@@ -2276,64 +2276,42 @@ export default function Home({ }) {
             if (needsRefetch) {
                 fetchMethod()
             } else if (allLocsArray.length > 0) {
-                // Only check for current location if latLong exists and has valid values
-                const hasCurrentLocation = latLong && typeof latLong.lat === 'number' && typeof latLong.long === 'number';
-                const locIndex = hasCurrentLocation ? allLocsArray.findIndex((l) => l.lat === latLong.lat && l.long === latLong.long) : -1;
+                // Helper function to compare locations with tolerance for floating-point precision
+                const locationsMatch = (loc1, loc2) => {
+                    if (!loc1 || !loc2) return false;
+                    const lat1 = loc1.lat || 0;
+                    const long1 = loc1.long || loc1.lng || 0;
+                    const lat2 = loc2.lat || 0;
+                    const long2 = loc2.long || loc2.lng || 0;
+                    const latDiff = Math.abs(lat1 - lat2);
+                    const longDiff = Math.abs(long1 - long2);
+                    // Use small tolerance (0.0001 degrees ≈ 11 meters) to handle floating-point precision
+                    return latDiff < 0.0001 && longDiff < 0.0001;
+                };
                 
-                if ((locIndex === -1) || allLocsArray.length === 1 || !hasCurrentLocation) {
-                    // Need to pick a new location
-                    if (optionsToUse.location === "all") {
-                        // Pick a random location
-                        const loc = allLocsArray[Math.floor(Math.random() * allLocsArray.length)];
-                        setLatLong(loc);
-                        setLoading(false);
-                    } else {
-                        // Filter out current location if it exists, otherwise pick random
-                        const availableLocs = hasCurrentLocation 
-                            ? allLocsArray.filter((l) => l.lat !== latLong.lat || l.long !== latLong.long)
-                            : allLocsArray;
-                        
-                        if (availableLocs.length > 0) {
-                            const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)];
-                            setLatLong(loc);
-                            setLoading(false);
-                            
-                            // Update array to remove used location
-                            if (hasCurrentLocation) {
-                                setAllLocsArray(availableLocs);
-                            }
-                        } else {
-                            // No more locations, refetch
-                            fetchMethod();
-                        }
-                    }
+                // Only check for current location if latLong exists and has valid values
+                const hasCurrentLocation = latLong && 
+                    typeof latLong.lat === 'number' && 
+                    typeof latLong.long === 'number' &&
+                    !(latLong.lat === 0 && latLong.long === 0);
+                
+                // Filter out current location to avoid repeats
+                const availableLocs = hasCurrentLocation 
+                    ? allLocsArray.filter((l) => !locationsMatch(l, latLong))
+                    : allLocsArray;
+                
+                if (availableLocs.length > 0) {
+                    // Pick a random location from available ones
+                    const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)];
+                    setLatLong(loc);
+                    setLoading(false);
+                    
+                    // Update array to remove used location immediately
+                    setAllLocsArray(availableLocs.filter((l) => !locationsMatch(l, loc)));
                 } else {
-                    // Current location found in array, pick a different one
-                    if (optionsToUse.location === "all") {
-                        // Pick a random location instead of sequential access
-                        // Filter out the current location to avoid repeats
-                        const availableLocs = allLocsArray.filter((l) => l.lat !== latLong.lat || l.long !== latLong.long);
-                        const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)] || allLocsArray[0];
-                        setLatLong(loc);
-                        setLoading(false); // Ensure loading stops
-                    } else {
-                        // prevent repeats: remove the prev location from the array
-                        setAllLocsArray((prev) => {
-                            const newArr = prev.filter((l) => l.lat !== latLong.lat && l.long !== latLong.long)
-                            
-                            if (newArr.length === 0) {
-                                // No more locations, need to refetch
-                                setTimeout(() => fetchMethod(), 0);
-                                return prev; // Keep old array if we're refetching
-                            }
-
-                            // community maps are randomized
-                            const loc = newArr[Math.floor(Math.random() * newArr.length)];
-                            setLatLong(loc);
-                            setLoading(false); // Ensure loading stops
-                            return newArr;
-                        })
-                    }
+                    // No more locations available, refetch
+                    console.log("No more locations available, refetching for:", optionsToUse.location);
+                    fetchMethod();
                 }
             } else {
                 // No locations and not refetching - this shouldn't happen, but fallback to defaultMethod
