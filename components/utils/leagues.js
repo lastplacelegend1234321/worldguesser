@@ -2,8 +2,8 @@ export const leagues = {
   'explorer': {
     min: 0,
     max: 1999,
-    name: 'Trekker',
-    emoji: '🥾',
+    name: 'Traveller',
+    emoji: '🛤',
     color: '#808080', // grey
     light: '#d3d3d3' // light grey
   },
@@ -17,15 +17,15 @@ export const leagues = {
   'voyager': {
     min: 5000,
     max: 7999,
-    name: 'Voyager',
-    emoji: '🚢',
+    name: 'Pilot',
+    emoji: '✈️',
     color: '#ffd700' // gold
   },
   'nomad': {
     min: 8000,
     max: 20000,
-    name: 'Nomad',
-    emoji: '🌍',
+    name: 'Conqueror',
+    emoji: '🌎',
     color: '#b9f2ff' // diamond
   },
 }
