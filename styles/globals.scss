@@ -5091,8 +5091,9 @@ div[dir="ltr"] {
 
 .leagueBtn {
     position: fixed;
-    /* Position below friends button - friends button is at top: 10px, height ~42px */
-    top: calc(10px + 42px + 8px); /* Friends button top + height + gap */
+    /* Position below friends button - friends button is at top: 10px */
+    /* Account for friends button height (min-height 42px + padding) + gap */
+    top: calc(10px + 50px + 12px); /* Friends button top + max height + gap */
     right: 10px; /* Same right position as friends button */
     height: min-content;
     animation: bounce 0.5s;
@@ -5118,7 +5119,7 @@ div[dir="ltr"] {
 // less than 1280px
 @media (max-width: 1280px) {
     .leagueBtn {
-        top: calc(10px + 36px + 6px); /* Friends button height on tablet */
+        top: calc(10px + 44px + 10px); /* Friends button height on tablet + gap */
         font-size: 0.95em;
         max-width: 180px;
         padding: 5px 10px;
@@ -5130,7 +5131,7 @@ div[dir="ltr"] {
 // less than 900px
 @media (max-width: 600px) {
     .leagueBtn {
-        top: calc(10px + 30px + 6px); /* Friends button height on mobile */
+        top: calc(10px + 38px + 8px); /* Friends button height on mobile + gap */
         font-size: 0.9em;
         max-width: 150px;
         padding: 4px 8px;
