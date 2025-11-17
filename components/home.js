@@ -2639,13 +2639,6 @@ export default function Home({ }) {
                                 <h1 className="home__title_centered wg_font">Proguessr</h1>
                                 <p className="home__subtitle">Guess street views of the world</p>
                                 
-                                <input 
-                                    type="text" 
-                                    className="home__nickname_input" 
-                                    placeholder="Your Nickname..." 
-                                    defaultValue={session?.token?.username || ""}
-                                />
-                                
                                 <button 
                                     className="homeBtn home__play_btn" 
                                     onClick={() => {
