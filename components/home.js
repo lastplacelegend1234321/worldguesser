@@ -2186,13 +2186,26 @@ export default function Home({ }) {
 
                         setAllLocsArray(data.locations)
 
+                        // Helper function to compare locations with tolerance for floating-point precision
+                        const locationsMatch = (loc1, loc2) => {
+                            if (!loc1 || !loc2) return false;
+                            const lat1 = loc1.lat || 0;
+                            const long1 = loc1.long || loc1.lng || 0;
+                            const lat2 = loc2.lat || 0;
+                            const long2 = loc2.long || loc2.lng || 0;
+                            const latDiff = Math.abs(lat1 - lat2);
+                            const longDiff = Math.abs(long1 - long2);
+                            // Use small tolerance (0.0001 degrees ≈ 11 meters) to handle floating-point precision
+                            return latDiff < 0.0001 && longDiff < 0.0001;
+                        };
+
                         if (optionsToUse.location === "all") {
                             // Pick a random location instead of always using the first one
                             const loc = data.locations[Math.floor(Math.random() * data.locations.length)]
                             setLatLong(loc)
                             setLoading(false);
                             console.log("setting latlong", loc)
-                                } else {
+                        } else {
                             // Handle case where latLong might be null/undefined or invalid (first load or map switch)
                             // Consider latLong invalid if it's 0,0 (ocean) or null/undefined
                             const hasCurrentLocation = latLong && 
@@ -2200,15 +2213,19 @@ export default function Home({ }) {
                                 typeof latLong.long === 'number' &&
                                 !(latLong.lat === 0 && latLong.long === 0); // Don't treat 0,0 as valid
                             
-                            let loc = data.locations[Math.floor(Math.random() * data.locations.length)];
-
-                            // Only avoid repeats if we have a valid current location
-                            if (hasCurrentLocation) {
-                                let attempts = 0;
-                                while (loc.lat === latLong.lat && loc.long === latLong.long && attempts < 10) {
-                                    loc = data.locations[Math.floor(Math.random() * data.locations.length)];
-                                    attempts++;
-                                }
+                            // Filter out current location if it exists
+                            const availableLocs = hasCurrentLocation
+                                ? data.locations.filter((l) => !locationsMatch(l, latLong))
+                                : data.locations;
+                            
+                            // Pick a random location from available ones
+                            const loc = availableLocs.length > 0
+                                ? availableLocs[Math.floor(Math.random() * availableLocs.length)]
+                                : data.locations[Math.floor(Math.random() * data.locations.length)]; // Fallback if all match
+                            
+                            // Update array to exclude the selected location
+                            if (hasCurrentLocation && availableLocs.length > 0) {
+                                setAllLocsArray(availableLocs.filter((l) => !locationsMatch(l, loc)));
                             }
 
                             setLatLong(loc)
