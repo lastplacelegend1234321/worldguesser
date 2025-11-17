@@ -6,6 +6,7 @@ import retryManager from "@/components/utils/retryFetch";
 import 'react-responsive-modal/styles.css';
 import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/ui/navbar";
+import AccountBtn from "@/components/ui/accountBtn";
 import GameUI from "@/components/gameUI";
 import BannerText from "@/components/bannerText";
 import findLatLongRandom from "@/components/findLatLong";
@@ -2656,6 +2657,16 @@ export default function Home({ }) {
                         </button>
                     )}
                 </div>
+
+                {/* Login button - shown when not logged in */}
+                {screen === "home" && !mapModal && (!session || !session?.token?.secret) && (
+                    <AccountBtn 
+                        session={session} 
+                        openAccountModal={() => { setAccountModalOpen(true); setAccountModalPage("profile"); }}
+                        navbarMode={false}
+                        inCrazyGames={inCrazyGames}
+                    />
+                )}
 
                 {screen == "home" &&
                     <div className={`home__content g2_modal ${screen !== "home" ? "hidden" : "cshown"} `}>
