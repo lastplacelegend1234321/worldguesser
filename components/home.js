@@ -1139,11 +1139,7 @@ export default function Home({ }) {
         if (multiplayerState.gameQueued || multiplayerState.connecting) return;
 
         if (action === "publicDuel") {
-            // Require login for ranked duels
-            if (!session?.token?.secret) {
-                toast.error("Please log in to play ranked duels");
-                return;
-            }
+            // Allow unlogged-in users - they'll get default ELO of 1000
             setScreen("multiplayer")
             setMultiplayerState((prev) => ({
                 ...prev,
@@ -2811,13 +2807,7 @@ export default function Home({ }) {
                                             setConnectionErrorModalShown(true);
                                             return;
                                         }
-                                        // Check if user is logged in for ranked duels
-                                        if (!session?.token?.secret) {
-                                            setAccountModalOpen(true);
-                                            setAccountModalPage("profile");
-                                            toast.error("Please log in to play ranked duels");
-                                            return;
-                                        }
+                                        // Allow unlogged-in users - they'll get default ELO of 1000
                                         // Start ranked duel queue
                                         handleMultiplayerAction("publicDuel");
                                     }}

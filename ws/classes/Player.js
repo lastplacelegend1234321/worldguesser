@@ -134,6 +134,9 @@ export default class Player {
           // guest mode
           this.username = 'Guest #' + make6DigitCode().toString().substring(0, 4);
           this.verified = true;
+          // Set default ELO of 1000 for guests so they can play ranked duels
+          this.elo = 1000;
+          this.league = getLeague(this.elo).name;
 
           this.send({
             type: 'verify',

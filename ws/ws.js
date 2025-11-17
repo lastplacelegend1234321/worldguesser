@@ -13,7 +13,7 @@ import lookup from "coordinate_to_country"
 import { players, games, disconnectedPlayers } from '../serverUtils/states.js';
 import Memsave from '../models/Memsave.js';
 import blockedAt from 'blocked-at';
-import { getLeagueRange } from '../components/utils/leagues.js';
+import { getLeagueRange, getLeague } from '../components/utils/leagues.js';
 import calculateOutcomes from '../components/utils/eloSystem.js';
 import { tmpdir } from 'os';
 
@@ -532,7 +532,7 @@ app.ws('/wg', {
       }
 
 
-      if ((json.type === 'publicDuel') && player.accountId &&  !player.gameId) {
+      if ((json.type === 'publicDuel') && !player.gameId) {
         if(player.banned) {
           player.send({
             type: 'toast',
@@ -545,24 +545,21 @@ app.ws('/wg', {
         // get range of league
         player.inQueue = true;
 
+        // Ensure guest players have default ELO of 1000
+        if(!player.elo) {
+          player.elo = 1000;
+        }
         if(!player.league) {
+          player.league = getLeague(player.elo).name;
+        }
 
-          const queueDetails = {
-            guest: true,
-            queueTime: Date.now(),
-            duel: true
-          }
-          playersInQueue.set(player.id, queueDetails);
-
-        } else {
-          const range = getLeagueRange(player.league);
-
+        const range = getLeagueRange(player.league);
 
         const queueDetails = {
           min: range[0],
           max: range[1],
           elo: player.elo,
-          guest: false,
+          guest: !player.accountId, // Mark as guest if no accountId
           queueTime: Date.now(),
           duel: true
         }
