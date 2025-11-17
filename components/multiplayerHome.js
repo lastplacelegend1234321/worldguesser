@@ -32,8 +32,18 @@ export default function MultiplayerHome({ ws, setWs, multiplayerError, multiplay
         )
     }
 
-    if (!((multiplayerState?.inGame) || (multiplayerState?.enteringGameCode) ||
+    // Show connecting message if WebSocket is connecting
+    if (multiplayerState?.connecting && !multiplayerState?.connected) {
+        return (
+            <div className="multiplayerHome">
+                <BannerText position={"auto"} text={text("multiplayerConnecting")} shown={true} hideCompass={true} />
+            </div>
+        )
+    }
 
+    // Show connection lost only if not connected and not connecting
+    if (!multiplayerState?.connected && !multiplayerState?.connecting && 
+        !((multiplayerState?.inGame) || (multiplayerState?.enteringGameCode) ||
         (multiplayerState?.gameQueued) || (multiplayerState?.nextGameQueued))) {
         return (
             <div className="multiplayerHome">

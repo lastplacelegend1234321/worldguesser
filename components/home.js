@@ -2700,6 +2700,11 @@ export default function Home({ }) {
                                     onClick={() => {
                                         if (loading) return;
                                         setScreen("multiplayer");
+                                        // Set enteringGameCode to show join game screen instead of connection lost
+                                        setMultiplayerState((prev) => ({
+                                            ...prev,
+                                            enteringGameCode: true
+                                        }));
                                     }}
                                     disabled={loading}
                                 >
