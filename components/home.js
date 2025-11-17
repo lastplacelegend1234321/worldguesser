@@ -703,9 +703,9 @@ export default function Home({ }) {
             // Fallback: try to find by country code directly (for backwards compatibility)
             const mapSlugUpper = mapSlug.toUpperCase();
             country = countries.find((c) => c === mapSlugUpper);
-            if (country) {
+        if (country) {
                 officialCountryMap = officialCountryMaps.find((c) => c.countryCode === mapSlugUpper || c.countryCode === mapSlug);
-            }
+        }
         }
         
         // Clear locations array to force refetch when map changes
@@ -2110,18 +2110,32 @@ export default function Home({ }) {
                 console.log("Using fallback location generation for:", optionsToUse.location, "countryMap:", optionsToUse.countryMap);
                 
                 // Set a timeout to ensure loading stops even if findLatLongRandom hangs
-                // But only set loading to false if we truly can't load anything
+                // Reduced timeout and ensure we always set loading to false
                 const fallbackTimeout = setTimeout(() => {
                     console.warn("Fallback location generation timed out for:", optionsToUse.location);
-                    // Only set loading to false if we don't have a valid location
-                    if (!latLong || !latLong.lat || !latLong.long) {
-                        setLoading(false);
-                        if (timeSinceLastError > 5000) {
-                            toast(text("errorLoadingMap"), { type: 'error' });
-                            window[errorKey] = Date.now();
-                        }
+                    // Always set loading to false on timeout to prevent perpetual loading
+                    setLoading(false);
+                    if (timeSinceLastError > 5000) {
+                        toast(text("errorLoadingMap"), { type: 'error' });
+                        window[errorKey] = Date.now();
                     }
-                }, 20000); // 20 second timeout for fallback (increased to allow more time)
+                    // Try one more time with a simpler approach
+                    console.log("Attempting final fallback with simplified options");
+                    const simplifiedOptions = {
+                        location: optionsToUse.countryMap || optionsToUse.location,
+                        maxDist: optionsToUse.maxDist || 20000
+                    };
+                    findLatLongRandom(simplifiedOptions).then((finalLatLong) => {
+                        if (finalLatLong) {
+                            finalLatLong._mapLocation = optionsToUse.location;
+                            setLatLong(finalLatLong);
+                            setLoading(true); // Set back to loading to wait for street view
+                            console.log("Final fallback succeeded:", finalLatLong);
+                        }
+                    }).catch((e) => {
+                        console.error("Final fallback also failed:", e);
+                    });
+                }, 15000); // Reduced to 15 seconds for faster feedback
                 
                 // Ensure we're using the correct location for fallback
                 // For country maps, use countryMap; for others, use location
@@ -2137,7 +2151,7 @@ export default function Home({ }) {
                     if (latLong) {
                         // Tag the location with the map it belongs to
                         latLong._mapLocation = optionsToUse.location;
-                        setLatLong(latLong);
+                    setLatLong(latLong);
                         // Don't set loading to false here - wait for street view to load
                         console.log("Fallback generated location for", optionsToUse.location, ":", latLong);
                         // Clear error tracking on success
@@ -2175,9 +2189,13 @@ export default function Home({ }) {
                 }).catch((e) => {
                     clearTimeout(fallbackTimeout);
                     console.error("Error in defaultMethod for", optionsToUse.location, ":", e);
-                    // Retry once before giving up
-                    console.log("Retrying fallback location generation after error...");
-                    findLatLongRandom(fallbackOptions).then((retryLatLong) => {
+                    // Retry with simplified options before giving up
+                    console.log("Retrying fallback location generation after error with simplified options...");
+                    const simplifiedErrorOptions = {
+                        location: optionsToUse.countryMap || optionsToUse.location,
+                        maxDist: optionsToUse.maxDist || 20000
+                    };
+                    findLatLongRandom(simplifiedErrorOptions).then((retryLatLong) => {
                         if (retryLatLong) {
                             retryLatLong._mapLocation = optionsToUse.location;
                             setLatLong(retryLatLong);
@@ -2282,7 +2300,7 @@ export default function Home({ }) {
                             setLatLong(loc)
                             // Don't set loading to false here - wait for street view to load
                             console.log("setting latlong", loc)
-                        } else {
+                                } else {
                             // Handle case where latLong might be null/undefined or invalid (first load or map switch)
                             // Consider latLong invalid if it's 0,0 (ocean) or null/undefined
                             const hasCurrentLocation = latLong && 
@@ -2329,18 +2347,42 @@ export default function Home({ }) {
 
                     } else {
                         console.warn("API returned data.ready = false or no locations for", optionsToUse.location, data);
-                        // Keep loading true - use fallback method to generate location client-side
-                        // Don't show error toast here - let defaultMethod handle it with rate limiting
-                        // Loading will be set to false when street view loads
-                        defaultMethod()
+                        // If API returns ready: false or empty locations, immediately use fallback
+                        // But also check if we got partial data that we can use
+                        if (data.locations && data.locations.length > 0 && !data.ready) {
+                            // We have locations but API says not ready - use them anyway
+                            console.log("Using locations even though API says not ready:", data.locations.length, "locations");
+                            // Process locations same as ready case
+                            for (let i = 0; i < data.locations.length; i++) {
+                                if (data.locations[i].lng && !data.locations[i].long) {
+                                    data.locations[i].long = data.locations[i].lng;
+                                    delete data.locations[i].lng;
+                                }
+                            }
+                            data.locations = data.locations.sort(() => Math.random() - 0.5);
+                            data.locations.forEach(loc => {
+                                loc._mapLocation = optionsToUse.location;
+                            });
+                            setAllLocsArray(data.locations);
+                            const loc = data.locations[Math.floor(Math.random() * data.locations.length)];
+                            setLatLong(loc);
+                            console.log("Using location from partial API response:", loc);
+                            // Don't set loading to false here - wait for street view to load
+                        } else {
+                            // No locations at all - use fallback immediately
+                            console.warn("No locations available, using fallback method");
+                            defaultMethod()
+                        }
                     }
                 }).catch((e) => {
                     clearTimeout(timeoutId);
                     console.error("Error fetching locations:", e, "URL:", url);
-                    // Keep loading true - use fallback method
-                    // Don't show error toast here - let defaultMethod handle it with rate limiting
-                    // Timeout/abort errors will be handled by defaultMethod
-                    // Loading will be set to false when street view loads
+                    // Check if it's a network error or timeout
+                    if (e.name === 'AbortError') {
+                        console.warn("Request was aborted (likely timeout) for:", url);
+                    }
+                    // Use fallback method immediately
+                    // defaultMethod will handle setting loading to false if it fails
                     defaultMethod()
                 });
             }
@@ -2379,7 +2421,7 @@ export default function Home({ }) {
                 if (availableLocs.length > 0) {
                     // Pick a random location from available ones
                     const loc = availableLocs[Math.floor(Math.random() * availableLocs.length)];
-                    setLatLong(loc);
+                            setLatLong(loc);
                     // Don't set loading to false here - wait for street view to load
                     
                     // Update array to remove used location immediately
@@ -2589,6 +2631,16 @@ export default function Home({ }) {
                         setLoading(false);
                     }}
                 />
+                
+                {/* Safety timeout: Force loading to false after 30 seconds if still loading */}
+                {loading && latLong && latLong.lat && latLong.long && (
+                    <LoadingSafetyTimeout 
+                        latLong={latLong}
+                        setLoading={setLoading}
+                        gameOptions={gameOptions}
+                        text={text}
+                    />
+                )}
 
                 <BannerText text={`${text("loading")}...`} shown={loading} showCompass={true} />
 
@@ -2637,8 +2689,8 @@ export default function Home({ }) {
                                       className={`home_ad home_ad_centered`}
                                       style={{ display: screen === 'home' ? '' : 'none' }}
                                     >
-                                      <Ad
-                                        unit={"worldguessr_home_ad"}
+                                                          <Ad
+                                                          unit={"worldguessr_home_ad"}
                                         inCrazyGames={inCrazyGames}
                                         showAdvertisementText={false}
                                         screenH={height}
@@ -2646,7 +2698,7 @@ export default function Home({ }) {
                                         screenW={width}
                                         vertThresh={width < 600 ? 0.33 : 0.5}
                                       />
-                                    </div>
+                                                        </div>
                                 )}
                                 */}
                 {screen === "home" && onboardingCompleted && (
@@ -2654,8 +2706,8 @@ export default function Home({ }) {
                         id="g2_playerCount"
                         className={`home__online_counter ${((screen === 'singleplayer' || screen === 'onboarding' || (multiplayerState?.inGame && !['waitingForPlayers', 'findingGame', 'findingOpponent'].includes(multiplayerState?.gameData?.state)) || !multiplayerState?.connected || !multiplayerState?.playerCount) ? 'hide' : '')}`}
                     >
-                        {maintenance ? text("maintenanceMode") : `${multiplayerState?.playerCount || 0} online`}
-                    </span>
+                    {maintenance ? text("maintenanceMode") : `${multiplayerState?.playerCount || 0} online`}
+                </span>
                 )}
                 
                 {/* Top left buttons */}
@@ -2752,46 +2804,46 @@ export default function Home({ }) {
                                 >
                                     Multiplayer Mode
                                 </button>
-
+                                
                                 {!inCrazyGames && !process.env.NEXT_PUBLIC_COOLMATH && (
                                     <div className="home__party_buttons home__party_buttons-inline">
+                                    <button 
+                                        className="homeBtn home__create_party_btn" 
+                                        disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                        onClick={() => {
+                                            if(!ws || !multiplayerState?.connected) {
+                                                setConnectionErrorModalShown(true);
+                                                return;
+                                            }
+                                            handleMultiplayerAction("createPrivateGame");
+                                        }}
+                                    >
+                                        Create Party
+                                    </button>
+                                    <button 
+                                        className="homeBtn home__join_party_btn" 
+                                        disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                        onClick={() => {
+                                            if(!ws || !multiplayerState?.connected) {
+                                                setConnectionErrorModalShown(true);
+                                                return;
+                                            }
+                                            handleMultiplayerAction("joinPrivateGame");
+                                        }}
+                                    >
+                                        Join Party
+                                    </button>
+                                    {!process.env.NEXT_PUBLIC_COOLMATH && (
                                         <button 
-                                            className="homeBtn home__create_party_btn" 
-                                            disabled={maintenance || !ws || !multiplayerState?.connected} 
+                                            className="homeBtn home__custom_maps_btn" 
                                             onClick={() => {
-                                                if(!ws || !multiplayerState?.connected) {
-                                                    setConnectionErrorModalShown(true);
-                                                    return;
-                                                }
-                                                handleMultiplayerAction("createPrivateGame");
+                                                setMapModal(true);
                                             }}
                                         >
-                                            Create Party
+                                            Custom Maps
                                         </button>
-                                        <button 
-                                            className="homeBtn home__join_party_btn" 
-                                            disabled={maintenance || !ws || !multiplayerState?.connected} 
-                                            onClick={() => {
-                                                if(!ws || !multiplayerState?.connected) {
-                                                    setConnectionErrorModalShown(true);
-                                                    return;
-                                                }
-                                                handleMultiplayerAction("joinPrivateGame");
-                                            }}
-                                        >
-                                            Join Party
-                                        </button>
-                                        {!process.env.NEXT_PUBLIC_COOLMATH && (
-                                            <button 
-                                                className="homeBtn home__custom_maps_btn" 
-                                                onClick={() => {
-                                                    setMapModal(true);
-                                                }}
-                                            >
-                                                Custom Maps
-                                            </button>
-                                        )}
-                                    </div>
+                                    )}
+                                </div>
                                 )}
                             </div>
                         )}
@@ -3066,4 +3118,5 @@ if(window.inCrazyGames) {
             </main>
         </>
     )
+}
 }
