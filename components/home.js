@@ -2209,7 +2209,7 @@ export default function Home({ }) {
                     }
                 } else {
                     // Current location found in array, pick a different one
-                    if (gameOptions.location === "all") {
+                    if (optionsToUse.location === "all") {
                         // Pick a random location instead of sequential access
                         // Filter out the current location to avoid repeats
                         const availableLocs = allLocsArray.filter((l) => l.lat !== latLong.lat || l.long !== latLong.long);
