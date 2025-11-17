@@ -104,7 +104,7 @@ export default function WsIcon({ connected, shown, onClick, connecting }) {
   if (!shown || !showIcon) return null;
 
   const getColor = () => {
-    if (connected) return '#22c55e';
+    if (connected) return '#7046e3';
     if (connecting) return '#7046e3';
     return '#ef4444';
   };

@@ -110,13 +110,13 @@ export default function AccountView({ accountData, supporter, eloData, session }
         padding: '12px 24px',
         border: 'none',
         borderRadius: '25px',
-        background: 'linear-gradient(135deg, #28a745, #20c997)',
+        background: 'linear-gradient(135deg, #9a81f3, #7046e3)',
         color: 'white',
         cursor: 'pointer',
         fontSize: '16px',
         fontWeight: '600',
         transition: 'all 0.3s ease',
-        boxShadow: '0 4px 15px rgba(40, 167, 69, 0.3)',
+        boxShadow: '0 4px 15px rgba(112, 70, 227, 0.3)',
         textTransform: 'uppercase',
         letterSpacing: '0.5px'
     };
@@ -155,11 +155,11 @@ export default function AccountView({ accountData, supporter, eloData, session }
                         onClick={changeName}
                         onMouseEnter={(e) => {
                             e.target.style.transform = 'translateY(-2px)';
-                            e.target.style.boxShadow = '0 6px 20px rgba(40, 167, 69, 0.4)';
+                            e.target.style.boxShadow = '0 6px 20px rgba(112, 70, 227, 0.4)';
                         }}
                         onMouseLeave={(e) => {
                             e.target.style.transform = 'translateY(0)';
-                            e.target.style.boxShadow = '0 4px 15px rgba(40, 167, 69, 0.3)';
+                            e.target.style.boxShadow = '0 4px 15px rgba(112, 70, 227, 0.3)';
                         }}
                     >
                         {text("changeName")}

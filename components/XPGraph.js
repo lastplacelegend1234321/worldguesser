@@ -281,13 +281,13 @@ export default function XPGraph({ session, mode = 'xp' }) {
                     (viewMode === 'xp' ? text('totalXP') : text('xpRank')) :
                     (viewMode === 'elo' ? text('elo') : text('eloRank')),
                 data: dataPoints,
-                borderColor: (mode === 'xp' && viewMode === 'xp') || (mode === 'elo' && viewMode === 'elo') ? '#4CAF50' : '#2196F3',
-                backgroundColor: (mode === 'xp' && viewMode === 'xp') || (mode === 'elo' && viewMode === 'elo') ? 'rgba(76, 175, 80, 0.1)' : 'rgba(33, 150, 243, 0.1)',
+                borderColor: (mode === 'xp' && viewMode === 'xp') || (mode === 'elo' && viewMode === 'elo') ? '#7046e3' : '#2196F3',
+                backgroundColor: (mode === 'xp' && viewMode === 'xp') || (mode === 'elo' && viewMode === 'elo') ? 'rgba(112, 70, 227, 0.1)' : 'rgba(33, 150, 243, 0.1)',
                 fill: true,
                 tension: 0,
                 pointRadius: pointRadii,
                 pointHoverRadius: 6,
-                pointBackgroundColor: (mode === 'xp' && viewMode === 'xp') || (mode === 'elo' && viewMode === 'elo') ? '#4CAF50' : '#2196F3',
+                pointBackgroundColor: (mode === 'xp' && viewMode === 'xp') || (mode === 'elo' && viewMode === 'elo') ? '#7046e3' : '#2196F3',
                 pointBorderColor: '#ffffff',
                 pointBorderWidth: 2,
                 suggestedMin,
@@ -440,7 +440,7 @@ export default function XPGraph({ session, mode = 'xp' }) {
                         width: '40px',
                         height: '40px',
                         border: '3px solid rgba(255,255,255,0.3)',
-                        borderTop: '3px solid #4CAF50',
+                        borderTop: '3px solid #7046e3',
                         borderRadius: '50%',
                         animation: 'spin 1s linear infinite',
                         margin: '0 auto 20px'
@@ -657,7 +657,7 @@ export default function XPGraph({ session, mode = 'xp' }) {
                 }
 
                 .toggle-btn.active {
-                    background: #4CAF50;
+                    background: #7046e3;
                     transform: scale(1.05);
                 }
 
@@ -693,8 +693,8 @@ export default function XPGraph({ session, mode = 'xp' }) {
 
                 .date-input:focus {
                     outline: none;
-                    border-color: #4CAF50;
-                    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+                    border-color: #7046e3;
+                    box-shadow: 0 0 0 2px rgba(112, 70, 227, 0.2);
                 }
 
                 .date-separator {

@@ -41,7 +41,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid #4CAF50;
+  border-top: 3px solid #7046e3;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -109,7 +109,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #4CAF50, #2196F3, #9C27B0, #FF5722);
+  background: linear-gradient(90deg, #7046e3, #2196F3, #9C27B0, #FF5722);
   opacity: 0;
   transition: opacity 0.3s ease;
 }

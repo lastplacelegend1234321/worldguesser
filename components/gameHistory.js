@@ -55,7 +55,7 @@ export default function GameHistory({ session, onGameClick }) {
 
   const getGameTypeDisplay = (gameType) => {
     const types = {
-      'singleplayer': { label: text('singleplayer'), icon: '👤', color: '#4CAF50' },
+      'singleplayer': { label: text('singleplayer'), icon: '👤', color: '#7046e3' },
       'ranked_duel': { label: text('rankedDuel'), icon: '⚔️', color: '#FF5722' },
       'unranked_multiplayer': { label: text('multiplayer'), icon: '👥', color: '#2196F3' },
       'private_multiplayer': { label: text('privateGame'), icon: '🔒', color: '#9C27B0' }
@@ -152,7 +152,7 @@ export default function GameHistory({ session, onGameClick }) {
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>{text('result')}</span>
                       <span className={styles.statValue} style={{
-                        color: (game.userStats?.finalRank === 1 || game.userPlayer?.finalRank === 1) ? '#4CAF50' : '#F44336'
+                        color: (game.userStats?.finalRank === 1 || game.userPlayer?.finalRank === 1) ? '#7046e3' : '#F44336'
                       }}>
                         {(game.userStats?.finalRank === 1 || game.userPlayer?.finalRank === 1) ? text('victory') : text('defeat')}
                       </span>
@@ -160,7 +160,7 @@ export default function GameHistory({ session, onGameClick }) {
                     <div className={styles.statItem}>
                       <span className={styles.statLabel}>{text('elo')}</span>
                       <span className={styles.statValue} style={{
-                        color: (game.userStats?.elo?.change >= 0 || game.userPlayer?.elo?.change >= 0) ? '#4CAF50' : '#F44336'
+                        color: (game.userStats?.elo?.change >= 0 || game.userPlayer?.elo?.change >= 0) ? '#7046e3' : '#F44336'
                       }}>
                         {((game.userStats?.elo?.change || game.userPlayer?.elo?.change) > 0) ? '+' : ''}{(game.userStats?.elo?.change || game.userPlayer?.elo?.change) ?? 0}
                       </span>
