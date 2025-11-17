@@ -1281,19 +1281,19 @@ html {
     justify-content: center;
 }
 
-/* When not on home screen (during gameplay), make buttons even smaller */
+/* When not on home screen (during gameplay), make buttons normal size */
 .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
-    max-width: 180px;
-    padding: 5px 10px;
-    font-size: 0.8em;
-    min-height: 30px;
+    max-width: 200px;
+    padding: 8px 16px;
+    font-size: 0.95em;
+    min-height: 38px;
 }
 
 .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
-    max-width: 180px;
-    padding: 5px 10px;
-    font-size: 0.8em;
-    min-height: 30px;
+    max-width: 200px;
+    padding: 8px 16px;
+    font-size: 0.95em;
+    min-height: 38px;
 }
 
 .friendBtn:hover {
@@ -1319,14 +1319,14 @@ html {
     }
 
 .friendBtnUsername {
-    font-size: 0.85em; /* Smaller font */
+    font-size: 0.95em; /* Normal font size */
     font-weight: 700;
     color: white;
     padding: 0 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 180px; /* Smaller max-width */
+    max-width: 190px; /* Increased max-width */
     display: block;
     line-height: 1.2;
 }
@@ -1504,8 +1504,8 @@ html {
 
 .gameBtn.navBtn.g2_green_button.g2_lexend svg {
     flex-shrink: 0; /* Prevent the pencil icon from shrinking */
-    width: 14px; /* Smaller icon */
-    height: 14px;
+    width: 16px; /* Normal icon size */
+    height: 16px;
 }
 
 @media screen and (max-width: 600px) {
@@ -1763,8 +1763,9 @@ h1, h2, h3, span, label {
 .navbar__right {
     margin-left: auto;
     display: flex;
-    gap: 10px;
+    gap: 12px;
     height: 80%;
+    align-items: center;
 }
 
 .timer {
