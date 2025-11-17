@@ -100,7 +100,7 @@ export default function MakeMapForm({ map, setMap, createMap }) {
 
         <label>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            Name <span style={{ color: formData.name.length < mapConst.MIN_NAME_LENGTH ? 'red' : 'green', marginLeft: '8px' }}>({formData.name.length} / {mapConst.MAX_NAME_LENGTH})</span>
+            Name <span style={{ color: formData.name.length < mapConst.MIN_NAME_LENGTH ? 'red' : '#7046e3', marginLeft: '8px' }}>({formData.name.length} / {mapConst.MAX_NAME_LENGTH})</span>
           </div>
           <input
             type="text"
@@ -115,7 +115,7 @@ export default function MakeMapForm({ map, setMap, createMap }) {
 
         <label>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-          Short Description <span style={{ color: formData.description_short.length < mapConst.MIN_SHORT_DESCRIPTION_LENGTH ? 'red' : 'green', marginLeft: '8px' }}>({formData.description_short.length} / {mapConst.MAX_SHORT_DESCRIPTION_LENGTH})</span>
+          Short Description <span style={{ color: formData.description_short.length < mapConst.MIN_SHORT_DESCRIPTION_LENGTH ? 'red' : '#7046e3', marginLeft: '8px' }}>({formData.description_short.length} / {mapConst.MAX_SHORT_DESCRIPTION_LENGTH})</span>
           </div>
           <input
             type="text"
@@ -157,7 +157,7 @@ export default function MakeMapForm({ map, setMap, createMap }) {
 
 
           { formData.data.length < mapConst.MIN_LOCATIONS && <span style={{ color: 'red', marginLeft: '8px' }}>({mapConst.MIN_LOCATIONS - formData.data.length} more needed)</span> }
-          { formData.data.length >= mapConst.MIN_LOCATIONS && <span style={{ color: 'green', marginLeft: '8px' }}>({formData.data.length} / {mapConst.MAX_LOCATIONS})</span> }
+          { formData.data.length >= mapConst.MIN_LOCATIONS && <span style={{ color: '#7046e3', marginLeft: '8px' }}>({formData.data.length} / {mapConst.MAX_LOCATIONS})</span> }
           </div>
           { !uploaded && (
             <>

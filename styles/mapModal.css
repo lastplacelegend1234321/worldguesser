@@ -1,9 +1,9 @@
 /* Maps Page Styles */
 :root {
-  --map-primary: #245734;
-  --map-primary-dark: #112b18;
-  --map-primary-light: #3a7a52;
-  --map-bg-overlay: rgba(36, 87, 52, 0.05);
+  --map-primary: #7046e3;
+  --map-primary-dark: #5532c6;
+  --map-primary-light: #9a81f3;
+  --map-bg-overlay: rgba(112, 70, 227, 0.05);
   --map-card-bg: rgba(0, 0, 0, 0.3);
   --map-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   --map-border-radius: 8px;
@@ -170,7 +170,7 @@
 .map-search-input:focus {
   outline: none;
   border-color: var(--map-primary);
-  box-shadow: 0 0 0 3px rgba(36, 87, 52, 0.2);
+  box-shadow: 0 0 0 3px rgba(112, 70, 227, 0.2);
 }
 
 .map-search-icon {
@@ -690,12 +690,12 @@
 }
 
 .map-tile__review-options .accept {
-  background: rgba(40, 167, 69, 0.9);
+  background: rgba(112, 70, 227, 0.9);
   color: white;
 }
 
 .map-tile__review-options .accept:hover {
-  background: rgba(40, 167, 69, 1);
+  background: rgba(112, 70, 227, 1);
 }
 
 .map-tile__review-options .reject {
@@ -996,7 +996,7 @@
 .make-map-form textarea:focus {
   outline: none;
   border-color: var(--map-primary);
-  box-shadow: 0 0 0 3px rgba(36, 87, 52, 0.2);
+  box-shadow: 0 0 0 3px rgba(112, 70, 227, 0.2);
   background: rgba(255, 255, 255, 0.16);
   transform: translateY(-1px);
 }
@@ -1043,7 +1043,7 @@
 .url-input:focus {
   outline: none;
   border-color: var(--map-primary);
-  box-shadow: 0 0 0 2px rgba(36, 87, 52, 0.15);
+  box-shadow: 0 0 0 2px rgba(112, 70, 227, 0.15);
   background: rgba(255, 255, 255, 0.16);
 }
 
@@ -1179,7 +1179,7 @@
 
 .make-map-form button[type="submit"]:hover:not(:disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(36, 87, 52, 0.4);
+  box-shadow: 0 8px 25px rgba(112, 70, 227, 0.4);
 }
 
 .make-map-form button:disabled {
@@ -1206,8 +1206,8 @@
 /* Upload Success State */
 .make-map-form > div:has(button:contains("Clear Upload")) {
   padding: 20px;
-  background: rgba(40, 167, 69, 0.15);
-  border: 1px solid rgba(40, 167, 69, 0.3);
+  background: rgba(112, 70, 227, 0.15);
+  border: 1px solid rgba(112, 70, 227, 0.3);
   border-radius: 12px;
   margin-top: 16px;
 }
@@ -1232,8 +1232,8 @@
 }
 
 .make-map-form span[style*="color: green"] {
-  background: rgba(40, 167, 69, 0.2) !important;
-  color: #51cf66 !important;
+  background: rgba(112, 70, 227, 0.2) !important;
+  color: #b39cff !important;
 }
 
 /* Base */
