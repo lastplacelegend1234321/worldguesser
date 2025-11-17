@@ -1249,6 +1249,7 @@ export default function Home({ }) {
 
             if (!ws && !multiplayerState.connecting && !multiplayerState.connected && !window?.dontReconnect) {
                 try {
+                    // Set connecting state immediately to show connecting message
                     setMultiplayerState((prev) => ({
                         ...prev,
                         connecting: true,
