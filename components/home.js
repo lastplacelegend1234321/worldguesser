@@ -319,11 +319,24 @@ export default function Home({ }) {
 
                     if (data.secret) {
                         setSession({ token: data })
-                        window.localStorage.setItem("wg_secret", data.secret)
-                        console.log(`[Auth] Login successful for user:`, data.username);
+                        // Use gameStorage wrapper for incognito mode compatibility
+                        try {
+                            const { default: gameStorage } = await import("@/components/utils/localStorage");
+                            gameStorage.setItem("wg_secret", data.secret);
+                        } catch (e) {
+                            // Fallback to direct localStorage
+                            try {
+                                window.localStorage.setItem("wg_secret", data.secret);
+                            } catch (e2) {
+                                console.warn("[Auth] Could not save secret (incognito mode)");
+                                toast.warn("Login successful but session may not persist in incognito mode");
+                            }
+                        }
+                        console.log(`[Auth] Login successful for user:`, data.username || data.email);
+                        toast.success(`Welcome${data.username ? `, ${data.username}` : ''}!`);
                     } else {
                         console.error("[Auth] No secret received from server");
-                        toast.error("Login error, contact support if this persists (2)")
+                        toast.error("Login error: No authentication token received. Please try again.")
                     }
 
                 }).catch((e) => {
@@ -332,13 +345,18 @@ export default function Home({ }) {
                 })
             },
             onError: error => {
-                toast.error("Login error, contact support if this persists")
-                console.log("login error", error);
+                console.error("Google OAuth error:", error);
+                if (error.error === 'popup_closed_by_user') {
+                    toast.info("Login cancelled");
+                } else if (error.error === 'popup_blocked') {
+                    toast.error("Popup blocked. Please allow popups for this site and try again.");
+                } else {
+                    toast.error(`Login failed: ${error.error || 'Unknown error'}. Please try again.`);
+                }
             },
             onNonOAuthError: error => {
-                console.log("login non oauth error", error);
-                toast.error("Login error, contact support if this persists (1)")
-
+                console.error("Google OAuth non-OAuth error:", error);
+                toast.error(`Login configuration error. Please contact support if this persists.`);
             },
             flow: "auth-code",
 
