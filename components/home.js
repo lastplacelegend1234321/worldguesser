@@ -2125,15 +2125,19 @@ export default function Home({ }) {
                                 }
 
                     } else {
-                        console.warn("API returned data.ready = false");
+                        console.warn("API returned data.ready = false for", gameOptions.location, data);
                         if (gameOptions.location !== "all") {
                             toast(text("errorLoadingMap"), { type: 'error' })
                         }
+                        // Always stop loading and use fallback
+                        setLoading(false);
                         defaultMethod()
                     }
                 }).catch((e) => {
                     clearTimeout(timeoutId);
-                    console.error("Error fetching locations:", e);
+                    console.error("Error fetching locations:", e, "URL:", url);
+                    // Always stop loading on error
+                    setLoading(false);
                     // Only show error toast if it's not a timeout/abort (timeout will be handled by fallback)
                     if (e.name !== 'AbortError' && e.name !== 'TimeoutError') {
                         toast(text("errorLoadingMap"), { type: 'error' })
