@@ -6,6 +6,10 @@ import sendEvent from "../utils/sendEvent";
 export default function AccountBtn({ session, openAccountModal, navbarMode, inCrazyGames }) {
   const { t: text } = useTranslation("common");
 
+  // Don't render anything when logged in - account access is via other means
+  if(session?.token?.secret) {
+    return null;
+  }
 
   if(inCrazyGames && (!session || !session?.token?.secret)) {
     return null;
@@ -38,15 +42,7 @@ export default function AccountBtn({ session, openAccountModal, navbarMode, inCr
           </div>
         )}
         </button>
-    ) : (
-        <button className={`gameBtn ${navbarMode ? 'navBtn' : 'accountBtn loggedIn'} ${session?.token?.supporter ? 'supporterBtn' : ''}`} onClick={() => {
-        openAccountModal()
-        }}>
-          <span className="accountBtnText">
-            {session?.token?.username || 'Account'}
-          </span>
-        </button>
-    )}
+    ) : null}
     </>
   )
 }

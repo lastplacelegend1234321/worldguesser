@@ -1249,13 +1249,7 @@ html {
         inset 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
-.accountBtn.loggedIn {
-    top: 70px; /* Position below ELO and friends buttons */
-    right: 20px;
-    font-size: 0.85em; /* Smaller font */
-    padding: 8px 16px; /* Smaller padding */
-    min-height: auto;
-}
+/* Account button when logged in is now hidden - removed */
 
 .friendBtn {
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 165, 0, 0.9) 100%);
