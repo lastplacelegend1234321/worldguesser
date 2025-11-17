@@ -919,9 +919,17 @@ html {
     align-items: center;
     gap: 8px;
     background: rgba(0, 0, 0, 0.5);
-    padding: 8px 16px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
+}
+
+/* Mobile: Adjust online counter position */
+@media screen and (max-width: 600px) {
+    .home__online_counter {
+        bottom: 15px;
+        left: 15px;
+        font-size: 0.9em;
+        padding: 6px 12px;
+        max-width: calc(100vw - 30px); /* Prevent overflow */
+    }
 }
 
 .home__online_counter::before {
@@ -1296,6 +1304,27 @@ html {
     min-height: 38px;
 }
 
+/* Mobile gameplay: Ensure buttons don't overlap */
+@media screen and (max-width: 600px) {
+    .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
+        max-width: calc(50vw - 30px); /* Half screen minus padding */
+        padding: 6px 12px;
+        font-size: 0.85em;
+        min-height: 32px;
+    }
+    
+    .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
+        max-width: calc(50vw - 30px); /* Half screen minus padding */
+        padding: 6px 12px;
+        font-size: 0.85em;
+        min-height: 32px;
+    }
+    
+    .navbar.navbarColor .navbar__right {
+        gap: 6px; /* Smaller gap on mobile */
+    }
+}
+
 .friendBtn:hover {
     background: linear-gradient(135deg, #FFB347 0%, #FFA500 100%);
     transform: translateY(-2px);
@@ -1349,23 +1378,34 @@ html {
 }
 //less than 600px
 @media screen and (max-width: 600px) {
-.accountBtn {
-        font-size: 0.8em;
+    .accountBtn {
+        font-size: 0.75em;
         top: 10px;
         right: 10px;
-        padding: 8px 16px;
+        padding: 6px 12px;
+        max-width: calc(50vw - 20px); /* Prevent overflow */
     }
     .friendBtn.friendBtnFixed {
-        height: 30px;
+        height: 32px;
+        max-width: calc(50vw - 20px); /* Prevent overflow */
     }
     .friendBtn:has(.friendBtnUsername) {
-        min-width: 90px;
-        padding: 6px 12px;
-        font-size: 0.85em;
+        min-width: 80px;
+        max-width: calc(50vw - 20px); /* Prevent overflow */
+        padding: 6px 10px;
+        font-size: 0.8em;
     }
     .friendBtnIcon.friendBtnIconFixed {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
+    }
+    .leagueBtn {
+        max-width: calc(50vw - 20px); /* Prevent overflow */
+        font-size: 0.85em;
+    }
+    /* Ensure buttons don't overlap on mobile */
+    .friendBtnFixed + .leagueBtn {
+        margin-top: 8px; /* Extra spacing */
     }
 }
 
@@ -1699,6 +1739,25 @@ h1, h2, h3, span, label {
     min-height: 70px;
     transition: all 0.5s;
 }
+
+/* Mobile: Optimize navbar for small screens */
+@media screen and (max-width: 600px) {
+    .navbar {
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: max(env(safe-area-inset-top), 15px);
+        padding-bottom: 8px;
+        min-height: 60px;
+    }
+    
+    .navbar__title {
+        font-size: 1.4em; /* Smaller title on mobile */
+    }
+    
+    .navbar__title.mobile {
+        font-size: 1.2em;
+    }
+}
 // .navbarColor {
 //     background: var(--primaryTransparent);
 // }
@@ -1766,6 +1825,17 @@ h1, h2, h3, span, label {
     gap: 12px;
     height: 80%;
     align-items: center;
+    flex-wrap: wrap;
+    max-width: calc(100vw - 120px); /* Prevent overflow, account for navbar title */
+}
+
+/* Mobile: Reduce gap and ensure buttons fit */
+@media screen and (max-width: 600px) {
+    .navbar__right {
+        gap: 8px;
+        max-width: calc(100vw - 100px);
+        justify-content: flex-end;
+    }
 }
 
 .timer {
@@ -1797,6 +1867,17 @@ h1, h2, h3, span, label {
     margin-right: 20px;
     letter-spacing: 0.025em;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile: Adjust timer position to avoid overlap */
+@media screen and (max-width: 600px) {
+    .timer {
+        top: calc(max(env(safe-area-inset-top), 15px) + 60px);
+        font-size: 1rem;
+        padding: 8px 16px;
+        margin-right: 10px;
+        max-width: calc(100vw - 20px); /* Prevent overflow */
+    }
 }
 
 .timer.shown {
@@ -2989,6 +3070,20 @@ h1, h2, h3, span, label {
     z-index: 2000;
 }
 
+/* Mobile: Adjust chatbox position to avoid overlap */
+@media screen and (max-width: 600px) {
+    .chatboxParent {
+        bottom: 15px;
+        left: 15px;
+        max-width: calc(100vw - 30px); /* Prevent overflow */
+    }
+    
+    .chatboxParent.roundOverScreen {
+        right: 15px;
+        left: auto;
+    }
+}
+
 /* Move chat to bottom-right when round over screen is shown */
 .chatboxParent.roundOverScreen {
     left: auto;
@@ -3195,6 +3290,23 @@ input[placeholder="Please login to chat"] {
     .home__multiplayer_btn {
         min-height: 56px !important; /* Larger touch target for primary actions */
         padding: 18px 28px !important;
+    }
+    
+    /* Ensure home buttons don't overflow */
+    .home__btns {
+        width: 95vw;
+        padding: 0 10px;
+    }
+    
+    .home__play_btn,
+    .home__multiplayer_btn {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .home__party_buttons {
+        width: 95vw;
+        padding: 0 10px;
     }
 
     /* Better mobile input handling */
@@ -5132,14 +5244,23 @@ div[dir="ltr"] {
 // less than 900px
 @media (max-width: 600px) {
     .leagueBtn {
-        top: calc(10px + 38px + 8px); /* Friends button height on mobile + gap */
-        font-size: 0.9em;
-        max-width: 150px;
-        padding: 4px 8px;
+        top: calc(10px + 38px + 10px); /* Friends button height on mobile + larger gap */
+        font-size: 0.85em;
+        max-width: calc(50vw - 20px); /* Prevent overflow */
+        padding: 5px 10px;
         min-width: 50px;
+        right: 10px;
     }
     .friendBtnFixed {
-        max-width: 150px;
+        max-width: calc(50vw - 20px); /* Prevent overflow */
+        right: 10px;
+    }
+    /* Ensure proper spacing between top-right buttons */
+    .accountBtn,
+    .friendBtnFixed,
+    .leagueBtn {
+        margin-right: 0;
+        margin-left: auto;
     }
 }
 
