@@ -2054,6 +2054,11 @@ export default function Home({ }) {
             options = options.sort(() => Math.random() - 0.5)
             setOtherOptions(options)
         } else {
+            // Track if we've already shown an error for this map to prevent spam
+            const errorKey = `mapError_${optionsToUse.location}`;
+            const lastErrorTime = window[errorKey] || 0;
+            const timeSinceLastError = Date.now() - lastErrorTime;
+            
             function defaultMethod() {
                 // Fallback: Use client-side location generation
                 console.log("Using fallback location generation for:", optionsToUse.location, "countryMap:", optionsToUse.countryMap);
@@ -2062,7 +2067,11 @@ export default function Home({ }) {
                 const fallbackTimeout = setTimeout(() => {
                     console.warn("Fallback location generation timed out for:", optionsToUse.location);
                     setLoading(false);
-                    toast(text("errorLoadingMap"), { type: 'error' });
+                    // Only show error if we haven't shown one recently (prevent spam)
+                    if (timeSinceLastError > 5000) {
+                        toast(text("errorLoadingMap"), { type: 'error' });
+                        window[errorKey] = Date.now();
+                    }
                 }, 15000); // 15 second timeout for fallback
                 
                 // Ensure we're using the correct location for fallback
@@ -2082,16 +2091,26 @@ export default function Home({ }) {
                         setLatLong(latLong);
                         setLoading(false);
                         console.log("Fallback generated location for", optionsToUse.location, ":", latLong);
+                        // Clear error tracking on success
+                        window[errorKey] = 0;
                     } else {
                         console.error("Failed to generate location - findLatLongRandom returned null for:", optionsToUse.location);
-                        toast(text("errorLoadingMap"), { type: 'error' });
                         setLoading(false);
+                        // Only show error if we haven't shown one recently (prevent spam)
+                        if (timeSinceLastError > 5000) {
+                            toast(text("errorLoadingMap"), { type: 'error' });
+                            window[errorKey] = Date.now();
+                        }
                     }
                 }).catch((e) => {
                     clearTimeout(fallbackTimeout);
                     console.error("Error in defaultMethod for", optionsToUse.location, ":", e);
-                    toast(text("errorLoadingMap"), { type: 'error' });
                     setLoading(false);
+                    // Only show error if we haven't shown one recently (prevent spam)
+                    if (timeSinceLastError > 5000) {
+                        toast(text("errorLoadingMap"), { type: 'error' });
+                        window[errorKey] = Date.now();
+                    }
                 });
             }
             function fetchMethod() {
