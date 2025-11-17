@@ -102,7 +102,13 @@ export default function initWebsocket(url, existingWebsocket, timeoutMs, numberO
           };
           
           websocket.onclose = function (event) {
-              console.warn(`[WS ${attemptId}] WebSocket closed (code: ${event.code}, reason: ${event.reason}, wasClean: ${event.wasClean})`);
+              console.warn(`[WS ${attemptId}] WebSocket closed (code: ${event.code}, reason: ${event.reason || 'no reason'}, wasClean: ${event.wasClean})`);
+              console.warn(`[WS ${attemptId}] Close event details:`, {
+                  code: event.code,
+                  reason: event.reason,
+                  wasClean: event.wasClean,
+                  url: url
+              });
               if(!hasReturned) {
                   rejectInternal('close');
               }
@@ -110,6 +116,12 @@ export default function initWebsocket(url, existingWebsocket, timeoutMs, numberO
           
           websocket.onerror = function (event) {
               console.error(`[WS ${attemptId}] WebSocket error occurred:`, event);
+              console.error(`[WS ${attemptId}] Error details:`, {
+                  type: event.type,
+                  target: event.target?.url,
+                  readyState: event.target?.readyState,
+                  url: url
+              });
               if(!hasReturned) {
                   rejectInternal('error');
               }

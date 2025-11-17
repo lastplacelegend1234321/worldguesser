@@ -1304,7 +1304,13 @@ export default function Home({ }) {
                             ws = await initWebsocket(wsUrl, null, 5000, 0) // 0 retries, we handle it ourselves
                             break;
                         } catch (error) {
-                            console.log(`Connection attempt ${currentAttempt}/${maxAttempts} failed`);
+                            console.error(`[Multiplayer] Connection attempt ${currentAttempt}/${maxAttempts} failed:`, error);
+                            console.error(`[Multiplayer] Error details:`, {
+                                message: error.message,
+                                stack: error.stack,
+                                wsUrl: wsUrl,
+                                attempt: currentAttempt
+                            });
                             if (currentAttempt < maxAttempts) {
                                 currentAttempt++;
                                 await new Promise(resolve => setTimeout(resolve, 5000)); // 5 second delay
