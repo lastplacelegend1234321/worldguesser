@@ -1268,7 +1268,14 @@ export default function Home({ }) {
                                 currentRetry: currentAttempt
                             }))
 
-                            ws = await initWebsocket(clientConfig().websocketUrl, null, 5000, 0) // 0 retries, we handle it ourselves
+                            const wsUrl = clientConfig().websocketUrl;
+                            console.log("[Multiplayer] Attempting WebSocket connection to:", wsUrl);
+                            console.log("[Multiplayer] Environment check:", {
+                                NEXT_PUBLIC_WS_HOST: process.env.NEXT_PUBLIC_WS_HOST,
+                                NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+                                windowHostname: typeof window !== 'undefined' ? window.location.hostname : 'SSR'
+                            });
+                            ws = await initWebsocket(wsUrl, null, 5000, 0) // 0 retries, we handle it ourselves
                             break;
                         } catch (error) {
                             console.log(`Connection attempt ${currentAttempt}/${maxAttempts} failed`);
