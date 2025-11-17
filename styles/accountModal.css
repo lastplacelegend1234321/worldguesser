@@ -343,6 +343,9 @@
             rgba(0, 0, 0, 0.95) 100%
         ),
         url("/styles/images/proguessr_profile_background.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
     }
 }
 
