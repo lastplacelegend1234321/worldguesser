@@ -261,9 +261,6 @@ html {
         padding: max(env(safe-area-inset-top), 5px) max(env(safe-area-inset-right), 5px) max(env(safe-area-inset-bottom), 5px) max(env(safe-area-inset-left), 5px);
     }
 }
-    background-size: cover;
-    background-position: center;
-}
 
 @keyframes nav_slide_in {
     from {
