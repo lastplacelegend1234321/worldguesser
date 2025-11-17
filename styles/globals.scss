@@ -112,17 +112,35 @@ html {
     position: fixed;
     z-index: 100;
     left: 50%;
-    top: 34%;
-    transform: translate(-50%, -34%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     max-width: 720px;
-    padding: 0 28px;
+    padding: max(env(safe-area-inset-top), 20px) 28px max(env(safe-area-inset-bottom), 20px);
     overflow-y: auto;
     box-sizing: border-box;
+}
+
+/* Mobile: Adjust for short screens */
+@media (max-height: 600px) {
+    .home__content {
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: max(env(safe-area-inset-top), 10px) 20px max(env(safe-area-inset-bottom), 10px);
+        max-height: calc(100vh - 40px);
+    }
+}
+
+/* Very short screens */
+@media (max-height: 500px) {
+    .home__content {
+        padding: max(env(safe-area-inset-top), 5px) 15px max(env(safe-area-inset-bottom), 5px);
+        max-height: calc(100vh - 20px);
+    }
 }
 
 /// ccar
@@ -221,6 +239,28 @@ html {
     display: flex !important;
     position: absolute;
     object-fit: cover;
+    padding: max(env(safe-area-inset-top), 0) max(env(safe-area-inset-right), 0) max(env(safe-area-inset-bottom), 0) max(env(safe-area-inset-left), 0);
+    box-sizing: border-box;
+}
+
+/* Mobile: Full-screen modals with proper padding */
+@media screen and (max-width: 768px) {
+    .g2_modal {
+        padding: max(env(safe-area-inset-top), 10px) max(env(safe-area-inset-right), 10px) max(env(safe-area-inset-bottom), 10px) max(env(safe-area-inset-left), 10px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .g2_modal {
+        padding: max(env(safe-area-inset-top), 8px) max(env(safe-area-inset-right), 8px) max(env(safe-area-inset-bottom), 8px) max(env(safe-area-inset-left), 8px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .g2_modal {
+        padding: max(env(safe-area-inset-top), 5px) max(env(safe-area-inset-right), 5px) max(env(safe-area-inset-bottom), 5px) max(env(safe-area-inset-left), 5px);
+    }
+}
     background-size: cover;
     background-position: center;
 }
@@ -386,6 +426,41 @@ html {
     transform: translateY(100px);
     opacity: 0;
     transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Mobile: Adjust footer positioning */
+@media screen and (max-width: 600px) {
+    .home__footer {
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        bottom: max(env(safe-area-inset-bottom), 20px);
+        width: 90vw;
+        max-width: 500px;
+    }
+    
+    .footer_btns {
+        gap: 8px;
+    }
+    
+    .footer_btns button {
+        min-height: 44px;
+        min-width: 44px;
+        font-size: max(3vw, 32px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .home__footer {
+        bottom: max(env(safe-area-inset-bottom), 15px);
+        width: 95vw;
+    }
+    
+    .footer_btns button {
+        min-height: 44px;
+        min-width: 44px;
+        font-size: max(2.5vw, 28px);
+        padding: 8px;
+    }
 }
 .footer_btns {
     display: flex;
@@ -619,6 +694,27 @@ html {
     letter-spacing: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile: Reduce padding */
+@media (max-width: 768px) {
+    .home__title_centered {
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home__title_centered {
+        padding: 0 20px;
+        font-size: min(clamp(3em, 6vw, 4em), clamp(2.5em, 8vh, 3.5em));
+    }
+}
+
+@media (max-width: 360px) {
+    .home__title_centered {
+        padding: 0 15px;
+        font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 7vh, 3em));
+    }
 }
 
 .home__subtitle {
@@ -924,11 +1020,29 @@ html {
 /* Mobile: Adjust online counter position */
 @media screen and (max-width: 600px) {
     .home__online_counter {
-        bottom: 15px;
-        left: 15px;
+        bottom: max(env(safe-area-inset-bottom), 15px);
+        left: max(env(safe-area-inset-left), 15px);
         font-size: 0.9em;
         padding: 6px 12px;
         max-width: calc(100vw - 30px); /* Prevent overflow */
+        min-height: 44px; /* Touch target */
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Move to top-left when not on home screen or hide */
+    .home__online_counter.notHome {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .home__online_counter {
+        bottom: max(env(safe-area-inset-bottom), 10px);
+        left: max(env(safe-area-inset-left), 10px);
+        font-size: 0.85em;
+        padding: 5px 10px;
+        max-width: calc(100vw - 20px);
     }
 }
 
@@ -1310,18 +1424,40 @@ html {
         max-width: calc(50vw - 30px); /* Half screen minus padding */
         padding: 6px 12px;
         font-size: 0.85em;
-        min-height: 32px;
+        min-height: 44px; /* Touch target */
     }
     
     .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
         max-width: calc(50vw - 30px); /* Half screen minus padding */
         padding: 6px 12px;
         font-size: 0.85em;
-        min-height: 32px;
+        min-height: 44px; /* Touch target */
     }
     
     .navbar.navbarColor .navbar__right {
         gap: 6px; /* Smaller gap on mobile */
+    }
+}
+
+/* Very small screens < 360px */
+@media screen and (max-width: 360px) {
+    .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
+        max-width: calc(50vw - 20px);
+        padding: 5px 10px;
+        font-size: 0.8em;
+        min-height: 44px;
+    }
+    
+    .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
+        max-width: calc(50vw - 20px);
+        padding: 5px 10px;
+        font-size: 0.8em;
+        min-height: 44px;
+    }
+    
+    .navbar.navbarColor .navbar__right {
+        gap: 4px;
+        max-width: calc(100vw - 80px); /* Account for title */
     }
 }
 
@@ -1380,20 +1516,25 @@ html {
 @media screen and (max-width: 600px) {
     .accountBtn {
         font-size: 0.75em;
-        top: 10px;
-        right: 10px;
+        top: max(env(safe-area-inset-top), 10px);
+        right: max(env(safe-area-inset-right), 10px);
         padding: 6px 12px;
         max-width: calc(50vw - 20px); /* Prevent overflow */
+        min-height: 44px; /* Touch target */
     }
     .friendBtn.friendBtnFixed {
         height: 32px;
+        min-height: 44px; /* Touch target */
         max-width: calc(50vw - 20px); /* Prevent overflow */
+        top: max(env(safe-area-inset-top), 10px);
+        right: max(env(safe-area-inset-right), 10px);
     }
     .friendBtn:has(.friendBtnUsername) {
         min-width: 80px;
         max-width: calc(50vw - 20px); /* Prevent overflow */
         padding: 6px 10px;
         font-size: 0.8em;
+        min-height: 44px; /* Touch target */
     }
     .friendBtnIcon.friendBtnIconFixed {
         width: 28px;
@@ -1402,10 +1543,46 @@ html {
     .leagueBtn {
         max-width: calc(50vw - 20px); /* Prevent overflow */
         font-size: 0.85em;
+        min-height: 44px; /* Touch target */
     }
     /* Ensure buttons don't overlap on mobile */
     .friendBtnFixed + .leagueBtn {
         margin-top: 8px; /* Extra spacing */
+    }
+}
+
+/* Very small screens < 360px */
+@media screen and (max-width: 360px) {
+    .accountBtn {
+        font-size: 0.7em;
+        padding: 5px 10px;
+        max-width: calc(50vw - 15px);
+        top: max(env(safe-area-inset-top), 8px);
+        right: max(env(safe-area-inset-right), 8px);
+    }
+    .friendBtn.friendBtnFixed {
+        height: 30px;
+        min-height: 44px;
+        max-width: calc(50vw - 15px);
+        top: max(env(safe-area-inset-top), 8px);
+        right: max(env(safe-area-inset-right), 8px);
+    }
+    .friendBtn:has(.friendBtnUsername) {
+        min-width: 70px;
+        max-width: calc(50vw - 15px);
+        padding: 5px 8px;
+        font-size: 0.75em;
+    }
+    .leagueBtn {
+        max-width: calc(50vw - 15px);
+        font-size: 0.8em;
+        padding: 4px 8px;
+        /* Handle very long ELO numbers */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .friendBtnFixed + .leagueBtn {
+        margin-top: 6px;
     }
 }
 
@@ -1779,6 +1956,36 @@ h1, h2, h3, span, label {
     font-family: "Montserrat", sans-serif !important;
     letter-spacing: 0.04em;
     text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+    max-width: calc(100vw - 200px); /* Prevent overlap with buttons */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mobile: Hide desktop title earlier */
+@media screen and (max-width: 768px) {
+    .navbar__title.desktop {
+        display: none;
+    }
+    .navbar__title.mobile {
+        display: block;
+        font-size: 1.4em;
+        max-width: calc(100vw - 150px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar__title.mobile {
+        font-size: 1.2em;
+        max-width: calc(100vw - 120px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .navbar__title.mobile {
+        font-size: 1em;
+        max-width: calc(100vw - 100px);
+    }
 }
 .wg_font {
     font-family: "Montserrat", sans-serif !important;
@@ -1872,11 +2079,22 @@ h1, h2, h3, span, label {
 /* Mobile: Adjust timer position to avoid overlap */
 @media screen and (max-width: 600px) {
     .timer {
-        top: calc(max(env(safe-area-inset-top), 15px) + 60px);
+        top: calc(max(env(safe-area-inset-top), 15px) + 70px); /* Increased to account for navbar */
         font-size: 1rem;
         padding: 8px 16px;
-        margin-right: 10px;
-        max-width: calc(100vw - 20px); /* Prevent overflow */
+        margin-right: max(env(safe-area-inset-right), 10px);
+        max-width: calc(100vw - 40px); /* Prevent overflow, account for safe areas */
+        min-height: 44px; /* Touch target if clickable */
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .timer {
+        top: calc(max(env(safe-area-inset-top), 10px) + 65px);
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        margin-right: max(env(safe-area-inset-right), 8px);
+        max-width: calc(100vw - 30px);
     }
 }
 
@@ -2397,12 +2615,13 @@ h1, h2, h3, span, label {
     }
 
     #miniMapArea.miniMap.shown {
-        bottom: 0;
+        bottom: max(env(safe-area-inset-bottom), 0);
         right: 0;
         opacity: 100%;
         transform: translateY(0%);
         margin-right: 0;
         width: 100%;
+        z-index: 2001; /* Above chatbox */
     }
 
     #miniMapArea.miniMap.shown .chatboxBtn {
@@ -2413,6 +2632,30 @@ h1, h2, h3, span, label {
     // }
     #miniMapContent {
         border: none;
+    }
+    
+    /* Organize bottom controls - minimap takes priority */
+    .mobile_minimap__btns {
+        bottom: max(env(safe-area-inset-bottom), 30px);
+        z-index: 2002; /* Above minimap */
+    }
+    
+    .mobile_minimap__btns.miniMapShown {
+        bottom: calc(max(env(safe-area-inset-bottom), 30px) + 200px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    #miniMapArea.miniMap.shown {
+        height: 180px; /* Smaller minimap on very small screens */
+    }
+    
+    .mobile_minimap__btns {
+        bottom: max(env(safe-area-inset-bottom), 20px);
+    }
+    
+    .mobile_minimap__btns.miniMapShown {
+        bottom: calc(max(env(safe-area-inset-bottom), 20px) + 180px);
     }
 }
 
@@ -3073,14 +3316,33 @@ h1, h2, h3, span, label {
 /* Mobile: Adjust chatbox position to avoid overlap */
 @media screen and (max-width: 600px) {
     .chatboxParent {
-        bottom: 15px;
-        left: 15px;
+        bottom: max(env(safe-area-inset-bottom), 15px);
+        left: max(env(safe-area-inset-left), 15px);
         max-width: calc(100vw - 30px); /* Prevent overflow */
+        z-index: 1999; /* Below minimap when shown */
     }
     
     .chatboxParent.roundOverScreen {
-        right: 15px;
+        right: max(env(safe-area-inset-right), 15px);
         left: auto;
+    }
+    
+    /* Adjust when minimap is shown */
+    #miniMapArea.miniMap.shown ~ .chatboxParent,
+    .chatboxParent:has(+ #miniMapArea.miniMap.shown) {
+        bottom: calc(max(env(safe-area-inset-bottom), 15px) + 200px); /* Above minimap */
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .chatboxParent {
+        bottom: max(env(safe-area-inset-bottom), 10px);
+        left: max(env(safe-area-inset-left), 10px);
+        max-width: calc(100vw - 20px);
+    }
+    
+    .chatboxParent.roundOverScreen {
+        right: max(env(safe-area-inset-right), 10px);
     }
 }
 
@@ -3279,10 +3541,23 @@ input[placeholder="Please login to chat"] {
 
     /* Better touch targets for mobile */
     button, .homeBtn, a {
-        min-height: 44px; /* iOS recommended touch target */
-        min-width: 44px;
+        min-height: 44px !important; /* iOS recommended touch target */
+        min-width: 44px !important;
         -webkit-tap-highlight-color: rgba(112, 70, 227, 0.3);
         touch-action: manipulation; /* Prevent double-tap zoom */
+    }
+    
+    /* Ensure all interactive elements meet touch target requirements */
+    .navBtn, .gameBtn, .accountBtn, .friendBtn, .leagueBtn, .action-btn, .play-again-btn {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+    
+    /* Small icons should have padding to meet touch target */
+    .reloadBtn, .backBtn {
+        padding: 10px !important;
+        min-height: 44px !important;
+        min-width: 44px !important;
     }
 
     /* Improve button spacing on mobile */
@@ -3314,6 +3589,42 @@ input[placeholder="Please login to chat"] {
         font-size: 16px !important; /* Prevents zoom on iOS */
         -webkit-appearance: none;
         border-radius: 8px;
+        min-height: 44px; /* Touch target */
+    }
+    
+    /* Ensure text readability */
+    body, html {
+        font-size: 16px; /* Base font size */
+    }
+    
+    p, span, div, label {
+        font-size: clamp(14px, 4vw, 18px); /* Responsive but readable */
+        line-height: 1.5; /* Better readability */
+    }
+    
+    h1, h2, h3 {
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.3;
+    }
+    
+    /* Small text should still be readable */
+    .small-text, small {
+        font-size: clamp(12px, 3vw, 14px) !important;
+    }
+}
+
+/* Very small screens: Further text adjustments */
+@media screen and (max-width: 360px) {
+    body, html {
+        font-size: 14px;
+    }
+    
+    p, span, div, label {
+        font-size: clamp(13px, 3.5vw, 16px);
+    }
+    
+    h1, h2, h3 {
+        font-size: clamp(16px, 4.5vw, 22px);
     }
 }
 
@@ -3545,6 +3856,24 @@ img[alt="Google"] {
     backdrop-filter: blur(16px);
 }
 
+/* Mobile: Adjust round over content */
+@media screen and (max-width: 600px) {
+    .round-over-content {
+        padding: 20px;
+        width: 95%;
+        max-width: 100%;
+        margin: max(env(safe-area-inset-top), 10px) max(env(safe-area-inset-right), 10px) max(env(safe-area-inset-bottom), 10px) max(env(safe-area-inset-left), 10px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .round-over-content {
+        padding: 15px;
+        width: 98%;
+        margin: max(env(safe-area-inset-top), 5px) max(env(safe-area-inset-right), 5px) max(env(safe-area-inset-bottom), 5px) max(env(safe-area-inset-left), 5px);
+    }
+}
+
 
 
 
@@ -3561,6 +3890,67 @@ img[alt="Google"] {
     flex-direction: column;
 }
 
+/* Mobile: Full-width sidebar overlay */
+@media screen and (max-width: 768px) {
+    .game-summary-container {
+        flex-direction: column;
+    }
+    
+    .game-summary-sidebar {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+        border-left: none;
+        border-top: 2px solid rgba(179, 156, 255, 0.4);
+        box-shadow: 0 -5px 30px rgba(20, 10, 40, 0.45);
+        padding-bottom: max(env(safe-area-inset-bottom), 20px);
+    }
+    
+    .game-summary-map {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        z-index: 1000;
+    }
+    
+    /* Add toggle button to show/hide map */
+    .game-summary-map-toggle {
+        position: fixed;
+        bottom: max(env(safe-area-inset-bottom), 20px);
+        right: max(env(safe-area-inset-right), 20px);
+        z-index: 1002;
+        background: var(--primaryTransparent);
+        color: white;
+        border: 2px solid var(--primary);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .game-summary-sidebar {
+        padding-left: max(env(safe-area-inset-left), 15px);
+        padding-right: max(env(safe-area-inset-right), 15px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .game-summary-sidebar {
+        padding-left: max(env(safe-area-inset-left), 10px);
+        padding-right: max(env(safe-area-inset-right), 10px);
+    }
+}
+
 .summary-header {
     padding: 30px 25px 20px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
@@ -3572,6 +3962,62 @@ img[alt="Google"] {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     flex-shrink: 0;
+}
+
+/* Mobile: Improve spacing in game summary sidebar */
+@media screen and (max-width: 768px) {
+    .summary-header {
+        padding: 20px 15px 15px;
+        padding-top: max(env(safe-area-inset-top), 20px);
+    }
+    
+    .round-item {
+        padding: 12px 15px;
+        margin-bottom: 8px;
+    }
+    
+    .round-details {
+        gap: 8px;
+        margin-top: 6px;
+    }
+    
+    .detail-item {
+        gap: 8px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .summary-header {
+        padding: 15px 12px 12px;
+        padding-top: max(env(safe-area-inset-top), 15px);
+    }
+    
+    .round-item {
+        padding: 10px 12px;
+        margin-bottom: 6px;
+    }
+    
+    .round-details {
+        gap: 6px;
+        margin-top: 4px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .summary-header {
+        padding: 12px 10px 10px;
+        padding-top: max(env(safe-area-inset-top), 12px);
+    }
+    
+    .round-item {
+        padding: 8px 10px;
+        margin-bottom: 4px;
+    }
+    
+    .round-details {
+        gap: 4px;
+        margin-top: 3px;
+    }
 }
 
 .summary-header.compact {
@@ -4695,6 +5141,30 @@ img[alt="Google"] {
     left: 20px;
     width: 50px;
     height: 50px;
+    min-height: 44px; /* Touch target */
+    min-width: 44px;
+}
+
+/* Mobile: Adjust WsIcon position */
+@media screen and (max-width: 600px) {
+    .wsIcon {
+        top: calc(max(env(safe-area-inset-top), 15px) + 60px); /* Below navbar */
+        left: max(env(safe-area-inset-left), 15px);
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .wsIcon {
+        top: calc(max(env(safe-area-inset-top), 10px) + 55px);
+        left: max(env(safe-area-inset-left), 10px);
+        width: 40px;
+        height: 40px;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 2px; /* Padding to meet touch target */
+    }
 }
 
 
@@ -5244,16 +5714,18 @@ div[dir="ltr"] {
 // less than 900px
 @media (max-width: 600px) {
     .leagueBtn {
-        top: calc(10px + 38px + 10px); /* Friends button height on mobile + larger gap */
+        top: calc(max(env(safe-area-inset-top), 10px) + 38px + 10px); /* Friends button height on mobile + larger gap */
         font-size: 0.85em;
         max-width: calc(50vw - 20px); /* Prevent overflow */
         padding: 5px 10px;
         min-width: 50px;
-        right: 10px;
+        right: max(env(safe-area-inset-right), 10px);
+        min-height: 44px; /* Touch target */
     }
     .friendBtnFixed {
         max-width: calc(50vw - 20px); /* Prevent overflow */
-        right: 10px;
+        right: max(env(safe-area-inset-right), 10px);
+        top: max(env(safe-area-inset-top), 10px);
     }
     /* Ensure proper spacing between top-right buttons */
     .accountBtn,
