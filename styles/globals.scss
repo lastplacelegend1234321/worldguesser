@@ -1215,12 +1215,12 @@ html {
 
 .accountBtn {
     position: fixed;
-    right: 50px;
+    right: 20px;
     top: 50px;
     width: auto;
     z-index: 101;
-    font-size: 1.5em;
-    border-radius: 24px;
+    font-size: 0.9em; /* Smaller default font */
+    border-radius: 16px; /* Slightly smaller radius */
     pointer-events: all;
     background: linear-gradient(135deg, #9a81f3 0%, #7046e3 60%, #5532c6 100%);
     backdrop-filter: blur(14px);
@@ -1232,10 +1232,17 @@ html {
         inset 0 1px 0 rgba(255, 255, 255, 0.25),
         inset 0 -1px 0 rgba(42, 20, 90, 0.45);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 12px 28px;
+    padding: 10px 20px; /* Smaller padding */
     overflow: hidden;
     color: white;
     cursor: pointer;
+    font-weight: 500; /* Lighter font weight */
+}
+
+.accountBtnText {
+    font-size: 0.95em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 .accountBtn::after {
@@ -1269,8 +1276,11 @@ html {
 }
 
 .accountBtn.loggedIn {
-    top: 10px;
-    right: 70px;
+    top: 70px; /* Position below ELO and friends buttons */
+    right: 20px;
+    font-size: 0.85em; /* Smaller font */
+    padding: 8px 16px; /* Smaller padding */
+    min-height: auto;
 }
 
 .friendBtn {
@@ -1310,10 +1320,13 @@ html {
 //less than 1280px
 @media screen and (max-width: 1280px) {
     .accountBtn {
-        font-size: 1.2em;
+        font-size: 0.85em;
     }
     .accountBtn.loggedIn {
-        right: 62px;
+        top: 65px;
+        right: 15px;
+        font-size: 0.8em;
+        padding: 7px 14px;
     }
     .friendBtn.friendBtnFixed {
         height: 36px;
@@ -1326,12 +1339,16 @@ html {
 //less than 600px
 @media screen and (max-width: 600px) {
 .accountBtn {
-        font-size: 1.0em;
+        font-size: 0.8em;
         top: 10px;
-        right: 20px;
+        right: 15px;
+        padding: 8px 16px;
     }
     .accountBtn.loggedIn {
-        right: 58px;
+        top: 60px;
+        right: 10px;
+        font-size: 0.75em;
+        padding: 6px 12px;
     }
     .friendBtn.friendBtnFixed {
         height: 30px;
