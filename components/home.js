@@ -681,10 +681,8 @@ export default function Home({ }) {
         }
         // Clear locations array to force refetch when map changes
         setAllLocsArray([])
-        // Trigger loadLocation to fetch new map data
-        setTimeout(() => {
-            loadLocation();
-        }, 100); // Small delay to ensure gameOptions is updated first
+        // Reset latLong to ensure clean state
+        setLatLong({ lat: 0, long: 0 })
 
         if (!country && mapSlug !== gameOptions.location) {
             if (((window?.lastPlayTrack || 0) + 20000 < Date.now())) {
@@ -2097,14 +2095,23 @@ export default function Home({ }) {
                             setLoading(false);
                             console.log("setting latlong", loc)
                                 } else {
+                            // Handle case where latLong might be null/undefined (first load or map switch)
+                            const hasCurrentLocation = latLong && typeof latLong.lat === 'number' && typeof latLong.long === 'number';
+                            
                             let loc = data.locations[Math.floor(Math.random() * data.locations.length)];
 
-                            while (loc.lat === latLong.lat && loc.long === latLong.long) {
-                                loc = data.locations[Math.floor(Math.random() * data.locations.length)];
+                            // Only avoid repeats if we have a valid current location
+                            if (hasCurrentLocation) {
+                                let attempts = 0;
+                                while (loc.lat === latLong.lat && loc.long === latLong.long && attempts < 10) {
+                                    loc = data.locations[Math.floor(Math.random() * data.locations.length)];
+                                    attempts++;
+                                }
                             }
 
                             setLatLong(loc)
                             setLoading(false);
+                            console.log("Setting location for map:", gameOptions.location, loc);
                             if (data.name) {
 
                                 // calculate extent (for openlayers)
