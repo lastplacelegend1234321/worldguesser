@@ -2807,11 +2807,23 @@ export default function Home({ }) {
                    }}
                 mapModalClosing={mapModalClosing}
                 text={text}
-                    customChooseMapCallback={(gameOptionsModalShown && screen === "singleplayer") ? (map) => {
+                    customChooseMapCallback={(map) => {
                         console.log("map", map)
+                        // Close the modal first
+                        if (mapModal) {
+                            setMapModalClosing(true);
+                            setTimeout(() => {
+                                setMapModal(false);
+                                setMapModalClosing(false);
+                            }, 300);
+                        }
+                        if (gameOptionsModalShown) {
+                            setGameOptionsModalShown(false);
+                        }
+                        // Open the map and switch to singleplayer
                         openMap(map.countryMap || map.slug);
-                        setGameOptionsModalShown(false)
-                    } : null}
+                        setScreen("singleplayer");
+                    }}
                     showAllCountriesOption={(gameOptionsModalShown && screen === "singleplayer")}
                     showOptions={screen === "singleplayer"}
                     gameOptions={gameOptions} setGameOptions={setGameOptions} />
