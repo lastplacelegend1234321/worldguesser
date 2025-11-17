@@ -1252,10 +1252,10 @@ html {
 /* Account button when logged in is now hidden - removed */
 
 .friendBtn {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 165, 0, 0.9) 100%);
+    background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
     width: fit-content;
     display: flex;
-    color: #000;
+    color: white;
     border-radius: 12px;
     align-items: center;
     justify-content: center;
@@ -1263,9 +1263,9 @@ html {
     min-height: 42px;
     height: auto;
     padding: 8px 16px;
-    box-shadow: 0 4px 14px rgba(255, 215, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 14px rgba(255, 165, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    border: 2px solid rgba(255, 165, 0, 0.3);
 }
 
 .friendBtn:has(.friendBtnUsername) {
@@ -1297,10 +1297,10 @@ html {
 }
 
 .friendBtn:hover {
-    background: linear-gradient(135deg, #FFE135 0%, #FFD700 100%);
+    background: linear-gradient(135deg, #FFB347 0%, #FFA500 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
-    border-color: rgba(255, 225, 53, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.5);
+    border-color: rgba(255, 179, 71, 0.5);
 }
 
 .friendBtnFixed {
@@ -1321,7 +1321,7 @@ html {
 .friendBtnUsername {
     font-size: 0.85em; /* Smaller font */
     font-weight: 700;
-    color: #000;
+    color: white;
     padding: 0 4px;
     white-space: nowrap;
     overflow: hidden;
