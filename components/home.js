@@ -2035,8 +2035,11 @@ export default function Home({ }) {
         setLoading(true)
         setShowAnswer(false)
         setPinPoint(null)
-        // Don't set latLong to null - keep previous value to avoid errors in comparison logic
-        // setLatLong(null)
+        // Clear latLong when switching maps to ensure fresh location
+        // Only clear if we're switching to a different map
+        if (overrideGameOptions && overrideGameOptions.location !== gameOptions.location) {
+            setLatLong({ lat: 0, long: 0 }); // Clear to force new location
+        }
         setHintShown(false)
 
         if (screen === "onboarding") {
