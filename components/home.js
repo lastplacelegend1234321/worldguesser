@@ -1269,7 +1269,10 @@ export default function Home({ }) {
         (async () => {
 
 
-            if (!ws && !multiplayerState.connecting && !multiplayerState.connected && !window?.dontReconnect) {
+            // Check if ws is null OR if ws exists but is closed (readyState !== OPEN)
+            const wsIsClosed = !ws || (ws && ws.readyState !== WebSocket.OPEN);
+            
+            if (wsIsClosed && !multiplayerState.connecting && !multiplayerState.connected && !window?.dontReconnect) {
                 try {
                     // Set connecting state immediately to show connecting message
                     setMultiplayerState((prev) => ({
@@ -1348,6 +1351,7 @@ export default function Home({ }) {
                     } else {
                         // Connection failed - set disconnected state to show red wsIcon
                         console.error("WebSocket connection failed after all retries");
+                        setWs(null); // Clear ws to allow reconnection
                         setMultiplayerState((prev) => ({
                             ...prev,
                             connected: false,
@@ -1358,6 +1362,7 @@ export default function Home({ }) {
                 } catch (error) {
                     // All retries exhausted - set disconnected state to show red wsIcon
                     console.error("WebSocket connection failed:", error);
+                    setWs(null); // Clear ws to allow reconnection
                     setMultiplayerState((prev) => ({
                         ...prev,
                         connected: false,
