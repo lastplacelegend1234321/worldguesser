@@ -2074,15 +2074,18 @@ export default function Home({ }) {
                 console.log("Using fallback location generation for:", optionsToUse.location, "countryMap:", optionsToUse.countryMap);
                 
                 // Set a timeout to ensure loading stops even if findLatLongRandom hangs
+                // But only set loading to false if we truly can't load anything
                 const fallbackTimeout = setTimeout(() => {
                     console.warn("Fallback location generation timed out for:", optionsToUse.location);
-                    setLoading(false);
-                    // Only show error if we haven't shown one recently (prevent spam)
-                    if (timeSinceLastError > 5000) {
-                        toast(text("errorLoadingMap"), { type: 'error' });
-                        window[errorKey] = Date.now();
+                    // Only set loading to false if we don't have a valid location
+                    if (!latLong || !latLong.lat || !latLong.long) {
+                        setLoading(false);
+                        if (timeSinceLastError > 5000) {
+                            toast(text("errorLoadingMap"), { type: 'error' });
+                            window[errorKey] = Date.now();
+                        }
                     }
-                }, 15000); // 15 second timeout for fallback
+                }, 20000); // 20 second timeout for fallback (increased to allow more time)
                 
                 // Ensure we're using the correct location for fallback
                 // For country maps, use countryMap; for others, use location
@@ -2105,22 +2108,60 @@ export default function Home({ }) {
                         window[errorKey] = 0;
                     } else {
                         console.error("Failed to generate location - findLatLongRandom returned null for:", optionsToUse.location);
-                        setLoading(false);
-                        // Only show error if we haven't shown one recently (prevent spam)
-                        if (timeSinceLastError > 5000) {
-                            toast(text("errorLoadingMap"), { type: 'error' });
-                            window[errorKey] = Date.now();
-                        }
+                        // Keep trying - don't set loading to false yet
+                        // Retry fallback generation
+                        console.log("Retrying fallback location generation...");
+                        findLatLongRandom(fallbackOptions).then((retryLatLong) => {
+                            clearTimeout(fallbackTimeout);
+                            if (retryLatLong) {
+                                retryLatLong._mapLocation = optionsToUse.location;
+                                setLatLong(retryLatLong);
+                                console.log("Fallback retry successful for", optionsToUse.location, ":", retryLatLong);
+                                window[errorKey] = 0;
+                            } else {
+                                // Only set loading to false if we truly can't generate a location
+                                setLoading(false);
+                                if (timeSinceLastError > 5000) {
+                                    toast(text("errorLoadingMap"), { type: 'error' });
+                                    window[errorKey] = Date.now();
+                                }
+                            }
+                        }).catch((retryError) => {
+                            clearTimeout(fallbackTimeout);
+                            console.error("Fallback retry also failed:", retryError);
+                            setLoading(false);
+                            if (timeSinceLastError > 5000) {
+                                toast(text("errorLoadingMap"), { type: 'error' });
+                                window[errorKey] = Date.now();
+                            }
+                        });
                     }
                 }).catch((e) => {
                     clearTimeout(fallbackTimeout);
                     console.error("Error in defaultMethod for", optionsToUse.location, ":", e);
-                    setLoading(false);
-                    // Only show error if we haven't shown one recently (prevent spam)
-                    if (timeSinceLastError > 5000) {
-                        toast(text("errorLoadingMap"), { type: 'error' });
-                        window[errorKey] = Date.now();
-                    }
+                    // Retry once before giving up
+                    console.log("Retrying fallback location generation after error...");
+                    findLatLongRandom(fallbackOptions).then((retryLatLong) => {
+                        if (retryLatLong) {
+                            retryLatLong._mapLocation = optionsToUse.location;
+                            setLatLong(retryLatLong);
+                            console.log("Fallback retry successful after error:", retryLatLong);
+                            window[errorKey] = 0;
+                        } else {
+                            setLoading(false);
+                            if (timeSinceLastError > 5000) {
+                                toast(text("errorLoadingMap"), { type: 'error' });
+                                window[errorKey] = Date.now();
+                            }
+                        }
+                    }).catch((retryError) => {
+                        console.error("Fallback retry also failed:", retryError);
+                        setLoading(false);
+                        if (timeSinceLastError > 5000) {
+                            toast(text("errorLoadingMap"), { type: 'error' });
+                            window[errorKey] = Date.now();
+                        }
+                    });
                 });
             }
             function fetchMethod() {
@@ -2252,19 +2293,18 @@ export default function Home({ }) {
 
                     } else {
                         console.warn("API returned data.ready = false or no locations for", optionsToUse.location, data);
-                        // Always stop loading and use fallback
-                        setLoading(false);
-                        // Use fallback method to generate location client-side
+                        // Keep loading true - use fallback method to generate location client-side
                         // Don't show error toast here - let defaultMethod handle it with rate limiting
+                        // Loading will be set to false when street view loads
                         defaultMethod()
                     }
                 }).catch((e) => {
                     clearTimeout(timeoutId);
                     console.error("Error fetching locations:", e, "URL:", url);
-                    // Always stop loading on error
-                    setLoading(false);
+                    // Keep loading true - use fallback method
                     // Don't show error toast here - let defaultMethod handle it with rate limiting
                     // Timeout/abort errors will be handled by defaultMethod
+                    // Loading will be set to false when street view loads
                     defaultMethod()
                 });
             }

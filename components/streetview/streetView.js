@@ -18,7 +18,9 @@ const StreetView = ({
 
   // Reset loading state when location changes
   useEffect(() => {
-    setLoading(true);
+    if (lat && long || panoId) {
+      setLoading(true);
+    }
   }, [lat, long, panoId]);
 
   // Get Google Maps API key from environment variable (Proguessr customization)
