@@ -683,8 +683,7 @@ export default function Home({ }) {
         }
         // Clear locations array to force refetch when map changes
         setAllLocsArray([])
-        // Reset latLong to ensure clean state
-        setLatLong({ lat: 0, long: 0 })
+        // Don't reset latLong here - let loadLocation handle it to avoid comparison issues
 
         if (!country && mapSlug !== gameOptions.location) {
             if (((window?.lastPlayTrack || 0) + 20000 < Date.now())) {
@@ -2130,8 +2129,12 @@ export default function Home({ }) {
                             setLoading(false);
                             console.log("setting latlong", loc)
                                 } else {
-                            // Handle case where latLong might be null/undefined (first load or map switch)
-                            const hasCurrentLocation = latLong && typeof latLong.lat === 'number' && typeof latLong.long === 'number';
+                            // Handle case where latLong might be null/undefined or invalid (first load or map switch)
+                            // Consider latLong invalid if it's 0,0 (ocean) or null/undefined
+                            const hasCurrentLocation = latLong && 
+                                typeof latLong.lat === 'number' && 
+                                typeof latLong.long === 'number' &&
+                                !(latLong.lat === 0 && latLong.long === 0); // Don't treat 0,0 as valid
                             
                             let loc = data.locations[Math.floor(Math.random() * data.locations.length)];
 
