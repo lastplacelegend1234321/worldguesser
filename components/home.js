@@ -2292,7 +2292,7 @@ export default function Home({ }) {
             } else {
                 // No locations and not refetching - this shouldn't happen, but fallback to defaultMethod
                 console.warn("No locations available and not refetching, using fallback for:", optionsToUse.location);
-                setLoading(false); // Ensure loading stops
+                // Don't stop loading here - let defaultMethod handle it
                 defaultMethod();
             }
         }
