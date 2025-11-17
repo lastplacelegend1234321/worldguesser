@@ -633,32 +633,6 @@ html {
     font-family: "Montserrat", sans-serif;
 }
 
-.home__nickname_input {
-    width: 100%;
-    max-width: 460px;
-    padding: 16px 24px;
-    border-radius: 16px;
-    border: 2px solid rgba(154, 129, 243, 0.35);
-    background-color: rgba(32, 20, 64, 0.75);
-    color: white;
-    font-size: 1.2em;
-    font-weight: 600;
-    text-align: center;
-    backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.home__nickname_input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.home__nickname_input:focus {
-    outline: none;
-    border-color: rgba(179, 156, 255, 0.55);
-    background-color: rgba(46, 28, 90, 0.85);
-    box-shadow: 0 12px 28px rgba(112, 70, 227, 0.35);
-}
 
 .home__play_btn {
     width: 100%;
