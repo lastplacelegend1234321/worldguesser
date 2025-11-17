@@ -674,10 +674,12 @@ export default function Home({ }) {
         setShowCountryButtons(false)
     }
     function openMap(mapSlug) {
-        const country = countries.find((c) => c === mapSlug.toUpperCase());
+        const mapSlugUpper = mapSlug.toUpperCase();
+        const country = countries.find((c) => c === mapSlugUpper);
         let officialCountryMap = null;
         if (country) {
-            officialCountryMap = officialCountryMaps.find((c) => c.countryCode === mapSlug);
+            // Find official map using uppercase country code
+            officialCountryMap = officialCountryMaps.find((c) => c.countryCode === mapSlugUpper || c.countryCode === mapSlug);
         }
         // Clear locations array to force refetch when map changes
         setAllLocsArray([])
