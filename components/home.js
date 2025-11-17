@@ -60,6 +60,27 @@ import Stats from "stats.js";
 import SvEmbedIframe from "./streetview/svHandler";
 import HomeNotice from "./homeNotice";
 import getTimeString, { getMaintenanceDate } from "./maintenanceTime";
+
+// Component to handle loading timeout safety - prevents perpetual loading
+function LoadingSafetyTimeout({ latLong, setLoading, gameOptions, text }) {
+    useEffect(() => {
+        if (!latLong || !latLong.lat || !latLong.long) return;
+        
+        // Set a safety timeout: if loading takes more than 30 seconds, force stop
+        const safetyTimeout = setTimeout(() => {
+            console.warn("Loading timeout safety triggered after 30s - forcing loading to false");
+            setLoading(false);
+            toast(text("errorLoadingMap"), { type: 'error' });
+        }, 30000); // 30 second safety timeout
+        
+        return () => {
+            clearTimeout(safetyTimeout);
+        };
+    }, [latLong?.lat, latLong?.long, gameOptions.location, setLoading, text]);
+    
+    return null;
+}
+
 // import Ad from "./bannerAdNitro";
 import {
     initializeMsStartSdk,
