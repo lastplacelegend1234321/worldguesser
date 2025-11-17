@@ -123,22 +123,24 @@ function joinGameByCode(code, onFull, onInvalid, onSuccess) {
 }
 
 // connect to db
-if (!process.env.MONGODB) {
-  console.log("[MISSING-ENV WARN] MONGODB env variable not set".yellow);
-  dbEnabled = false;
-} else {
-  // Connect to MongoDB
-  if (mongoose.connection.readyState !== 1) {
-    try {
-      await mongoose.connect(process.env.MONGODB);
-      console.log('[INFO] Database Connected');
-    } catch (error) {
-      console.error('[ERROR] Database connection failed!'.red, error.message);
-      console.log(error);
-      dbEnabled = false;
+(async () => {
+  if (!process.env.MONGODB) {
+    console.log("[MISSING-ENV WARN] MONGODB env variable not set".yellow);
+    dbEnabled = false;
+  } else {
+    // Connect to MongoDB
+    if (mongoose.connection.readyState !== 1) {
+      try {
+        await mongoose.connect(process.env.MONGODB);
+        console.log('[INFO] Database Connected');
+      } catch (error) {
+        console.error('[ERROR] Database connection failed!'.red, error.message);
+        console.log(error);
+        dbEnabled = false;
+      }
     }
   }
-}
+})();
 function log(...args) {
   console.log(new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }), ...args);
 
