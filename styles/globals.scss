@@ -717,6 +717,108 @@ html {
     }
 }
 
+/* Landscape orientation optimizations */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    .home__content {
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: max(env(safe-area-inset-top), 5px) 20px max(env(safe-area-inset-bottom), 5px);
+        max-height: calc(100vh - 20px);
+    }
+    
+    .home__title_centered {
+        font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 6vh, 2.5em));
+        padding: 0 20px;
+        margin-bottom: 2px;
+    }
+    
+    .home__subtitle {
+        font-size: min(clamp(1.2em, 2vw, 1.5em), clamp(1em, 2.5vh, 1.3em));
+        margin-bottom: 8px;
+    }
+    
+    .home__centered_content {
+        transform: translateY(-30px);
+        gap: 10px;
+    }
+    
+    .home__destination_image {
+        width: min(280px, 50vw);
+        margin-bottom: 8px;
+    }
+    
+    .home__play_btn,
+    .home__multiplayer_btn {
+        padding: 14px 24px !important;
+        font-size: clamp(1.1em, 2.5vw, 1.4em) !important;
+    }
+    
+    .navbar {
+        min-height: 50px;
+        padding-top: max(env(safe-area-inset-top), 10px);
+        padding-bottom: 6px;
+    }
+    
+    .navbar__title.mobile {
+        font-size: 1em;
+    }
+    
+    .timer {
+        top: calc(max(env(safe-area-inset-top), 10px) + 55px);
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+    
+    /* Stack top-right buttons vertically in landscape */
+    .friendBtnFixed {
+        top: max(env(safe-area-inset-top), 10px);
+    }
+    
+    .leagueBtn {
+        top: calc(max(env(safe-area-inset-top), 10px) + 50px);
+    }
+    
+    .accountBtn {
+        top: max(env(safe-area-inset-top), 10px);
+        right: calc(max(env(safe-area-inset-right), 10px) + 60px); /* Move left to avoid overlap */
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .home__content {
+        padding: max(env(safe-area-inset-top), 3px) 15px max(env(safe-area-inset-bottom), 3px);
+        max-height: calc(100vh - 10px);
+    }
+    
+    .home__title_centered {
+        font-size: min(clamp(2em, 4vw, 3em), clamp(1.8em, 5vh, 2.2em));
+        padding: 0 15px;
+        margin-bottom: 1px;
+    }
+    
+    .home__subtitle {
+        font-size: min(clamp(1em, 1.8vw, 1.3em), clamp(0.9em, 2vh, 1.1em));
+        margin-bottom: 6px;
+    }
+    
+    .home__centered_content {
+        transform: translateY(-20px);
+        gap: 8px;
+    }
+    
+    .home__destination_image {
+        width: min(240px, 45vw);
+        margin-bottom: 6px;
+    }
+    
+    .home__play_btn,
+    .home__multiplayer_btn {
+        padding: 12px 20px !important;
+        font-size: clamp(1em, 2vw, 1.2em) !important;
+        min-height: 44px !important;
+    }
+}
+
 .home__subtitle {
     font-size: min(clamp(1.45em, 2.3vw, 1.85em), clamp(1.15em, 3vh, 1.6em));
     font-weight: 600;
