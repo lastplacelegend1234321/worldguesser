@@ -709,6 +709,18 @@ export default function Home({ }) {
                 extent: country && officialCountryMap && officialCountryMap.extent ? officialCountryMap.extent : null
             };
 
+            console.log("Setting gameOptions for map switch:", {
+                mapSlug,
+                country,
+                newOptions,
+                willUseCountryEndpoint: newOptions.countryMap && newOptions.official
+            });
+
+            // Trigger loadLocation after state is updated
+            setTimeout(() => {
+                console.log("Loading location for map:", mapSlug, "gameOptions will be:", newOptions);
+                loadLocation();
+            }, 200); // Delay to ensure gameOptions state is updated
 
             return newOptions;
         })
