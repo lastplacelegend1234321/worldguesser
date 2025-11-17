@@ -1268,7 +1268,9 @@ export default function Home({ }) {
                                 currentRetry: currentAttempt
                             }))
 
-                            ws = await initWebsocket(clientConfig().websocketUrl, null, 5000, 0) // 0 retries, we handle it ourselves
+                            const wsUrl = clientConfig().websocketUrl;
+                            console.log("Attempting WebSocket connection to:", wsUrl);
+                            ws = await initWebsocket(wsUrl, null, 5000, 0) // 0 retries, we handle it ourselves
                             break;
                         } catch (error) {
                             console.log(`Connection attempt ${currentAttempt}/${maxAttempts} failed`);
