@@ -2729,14 +2729,14 @@ export default function Home({ }) {
                                     className="homeBtn home__multiplayer_btn" 
                                     onClick={() => {
                                         if (loading) return;
-                                        setScreen("multiplayer");
-                                        // Set enteringGameCode to show join game screen instead of connection lost
-                                        setMultiplayerState((prev) => ({
-                                            ...prev,
-                                            enteringGameCode: true
-                                        }));
+                                        if (!ws || !multiplayerState?.connected) {
+                                            setConnectionErrorModalShown(true);
+                                            return;
+                                        }
+                                        // Start ranked duel queue
+                                        handleMultiplayerAction("publicDuel");
                                     }}
-                                    disabled={loading}
+                                    disabled={loading || !ws || !multiplayerState?.connected}
                                 >
                                     Multiplayer Mode
                                 </button>
