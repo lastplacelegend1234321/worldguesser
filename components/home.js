@@ -321,7 +321,6 @@ export default function Home({ }) {
                         setSession({ token: data })
                         // Use gameStorage wrapper for incognito mode compatibility
                         try {
-                            const { default: gameStorage } = await import("@/components/utils/localStorage");
                             gameStorage.setItem("wg_secret", data.secret);
                         } catch (e) {
                             // Fallback to direct localStorage
