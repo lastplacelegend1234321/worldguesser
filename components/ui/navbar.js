@@ -79,7 +79,11 @@ export default function Navbar({ maintenance, joinCodePress, inCrazyGames, inCoo
 
                     {session?.token?.secret && !accountModalOpen && !gameOptionsModalShown && !mapModalOpen && !["getready", "guess"].includes(multiplayerState?.gameData?.state) && (
                         <button className={`gameBtn friendBtn ${screen === "home" ? "friendBtnFixed" : ""}`} onClick={onFriendsPress} disabled={!multiplayerState?.connected}>
-                            <FaUserFriends size={40} className={`friendBtnIcon ${screen === "home" ? "friendBtnIconFixed" : ""}`} />
+                            {screen === "singleplayer" || (screen === "multiplayer" && multiplayerState?.inGame) ? (
+                                <span className="friendBtnUsername">{session?.token?.username || 'Account'}</span>
+                            ) : (
+                                <FaUserFriends size={40} className={`friendBtnIcon ${screen === "home" ? "friendBtnIconFixed" : ""}`} />
+                            )}
                         </button>
                     )}
                 </div>
