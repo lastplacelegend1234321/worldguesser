@@ -1270,9 +1270,30 @@ html {
 
 .friendBtn:has(.friendBtnUsername) {
     aspect-ratio: auto;
-    min-width: 120px;
-    padding: 10px 20px;
-    width: auto;
+    min-width: 100px;
+    max-width: 200px; /* Match world button width */
+    width: fit-content;
+    padding: 6px 12px; /* Smaller padding */
+    font-size: 0.85em; /* Smaller font */
+    min-height: 32px; /* Smaller height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* When not on home screen (during gameplay), make buttons even smaller */
+.navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
+    max-width: 180px;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    min-height: 30px;
+}
+
+.navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
+    max-width: 180px;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    min-height: 30px;
 }
 
 .friendBtn:hover {
@@ -1287,8 +1308,10 @@ html {
     top: 10px;
     right: 10px;
     aspect-ratio: inherit;
-    /* Positioned to the right of ELO button with gap */
+    /* Positioned on top, ELO button will be below */
     margin-left: 0;
+    max-width: 200px; /* Match ELO button width */
+    width: fit-content;
 }
 .friendBtnIcon {
         width: 40px;
@@ -1296,14 +1319,14 @@ html {
     }
 
 .friendBtnUsername {
-    font-size: 0.95em;
+    font-size: 0.85em; /* Smaller font */
     font-weight: 700;
     color: #000;
     padding: 0 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 250px;
+    max-width: 180px; /* Smaller max-width */
     display: block;
     line-height: 1.2;
 }
@@ -1469,19 +1492,28 @@ html {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 300px;
+    max-width: 200px; /* Smaller max-width */
+    width: fit-content;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    font-size: 0.85em; /* Smaller font */
+    padding: 6px 12px; /* Smaller padding */
+    min-height: 32px; /* Smaller height */
 }
 
 .gameBtn.navBtn.g2_green_button.g2_lexend svg {
     flex-shrink: 0; /* Prevent the pencil icon from shrinking */
+    width: 14px; /* Smaller icon */
+    height: 14px;
 }
 
 @media screen and (max-width: 600px) {
     .gameBtn.navBtn.g2_green_button.g2_lexend {
-        max-width: 200px; /* Smaller max-width on mobile */
+        max-width: 150px; /* Smaller max-width on mobile */
+        font-size: 0.75em;
+        padding: 5px 10px;
+        min-height: 28px;
     }
 }
 
@@ -5059,33 +5091,24 @@ div[dir="ltr"] {
 
 .leagueBtn {
     position: fixed;
-    top: 10px;
+    /* Position below friends button - friends button is at top: 10px, height ~42px */
+    top: calc(10px + 42px + 8px); /* Friends button top + height + gap */
+    right: 10px; /* Same right position as friends button */
     height: min-content;
-    /* Position to the left of friends button */
-    /* Friends button: right 10px, width varies:
-       - Icon only: ~60px
-       - With username: min-width 120px, max-width 250px
-    */
-    /* Account for widest friends button (250px) + gap (10px) + right margin (10px) = 270px */
-    right: calc(250px + 20px); /* Max friends button width + gap + margin */
     animation: bounce 0.5s;
     z-index: 1000;
     width: fit-content;
     min-width: 60px;
-    max-width: calc(100vw - 280px); /* Responsive: ensures it never touches friends button */
+    max-width: 200px; /* Reasonable max width */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em;
+    font-size: 1em; /* Smaller font */
     text-align: center;
-    padding: 0px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 6px 12px; /* Smaller padding */
     border-radius: 8px;
     margin: 0;
     background-color: var(--primaryTransparent);
-    padding-top: 5px;
-    padding-bottom: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -5095,26 +5118,26 @@ div[dir="ltr"] {
 // less than 1280px
 @media (max-width: 1280px) {
     .leagueBtn {
-        top: 10px;
-        font-size: 1.1em;
-        /* Friends button on tablet: min-width 100px when showing username */
-        right: calc(100px + 20px); /* Max friends button width + gap + margin */
-        max-width: calc(100vw - 130px);
-        padding-left: 12px;
-        padding-right: 12px;
+        top: calc(10px + 36px + 6px); /* Friends button height on tablet */
+        font-size: 0.95em;
+        max-width: 180px;
+        padding: 5px 10px;
+    }
+    .friendBtnFixed {
+        max-width: 180px;
     }
 }
 // less than 900px
 @media (max-width: 600px) {
     .leagueBtn {
-        top: 10px;
-        font-size: 1em;
-        /* Friends button on mobile: min-width 90px when showing username */
-        right: calc(90px + 18px); /* Max friends button width + gap + margin */
-        max-width: calc(100vw - 118px);
-        padding-left: 10px;
-        padding-right: 10px;
+        top: calc(10px + 30px + 6px); /* Friends button height on mobile */
+        font-size: 0.9em;
+        max-width: 150px;
+        padding: 4px 8px;
         min-width: 50px;
+    }
+    .friendBtnFixed {
+        max-width: 150px;
     }
 }
 
