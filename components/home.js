@@ -716,11 +716,11 @@ export default function Home({ }) {
                 willUseCountryEndpoint: newOptions.countryMap && newOptions.official
             });
 
-            // Trigger loadLocation after state is updated
+            // Trigger loadLocation with new options immediately (don't wait for state update)
             setTimeout(() => {
-                console.log("Loading location for map:", mapSlug, "gameOptions will be:", newOptions);
-                loadLocation();
-            }, 200); // Delay to ensure gameOptions state is updated
+                console.log("Loading location for map:", mapSlug, "with options:", newOptions);
+                loadLocation(newOptions); // Pass new options directly
+            }, 100); // Small delay to ensure setAllLocsArray completes
 
             return newOptions;
         })
@@ -2009,7 +2009,10 @@ export default function Home({ }) {
         setHintShown(false)
     }
 
-    function loadLocation() {
+    function loadLocation(overrideGameOptions = null) {
+        // Use override options if provided, otherwise use current gameOptions state
+        const optionsToUse = overrideGameOptions || gameOptions;
+        
         if (loading) return;
         setLoading(true)
         setShowAnswer(false)
@@ -2095,12 +2098,12 @@ export default function Home({ }) {
 
                         // Store the location/map identifier with the locations array to detect map changes
                         data.locations.forEach(loc => {
-                            loc._mapLocation = gameOptions.location; // Tag locations with their map
+                            loc._mapLocation = optionsToUse.location; // Tag locations with their map
                         });
 
                         setAllLocsArray(data.locations)
 
-                        if (gameOptions.location === "all") {
+                        if (optionsToUse.location === "all") {
                             // Pick a random location instead of always using the first one
                             const loc = data.locations[Math.floor(Math.random() * data.locations.length)]
                             setLatLong(loc)
@@ -2123,7 +2126,7 @@ export default function Home({ }) {
 
                             setLatLong(loc)
                             setLoading(false);
-                            console.log("Setting location for map:", gameOptions.location, loc);
+                            console.log("Setting location for map:", optionsToUse.location, loc);
                             if (data.name) {
 
                                 // calculate extent (for openlayers)
@@ -2144,8 +2147,8 @@ export default function Home({ }) {
                                 }
 
                     } else {
-                        console.warn("API returned data.ready = false for", gameOptions.location, data);
-                        if (gameOptions.location !== "all") {
+                        console.warn("API returned data.ready = false for", optionsToUse.location, data);
+                        if (optionsToUse.location !== "all") {
                             toast(text("errorLoadingMap"), { type: 'error' })
                         }
                         // Always stop loading and use fallback
