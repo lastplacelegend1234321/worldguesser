@@ -2031,8 +2031,8 @@ export default function Home({ }) {
         } else {
             function defaultMethod() {
                 // Fallback: Use client-side location generation
-                console.log("Using fallback location generation");
-                findLatLongRandom(gameOptions).then((latLong) => {
+                console.log("Using fallback location generation for:", optionsToUse.location);
+                findLatLongRandom(optionsToUse).then((latLong) => {
                     if (latLong) {
                         setLatLong(latLong);
                         setLoading(false);
@@ -2061,9 +2061,10 @@ export default function Home({ }) {
                     return;
                 }
                 
-                const url = config.apiUrl + ((gameOptions.location === "all") ? `/${window?.learnMode ? 'clue' : 'all'}Countries.json` :
-                    gameOptions.countryMap && gameOptions.official ? `/countryLocations/${gameOptions.countryMap}` :
-                        `/mapLocations/${gameOptions.location}`);
+                // Use override options if provided
+                const url = config.apiUrl + ((optionsToUse.location === "all") ? `/${window?.learnMode ? 'clue' : 'all'}Countries.json` :
+                    optionsToUse.countryMap && optionsToUse.official ? `/countryLocations/${optionsToUse.countryMap}` :
+                        `/mapLocations/${optionsToUse.location}`);
                 
                 console.log("Fetching locations from:", url);
                 
@@ -2170,7 +2171,7 @@ export default function Home({ }) {
 
             // Check if we need to refetch: empty array OR location changed (map switching)
             const currentMapLocation = allLocsArray.length > 0 ? allLocsArray[0]?._mapLocation : null;
-            const needsRefetch = allLocsArray.length === 0 || currentMapLocation !== gameOptions.location;
+            const needsRefetch = allLocsArray.length === 0 || currentMapLocation !== optionsToUse.location;
             
             if (needsRefetch) {
                 fetchMethod()
@@ -2181,7 +2182,7 @@ export default function Home({ }) {
                 
                 if ((locIndex === -1) || allLocsArray.length === 1 || !hasCurrentLocation) {
                     // Need to pick a new location
-                    if (gameOptions.location === "all") {
+                    if (optionsToUse.location === "all") {
                         // Pick a random location
                         const loc = allLocsArray[Math.floor(Math.random() * allLocsArray.length)];
                         setLatLong(loc);
