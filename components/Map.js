@@ -103,30 +103,35 @@ const MapComponent = ({ shown, options, ws, session, pinPoint, setPinPoint, answ
   const { t: text } = useTranslation("common");
 
   // Cache icons to prevent repeated requests
+  // Use absolute paths to ensure icons load correctly from public directory
   const icons = useMemo(() => ({
     dest: L.icon({
-      iconUrl: './dest.png',
+      iconUrl: '/dest.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
+      iconRetinaUrl: '/dest.png', // Ensure retina displays work
     }),
     src: L.icon({
-      iconUrl: './src.png',
+      iconUrl: '/src.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
+      iconRetinaUrl: '/src.png',
     }),
     src2: L.icon({
-      iconUrl: './src2.png',
+      iconUrl: '/src2.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
       popupAnchor: [1, -34],
+      iconRetinaUrl: '/src2.png',
     }),
     polandball: L.icon({
-      iconUrl: './polandball.png',
+      iconUrl: '/polandball.png',
       iconSize: [50, 82],
       iconAnchor: [25, 41],
       popupAnchor: [1, 5],
+      iconRetinaUrl: '/polandball.png',
     })
   }), []);
 

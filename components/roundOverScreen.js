@@ -99,28 +99,32 @@ const GameSummary = ({
   const playerDisplayName = session?.token?.username || session?.token?.name || null;
 
   // Initialize Leaflet icons when available
+  // Use absolute paths to ensure icons load correctly from public directory
   useEffect(() => {
     const checkLeaflet = () => {
       if (typeof window !== 'undefined' && window.L) {
         destIconRef.current = window.L.icon({
-          iconUrl: './dest.png',
+          iconUrl: '/dest.png',
           iconSize: [30, 49],
           iconAnchor: [15, 49],
           popupAnchor: [1, -34],
+          iconRetinaUrl: '/dest.png', // Ensure retina displays work
         });
 
         srcIconRef.current = window.L.icon({
-          iconUrl: './src.png',
+          iconUrl: '/src.png',
           iconSize: [30, 49],
           iconAnchor: [15, 49],
           popupAnchor: [1, -34],
+          iconRetinaUrl: '/src.png',
         });
 
         src2IconRef.current = window.L.icon({
-          iconUrl: './src2.png',
+          iconUrl: '/src2.png',
           iconSize: [30, 49],
           iconAnchor: [15, 49],
           popupAnchor: [1, -34],
+          iconRetinaUrl: '/src2.png',
         });
 
         setLeafletReady(true);
