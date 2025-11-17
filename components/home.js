@@ -1629,6 +1629,28 @@ export default function Home({ }) {
                         duelEnd: data
                     }
                 }));
+
+                // Update ELO data after duel ends
+                if (typeof data.newElo === 'number' && session?.token?.username) {
+                    // Update eloData immediately with new ELO for instant UI update
+                    setEloData((prev) => {
+                        if (!prev) return null;
+                        return {
+                            ...prev,
+                            elo: data.newElo
+                        };
+                    });
+
+                    // Refetch from API to get updated rank, league, and ensure consistency
+                    fetch(clientConfig().apiUrl + "/api/eloRank?username=" + session?.token?.username)
+                        .then((res) => res.json())
+                        .then((eloData) => {
+                            setEloData(eloData);
+                        })
+                        .catch((e) => {
+                            console.error("Error fetching ELO after duel:", e);
+                        });
+                }
             } else if (data.type === "publicDuelRange") {
                 setMultiplayerState((prev) => ({
                     ...prev,
