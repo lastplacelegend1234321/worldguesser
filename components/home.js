@@ -2052,29 +2052,40 @@ export default function Home({ }) {
         } else {
             function defaultMethod() {
                 // Fallback: Use client-side location generation
-                console.log("Using fallback location generation for:", optionsToUse.location);
+                console.log("Using fallback location generation for:", optionsToUse.location, "countryMap:", optionsToUse.countryMap);
                 
                 // Set a timeout to ensure loading stops even if findLatLongRandom hangs
                 const fallbackTimeout = setTimeout(() => {
-                    console.warn("Fallback location generation timed out");
+                    console.warn("Fallback location generation timed out for:", optionsToUse.location);
                     setLoading(false);
                     toast(text("errorLoadingMap"), { type: 'error' });
                 }, 15000); // 15 second timeout for fallback
                 
-                findLatLongRandom(optionsToUse).then((latLong) => {
+                // Ensure we're using the correct location for fallback
+                // For country maps, use countryMap; for others, use location
+                const fallbackOptions = {
+                    ...optionsToUse,
+                    location: optionsToUse.countryMap || optionsToUse.location
+                };
+                
+                console.log("Fallback options:", fallbackOptions);
+                
+                findLatLongRandom(fallbackOptions).then((latLong) => {
                     clearTimeout(fallbackTimeout);
                     if (latLong) {
+                        // Tag the location with the map it belongs to
+                        latLong._mapLocation = optionsToUse.location;
                         setLatLong(latLong);
                         setLoading(false);
-                        console.log("Fallback generated location:", latLong);
+                        console.log("Fallback generated location for", optionsToUse.location, ":", latLong);
                     } else {
-                        console.error("Failed to generate location - findLatLongRandom returned null");
+                        console.error("Failed to generate location - findLatLongRandom returned null for:", optionsToUse.location);
                         toast(text("errorLoadingMap"), { type: 'error' });
                         setLoading(false);
                     }
                 }).catch((e) => {
                     clearTimeout(fallbackTimeout);
-                    console.error("Error in defaultMethod:", e);
+                    console.error("Error in defaultMethod for", optionsToUse.location, ":", e);
                     toast(text("errorLoadingMap"), { type: 'error' });
                     setLoading(false);
                 });
