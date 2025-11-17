@@ -2073,8 +2073,10 @@ export default function Home({ }) {
                 }
                 
                 // Use override options if provided
+                // For country maps, ensure we use the country code (uppercase)
+                const countryCode = optionsToUse.countryMap ? optionsToUse.countryMap.toUpperCase() : null;
                 const url = config.apiUrl + ((optionsToUse.location === "all") ? `/${window?.learnMode ? 'clue' : 'all'}Countries.json` :
-                    optionsToUse.countryMap && optionsToUse.official ? `/countryLocations/${optionsToUse.countryMap}` :
+                    countryCode && optionsToUse.official ? `/countryLocations/${countryCode}` :
                         `/mapLocations/${optionsToUse.location}`);
                 
                 console.log("Fetching locations from:", url, "for map:", optionsToUse.location, "countryMap:", optionsToUse.countryMap, "official:", optionsToUse.official);
