@@ -6450,6 +6450,12 @@ div[dir="ltr"] {
     .friendBtnFixed {
         max-width: 180px;
     }
+    .pwaInstallBtn {
+        top: calc(10px + 44px + 10px + 44px + 10px) !important; /* ELO button top + ELO button height + gap */
+        font-size: 0.8em;
+        max-width: 180px;
+        padding: 6px 12px;
+    }
 }
 // less than 900px
 @media (max-width: 600px) {
@@ -6461,6 +6467,14 @@ div[dir="ltr"] {
         min-width: 50px;
         right: max(env(safe-area-inset-right), 10px);
         min-height: 44px; /* Touch target */
+    }
+    .pwaInstallBtn {
+        top: calc(max(env(safe-area-inset-top), 10px) + 38px + 10px + 44px + 10px) !important; /* ELO button top + ELO button height + gap */
+        font-size: 0.75em;
+        max-width: calc(50vw - 20px);
+        padding: 5px 10px;
+        min-height: 44px;
+        right: max(env(safe-area-inset-right), 10px);
     }
     .friendBtnFixed {
         max-width: calc(50vw - 20px); /* Prevent overflow */
