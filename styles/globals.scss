@@ -135,6 +135,8 @@ html {
         transform: translate(-50%, -50%);
         padding: max(env(safe-area-inset-top), 10px) 20px max(env(safe-area-inset-bottom), 10px);
         max-height: calc(100vh - 40px);
+        max-height: calc(100svh - 40px); /* Use dynamic viewport */
+        overflow-y: hidden; /* Ensure no scrolling */
     }
 }
 
@@ -143,6 +145,8 @@ html {
     .home__content {
         padding: max(env(safe-area-inset-top), 5px) 15px max(env(safe-area-inset-bottom), 5px);
         max-height: calc(100vh - 20px);
+        max-height: calc(100svh - 20px); /* Use dynamic viewport */
+        overflow-y: hidden; /* Ensure no scrolling */
     }
 }
 
@@ -1143,6 +1147,37 @@ html {
         inset 0 1px 0 rgba(255, 255, 255, 0.25),
         inset 0 -1px 0 rgba(0, 0, 0, 0.2) !important;
     color: white !important;
+    font-size: clamp(0.85em, 2vw, 0.95em) !important; /* Responsive but capped */
+    padding: clamp(10px, 2vw, 12px) clamp(14px, 2.5vw, 16px) !important; /* Responsive padding */
+    max-height: 50px !important; /* Prevent button from becoming too tall */
+}
+
+/* Prevent custom maps button from growing on mobile */
+@media screen and (max-width: 600px) {
+    .home__custom_maps_btn {
+        font-size: 0.9em !important;
+        padding: 10px 14px !important;
+        min-height: 44px !important;
+        max-height: 48px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .home__custom_maps_btn {
+        font-size: 0.85em !important;
+        padding: 9px 12px !important;
+        min-height: 42px !important;
+        max-height: 46px !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .home__custom_maps_btn {
+        font-size: 0.8em !important;
+        padding: 8px 10px !important;
+        min-height: 40px !important;
+        max-height: 44px !important;
+    }
 }
 
 .home__custom_maps_btn:hover:not([disabled]) {
