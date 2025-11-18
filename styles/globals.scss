@@ -121,44 +121,25 @@ html {
     width: 100%;
     max-width: 720px;
     padding: max(env(safe-area-inset-top), 20px) 28px max(env(safe-area-inset-bottom), 20px);
-    overflow: hidden; /* Prevent scrolling - content must fit */
+    overflow-y: auto;
     box-sizing: border-box;
-    max-height: 100vh;
-    max-height: 100svh; /* Use dynamic viewport height */
 }
 
 /* Mobile: Adjust for short screens */
-@media (max-height: 700px) {
-    .home__content {
-        padding: max(env(safe-area-inset-top), 8px) 20px max(env(safe-area-inset-bottom), 8px);
-        max-height: 100vh;
-        max-height: 100svh;
-    }
-}
-
 @media (max-height: 600px) {
     .home__content {
-        padding: max(env(safe-area-inset-top), 5px) 15px max(env(safe-area-inset-bottom), 5px);
-        max-height: 100vh;
-        max-height: 100svh;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: max(env(safe-area-inset-top), 10px) 20px max(env(safe-area-inset-bottom), 10px);
+        max-height: calc(100vh - 40px);
     }
 }
 
 /* Very short screens */
 @media (max-height: 500px) {
     .home__content {
-        padding: max(env(safe-area-inset-top), 3px) 12px max(env(safe-area-inset-bottom), 3px);
-        max-height: 100vh;
-        max-height: 100svh;
-    }
-}
-
-/* Extra short screens */
-@media (max-height: 400px) {
-    .home__content {
-        padding: max(env(safe-area-inset-top), 2px) 10px max(env(safe-area-inset-bottom), 2px);
-        max-height: 100vh;
-        max-height: 100svh;
+        padding: max(env(safe-area-inset-top), 5px) 15px max(env(safe-area-inset-bottom), 5px);
+        max-height: calc(100vh - 20px);
     }
 }
 
@@ -670,78 +651,49 @@ html {
     gap: 20px;
     padding-top: 0;
     transform: translateY(-80px);
-    flex-shrink: 1;
-    min-height: 0; /* Allow flex shrinking */
 }
 
 @media (max-width: 768px) {
     .home__centered_content {
         transform: translateY(-40px);
-        gap: 16px;
     }
 }
 
 @media (max-width: 480px) {
     .home__centered_content {
         transform: translateY(-20px);
-        gap: 12px;
-    }
-}
-
-/* Reduce gaps on short screens */
-@media (max-height: 600px) {
-    .home__centered_content {
-        gap: 10px;
-        transform: translateY(-15px);
-    }
-}
-
-@media (max-height: 500px) {
-    .home__centered_content {
-        gap: 8px;
-        transform: translateY(-10px);
-    }
-}
-
-@media (max-height: 400px) {
-    .home__centered_content {
-        gap: 6px;
-        transform: translateY(-5px);
     }
 }
 
 .home__destination_image {
-    width: min(300px, 55vw);
-    max-width: 340px;
+    width: min(360px, 65vw);
+    max-width: 400px;
     height: auto;
     margin-bottom: 12px;
     filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
-    flex-shrink: 1;
-    max-height: 35vh; /* Prevent image from taking too much space */
-    object-fit: contain;
 }
 
-/* Reduce image size on short screens */
-@media (max-height: 600px) {
+/* Smaller screens: reduce icon size */
+@media (max-width: 600px) {
     .home__destination_image {
-        max-width: min(240px, 45vw);
-        max-height: 28vh;
+        width: min(240px, 50vw);
+        max-width: 280px;
         margin-bottom: 8px;
     }
 }
 
-@media (max-height: 500px) {
+@media (max-width: 480px) {
     .home__destination_image {
-        max-width: min(200px, 40vw);
-        max-height: 23vh;
+        width: min(200px, 45vw);
+        max-width: 240px;
         margin-bottom: 6px;
     }
 }
 
-@media (max-height: 400px) {
+@media (max-width: 360px) {
     .home__destination_image {
-        max-width: min(170px, 35vw);
-        max-height: 18vh;
+        width: min(160px, 40vw);
+        max-width: 200px;
         margin-bottom: 4px;
     }
 }
@@ -764,7 +716,6 @@ html {
     letter-spacing: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    flex-shrink: 1;
 }
 
 /* Mobile: Reduce padding */
@@ -777,42 +728,68 @@ html {
 @media (max-width: 600px) {
     .home__title_centered {
         padding: 0 20px;
-        font-size: min(clamp(3em, 6vw, 4em), clamp(2.5em, 8vh, 3.5em));
+        font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 7vh, 2.8em));
+        margin-bottom: 2px;
+    }
+    
+    .home__subtitle {
+        font-size: min(clamp(1.1em, 2vw, 1.4em), clamp(0.95em, 2.5vh, 1.2em));
+        margin-bottom: 8px;
+    }
+    
+    .home__centered_content {
+        gap: 12px;
+        transform: translateY(-30px);
+    }
+}
+
+@media (max-width: 480px) {
+    .home__title_centered {
+        padding: 0 15px;
+        font-size: min(clamp(2em, 4.5vw, 3em), clamp(1.8em, 6vh, 2.5em));
+        margin-bottom: 1px;
+    }
+    
+    .home__subtitle {
+        font-size: min(clamp(0.95em, 1.8vw, 1.2em), clamp(0.85em, 2vh, 1.05em));
+        margin-bottom: 6px;
+    }
+    
+    .home__centered_content {
+        gap: 10px;
+        transform: translateY(-20px);
+    }
+    
+    .home__play_btn,
+    .home__multiplayer_btn {
+        padding: 16px 24px !important;
+        font-size: clamp(1.1em, 2.2vw, 1.4em) !important;
+        min-height: 50px !important;
     }
 }
 
 @media (max-width: 360px) {
     .home__title_centered {
-        padding: 0 15px;
-        font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 7vh, 3em));
-    }
-}
-
-/* Reduce title size on short screens */
-@media (max-height: 600px) {
-    .home__title_centered {
-        font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 6vh, 2.5em));
-        padding: 0 20px;
-        margin-bottom: 2px;
-        line-height: 1.1;
-    }
-}
-
-@media (max-height: 500px) {
-    .home__title_centered {
-        font-size: min(clamp(2em, 4vw, 3em), clamp(1.8em, 5vh, 2.2em));
-        padding: 0 15px;
-        margin-bottom: 1px;
-        line-height: 1.05;
-    }
-}
-
-@media (max-height: 400px) {
-    .home__title_centered {
-        font-size: min(clamp(1.8em, 3.5vw, 2.5em), clamp(1.5em, 4vh, 2em));
         padding: 0 12px;
+        font-size: min(clamp(1.8em, 4vw, 2.5em), clamp(1.6em, 5vh, 2.2em));
         margin-bottom: 0;
-        line-height: 1;
+    }
+    
+    .home__subtitle {
+        font-size: min(clamp(0.85em, 1.6vw, 1.1em), clamp(0.75em, 1.8vh, 0.95em));
+        margin-bottom: 4px;
+    }
+    
+    .home__centered_content {
+        gap: 8px;
+        transform: translateY(-15px);
+    }
+    
+    .home__play_btn,
+    .home__multiplayer_btn {
+        padding: 14px 20px !important;
+        font-size: clamp(1em, 2vw, 1.2em) !important;
+        min-height: 48px !important;
     }
 }
 
@@ -842,7 +819,7 @@ html {
     }
     
     .home__destination_image {
-        width: min(240px, 45vw);
+        width: min(280px, 50vw);
         margin-bottom: 8px;
     }
     
@@ -906,7 +883,7 @@ html {
     }
     
     .home__destination_image {
-        width: min(200px, 40vw);
+        width: min(240px, 45vw);
         margin-bottom: 6px;
     }
     
@@ -928,29 +905,6 @@ html {
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
     animation: fadeIn 0.4s ease-in-out forwards;
     font-family: "Montserrat", sans-serif;
-    flex-shrink: 1;
-}
-
-/* Reduce subtitle size on short screens */
-@media (max-height: 600px) {
-    .home__subtitle {
-        font-size: min(clamp(1.2em, 2vw, 1.5em), clamp(1em, 2.5vh, 1.3em));
-        margin-bottom: 8px;
-    }
-}
-
-@media (max-height: 500px) {
-    .home__subtitle {
-        font-size: min(clamp(1em, 1.8vw, 1.3em), clamp(0.9em, 2vh, 1.1em));
-        margin-bottom: 6px;
-    }
-}
-
-@media (max-height: 400px) {
-    .home__subtitle {
-        font-size: min(clamp(0.9em, 1.5vw, 1.1em), clamp(0.8em, 1.8vh, 1em));
-        margin-bottom: 4px;
-    }
 }
 
 
@@ -969,31 +923,6 @@ html {
     font-size: clamp(1.35em, 3vw, 1.8em) !important;
     font-weight: 700 !important;
     letter-spacing: 0.01em;
-    flex-shrink: 0; /* Buttons should maintain minimum size */
-}
-
-/* Reduce button size on short screens */
-@media (max-height: 600px) {
-    .home__play_btn {
-        padding: 14px 24px !important;
-        font-size: clamp(1.1em, 2.5vw, 1.4em) !important;
-    }
-}
-
-@media (max-height: 500px) {
-    .home__play_btn {
-        padding: 12px 20px !important;
-        font-size: clamp(1em, 2vw, 1.2em) !important;
-        min-height: 44px !important;
-    }
-}
-
-@media (max-height: 400px) {
-    .home__play_btn {
-        padding: 10px 18px !important;
-        font-size: clamp(0.9em, 1.8vw, 1.1em) !important;
-        min-height: 40px !important;
-    }
 }
 
 .home__play_btn:hover:not([disabled]) {
@@ -1030,31 +959,6 @@ html {
     font-size: clamp(1.2em, 2.6vw, 1.6em) !important;
     font-weight: 600 !important;
     letter-spacing: 0.005em;
-    flex-shrink: 0; /* Buttons should maintain minimum size */
-}
-
-/* Reduce multiplayer button size on short screens */
-@media (max-height: 600px) {
-    .home__multiplayer_btn {
-        padding: 14px 24px !important;
-        font-size: clamp(1em, 2.3vw, 1.3em) !important;
-    }
-}
-
-@media (max-height: 500px) {
-    .home__multiplayer_btn {
-        padding: 12px 20px !important;
-        font-size: clamp(0.9em, 1.9vw, 1.1em) !important;
-        min-height: 44px !important;
-    }
-}
-
-@media (max-height: 400px) {
-    .home__multiplayer_btn {
-        padding: 10px 18px !important;
-        font-size: clamp(0.8em, 1.7vw, 1em) !important;
-        min-height: 40px !important;
-    }
 }
 
 .home__multiplayer_btn:hover:not([disabled]) {
