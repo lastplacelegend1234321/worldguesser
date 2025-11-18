@@ -449,7 +449,17 @@ html {
     .footer_btns button {
         min-height: 44px;
         min-width: 44px;
-        font-size: max(3vw, 32px);
+        max-height: 50px; /* Prevent buttons from becoming too tall */
+        font-size: clamp(24px, 3vw, 32px) !important; /* Responsive but capped */
+        padding: 8px 12px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer_btns button {
+        font-size: clamp(22px, 2.8vw, 28px) !important;
+        padding: 7px 10px !important;
+        max-height: 48px !important;
     }
 }
 
@@ -462,8 +472,9 @@ html {
     .footer_btns button {
         min-height: 44px;
         min-width: 44px;
-        font-size: max(2.5vw, 28px);
-        padding: 8px;
+        max-height: 46px !important;
+        font-size: clamp(20px, 2.5vw, 26px) !important;
+        padding: 6px 8px !important;
     }
 }
 .footer_btns {
