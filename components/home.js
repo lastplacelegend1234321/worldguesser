@@ -2270,12 +2270,12 @@ export default function Home({ }) {
                 
                 console.log("Fetching locations from:", url, "for map:", optionsToUse.location, "countryMap:", optionsToUse.countryMap, "official:", optionsToUse.official);
                 
-                // Create abort controller for timeout
+                // Create abort controller for timeout - reduced from 10s to 5s for faster fallback
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => {
-                    console.warn("Fetch timeout after 10 seconds for:", url);
+                    console.warn("Fetch timeout after 5 seconds for:", url);
                     controller.abort();
-                }, 10000); // 10 second timeout
+                }, 5000); // 5 second timeout for faster fallback
                 
                 fetch(url, {
                     method: 'GET',
