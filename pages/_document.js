@@ -5,6 +5,10 @@ export default function Document() {
   return (
     <Html lang="en" style={{ backgroundColor: '#000000' }}>
       <Head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/proguessr_favicon.png" />
+        <link rel="apple-touch-icon" href="/proguessr_favicon.png" />
+        <meta name="theme-color" content="#7046e3" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
