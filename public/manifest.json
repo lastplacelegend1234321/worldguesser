@@ -1,6 +1,6 @@
 {
-  "name": "Proguessr - Play Geoguessr for free",
-  "short_name": "Proguessr",
+  "name": "ProGuessr - Play Geoguessr for free",
+  "short_name": "ProGuessr",
   "description": "The #1 free alternative to GeoGuessr, enjoy unlimited games and play to your hearts content! Engage in the fun of discovering new places and learn geography.",
   "start_url": "/",
   "scope": "/",
@@ -29,14 +29,14 @@
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Proguessr gameplay overview"
+      "label": "ProGuessr gameplay overview"
     },
     {
       "src": "/worldguessr-thumbnail.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Proguessr gameplay overview"
+      "label": "ProGuessr gameplay overview"
     }
   ]
 }

@@ -26,8 +26,8 @@ export default function Navbar({ maintenance, joinCodePress, inCrazyGames, inCoo
             <div className={`navbar ${shown ? "" : "hidden"} ${screen == "home" ? "": "navbarColor"} ${screen === "onboarding" ? "onboarding" : ""}`}>
                 <div className={`nonHome ${screen === 'home' ? '' : 'shown'}`}>
                     {!mapModalOpen && <h1 className="navbar__title desktop wg_font" onClick={onNavbarPress}>
-                        <span className="navbar-title-full">Proguessr.com</span>
-                        <span className="navbar-title-short">Proguessr</span>
+                        <span className="navbar-title-full">ProGuessr.com</span>
+                        <span className="navbar-title-short">ProGuessr</span>
                     </h1>}
                     {!mapModalOpen && <h1 className="navbar__title mobile wg_font" onClick={onNavbarPress}>PG</h1>}
                     {!gameOptionsModalShown && !accountModalOpen && !selectCountryModalShown &&  <>

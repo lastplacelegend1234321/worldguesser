@@ -1581,4 +1581,17 @@ const GameSummary = ({
   );
 };
 
-export default GameSummary;
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -801,3 +801,7 @@ singlePlayerRound={singlePlayerRound} onboarding={onboarding} countryGuesser={co
     </div>
   )
 }
+
+    </div>
+  )
+}

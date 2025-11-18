@@ -296,10 +296,10 @@ export default function MapPage({ }) {
     <div className={styles.container}>
       <Head>
         <title>{
-          mapData?.name ? `${mapData.name} - Proguessr` :
+          mapData?.name ? `${mapData.name} - ProGuessr` :
         ""
         }</title>
-        <meta name="description" content={`Explore the world on Proguessr, a free GeoGuessr alternative. `} />
+        <meta name="description" content={`Explore the world on ProGuessr, a free GeoGuessr alternative. `} />
         <link rel="icon" type="image/png" href="/proguessr_favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Head>
@@ -378,7 +378,7 @@ export default function MapPage({ }) {
         )}
 
         <div className={styles.branding}>
-          <h1>Proguessr</h1>
+          <h1>ProGuessr</h1>
           <center>
             <button onClick={() => window.location.href=`/${
               window.location.search.includes('crazygames') ? '?crazygames=true' : ''

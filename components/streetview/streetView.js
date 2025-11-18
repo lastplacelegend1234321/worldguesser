@@ -81,3 +81,4 @@ const StreetView = ({
 };
 
 export default StreetView;
+export default StreetView;
