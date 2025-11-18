@@ -694,24 +694,24 @@ html {
 /* Smaller screens: reduce icon size */
 @media (max-width: 600px) {
     .home__destination_image {
-        width: min(240px, 50vw);
-        max-width: 280px;
+        width: min(180px, 40vw);
+        max-width: 200px;
         margin-bottom: 8px;
     }
 }
 
 @media (max-width: 480px) {
     .home__destination_image {
-        width: min(200px, 45vw);
-        max-width: 240px;
+        width: min(140px, 35vw);
+        max-width: 160px;
         margin-bottom: 6px;
     }
 }
 
 @media (max-width: 360px) {
     .home__destination_image {
-        width: min(160px, 40vw);
-        max-width: 200px;
+        width: min(100px, 30vw);
+        max-width: 120px;
         margin-bottom: 4px;
     }
 }
