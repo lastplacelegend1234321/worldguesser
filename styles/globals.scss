@@ -121,8 +121,11 @@ html {
     width: 100%;
     max-width: 720px;
     padding: max(env(safe-area-inset-top), 20px) 28px max(env(safe-area-inset-bottom), 20px);
-    overflow-y: auto;
+    overflow-y: hidden; /* Prevent scrolling - ensure content fits */
+    overflow-x: hidden;
     box-sizing: border-box;
+    max-height: 100vh;
+    max-height: 100svh; /* Use dynamic viewport height */
 }
 
 /* Mobile: Adjust for short screens */
@@ -998,6 +1001,9 @@ html {
     min-width: 0;
     font-size: 0.95em;
     padding: 12px 16px;
+    max-width: 100%; /* Prevent buttons from growing too large */
+    font-size: clamp(0.85em, 2vw, 0.95em) !important; /* Responsive but capped */
+    padding: clamp(10px, 2vw, 12px) clamp(14px, 2.5vw, 16px) !important; /* Responsive padding */
 }
 
 .home__footer_ad {
@@ -1032,6 +1038,38 @@ html {
 
     .home__party_buttons .homeBtn {
         flex: 1 1 auto;
+        font-size: 0.9em !important;
+        padding: 10px 14px !important;
+        min-height: 44px !important;
+        max-height: 50px !important; /* Prevent buttons from becoming too tall */
+    }
+}
+
+/* Prevent party buttons from growing on mobile */
+@media screen and (max-width: 600px) {
+    .home__party_buttons .homeBtn {
+        font-size: 0.9em !important;
+        padding: 10px 14px !important;
+        min-height: 44px !important;
+        max-height: 50px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .home__party_buttons .homeBtn {
+        font-size: 0.85em !important;
+        padding: 9px 12px !important;
+        min-height: 42px !important;
+        max-height: 48px !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .home__party_buttons .homeBtn {
+        font-size: 0.8em !important;
+        padding: 8px 10px !important;
+        min-height: 40px !important;
+        max-height: 46px !important;
     }
 }
 
