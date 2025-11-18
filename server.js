@@ -307,13 +307,15 @@ app.get('/countryLocations/:country', (req, res) => {
     });
     
     // Update cache in background (non-blocking)
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+    // Use Promise.race with timeout for Node.js compatibility
+    const fetchPromise = fetch('http://localhost:3003/countryLocations/' + country);
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Timeout')), 3000)
+    );
     
-    fetch('http://localhost:3003/countryLocations/' + country, { signal: controller.signal })
+    Promise.race([fetchPromise, timeoutPromise])
       .then(response => response.json())
       .then(data => {
-        clearTimeout(timeoutId);
         if(data.ready && data.locations && data.locations.length > 0) {
           countryLocations[country].locations = data.locations;
           countryLocations[country].cacheUpdate = Date.now();
@@ -321,9 +323,8 @@ app.get('/countryLocations/:country', (req, res) => {
         }
       })
       .catch(error => {
-        clearTimeout(timeoutId);
         // Silently fail - we already returned cached data
-        if (error.name !== 'AbortError') {
+        if (error.message !== 'Timeout') {
           console.error(`[CACHE] Background update failed for ${country}:`, error.message);
         }
       });
@@ -332,13 +333,14 @@ app.get('/countryLocations/:country', (req, res) => {
   }
 
   // No cache available, fetch from cron service (with timeout)
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+  const fetchPromise = fetch('http://localhost:3003/countryLocations/' + country);
+  const timeoutPromise = new Promise((_, reject) => 
+    setTimeout(() => reject(new Error('Timeout')), 3000)
+  );
   
-  fetch('http://localhost:3003/countryLocations/' + country, { signal: controller.signal })
+  Promise.race([fetchPromise, timeoutPromise])
     .then(response => response.json())
     .then(data => {
-      clearTimeout(timeoutId);
       if(data.ready && data.locations && data.locations.length > 0) {
         countryLocations[country].locations = data.locations;
         countryLocations[country].cacheUpdate = Date.now();
@@ -346,7 +348,6 @@ app.get('/countryLocations/:country', (req, res) => {
       res.json(data);
     })
     .catch(error => {
-      clearTimeout(timeoutId);
       console.error(`[CACHE] Error fetching countryLocations for ${country}:`, error.message);
       
       // Fallback: try to use allCountriesCache filtered by country
