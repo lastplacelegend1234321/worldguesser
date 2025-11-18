@@ -54,7 +54,7 @@ export default function Navbar({ maintenance, joinCodePress, inCrazyGames, inCoo
                 )}
                 <div className="navbar__right">
 
-                    {screen === 'singleplayer' && !accountModalOpen && (
+                    {screen === 'singleplayer' && !accountModalOpen && !mapModalOpen && !gameOptionsModalShown && (
                         <button className="gameBtn navBtn g2_green_button g2_lexend" disabled={loading} onClick={() => setGameOptionsModalShown(true)}>
                             {((gameOptions.location === "all") || !gameOptions.location) ? text("allCountries") : gameOptions?.countryMap ? nameFromCode(gameOptions.location) : gameOptions?.communityMapName}
                             {gameOptions.nm && gameOptions.npz ?
