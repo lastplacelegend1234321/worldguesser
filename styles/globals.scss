@@ -748,9 +748,9 @@ html {
         padding: 0 20px;
         font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 7vh, 2.8em));
         margin-bottom: 2px;
-    }
-    
-    .home__subtitle {
+}
+
+.home__subtitle {
         font-size: min(clamp(1.1em, 2vw, 1.4em), clamp(0.95em, 2.5vh, 1.2em));
         margin-bottom: 8px;
     }
@@ -1756,7 +1756,7 @@ html {
     max-width: 190px; /* Increased max-width */
     display: block;
     line-height: 1.2;
-}
+    }
 //less than 1280px
 @media screen and (max-width: 1280px) {
     .accountBtn {
@@ -1776,7 +1776,7 @@ html {
 }
 //less than 600px
 @media screen and (max-width: 600px) {
-    .accountBtn {
+.accountBtn {
         font-size: 0.75em;
         top: max(env(safe-area-inset-top), 10px);
         right: max(env(safe-area-inset-right), 10px);
@@ -4462,7 +4462,7 @@ img[alt="Google"] {
 
 .detail-icon {
     font-size: 1rem;
-    color: #FFD700;
+    color: #FFA500;
 }
 
 .distance-value {
@@ -5348,7 +5348,7 @@ img[alt="Google"] {
 }
 
 .detail-icon {
-    color: #FFD700; /* Gold color */
+    color: #FFA500; /* Orange color */
     font-size: 1.5rem;
 }
 

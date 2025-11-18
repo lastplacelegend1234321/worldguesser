@@ -123,11 +123,11 @@ export default function AccountView({ accountData, supporter, eloData, session }
 
     const warningStyle = {
         ...textStyle,
-        color: '#ffc107',
-        background: 'rgba(255, 193, 7, 0.1)',
+        color: '#FFA500',
+        background: 'rgba(255, 165, 0, 0.1)',
         padding: '10px 15px',
         borderRadius: '10px',
-        border: '1px solid rgba(255, 193, 7, 0.3)'
+        border: '1px solid rgba(255, 165, 0, 0.3)'
     };
 
     return (
