@@ -945,7 +945,7 @@ html {
     
     .leagueBtn {
         position: fixed !important;
-        top: calc(max(env(safe-area-inset-top), 6px) + 42px) !important;
+        top: calc(max(env(safe-area-inset-top), 6px) + 50px + 6px) !important;
         right: max(env(safe-area-inset-right), 6px) !important;
         padding: 5px 10px !important;
         font-size: 0.75em !important;
@@ -1183,7 +1183,7 @@ html {
     
     .leagueBtn {
         position: fixed !important;
-        top: calc(max(env(safe-area-inset-top), 5px) + 38px) !important;
+        top: calc(max(env(safe-area-inset-top), 5px) + 38px + 5px) !important;
         right: max(env(safe-area-inset-right), 5px) !important;
         padding: 4px 8px !important;
         font-size: 0.7em !important;
@@ -1194,10 +1194,10 @@ html {
         will-change: auto !important;
     }
     
-    /* Timer - FIXED POSITIONING */
+    /* Timer - FIXED POSITIONING - Ensure no overlap with buttons */
     .timer {
         position: fixed !important;
-        top: calc(max(env(safe-area-inset-top), 5px) + 45px) !important;
+        top: calc(max(env(safe-area-inset-top), 5px) + 38px + 5px) !important;
         right: max(env(safe-area-inset-right), 5px) !important;
         font-size: 0.75rem !important;
         padding: 4px 10px !important;
@@ -1207,13 +1207,13 @@ html {
         will-change: auto !important;
     }
     
-    /* Mini map - FIXED POSITIONING */
+    /* Mini map - FIXED POSITIONING - Ensure no overlap */
     #miniMapArea {
         position: fixed !important;
         width: 20% !important;
-        height: 30% !important;
-        bottom: 5px !important;
-        right: 5px !important;
+        height: calc(30% - 8px) !important;
+        bottom: max(env(safe-area-inset-bottom), 5px) !important;
+        right: max(env(safe-area-inset-right), 5px) !important;
         z-index: 1000 !important;
         transform: none !important; /* Prevent movement */
         will-change: auto !important;
@@ -1221,11 +1221,11 @@ html {
     
     #miniMapArea.miniMap.shown {
         width: 50% !important;
-        height: 60% !important;
+        height: calc(60% - 8px) !important;
         transform: none !important; /* Prevent movement */
     }
     
-    /* Chatbox button - FIXED POSITIONING */
+    /* Chatbox button - FIXED POSITIONING - Ensure no overlap */
     .chatboxBtn {
         position: fixed !important;
         width: 36px !important;
@@ -1236,6 +1236,11 @@ html {
         z-index: 1100 !important;
         transform: none !important; /* Prevent movement */
         will-change: auto !important;
+    }
+    
+    /* Ensure guess button doesn't overlap with chatbox */
+    .mobile_minimap__btns {
+        left: calc(max(env(safe-area-inset-left), 5px) + 45px) !important;
     }
     
     .chatboxBtn.open {
@@ -1285,6 +1290,34 @@ html {
         padding: 4px 8px !important;
         position: relative !important;
         transform: none !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* Ensure round display doesn't overlap with navbar */
+    .round-display {
+        margin-top: calc(max(env(safe-area-inset-top), 5px) + 45px) !important;
+    }
+    
+    /* Online counter positioning */
+    .online-counter {
+        position: fixed !important;
+        bottom: max(env(safe-area-inset-bottom), 5px) !important;
+        right: calc(max(env(safe-area-inset-right), 5px) + 50px) !important;
+        font-size: 0.7em !important;
+        padding: 4px 8px !important;
+        z-index: 1095 !important;
+        transform: none !important;
+    }
+    
+    /* PWA Install button landscape positioning */
+    .pwaInstallBtn {
+        top: calc(max(env(safe-area-inset-top), 5px) + 38px + 6px + 38px + 6px) !important;
+        right: max(env(safe-area-inset-right), 5px) !important;
+        font-size: 0.65em !important;
+        padding: 4px 8px !important;
+        min-height: 32px !important;
+        max-width: 90px !important;
     }
     
     /* Ensure navbar buttons don't move on click */
