@@ -847,34 +847,109 @@ html {
         font-size: clamp(1.1em, 2.5vw, 1.4em) !important;
     }
     
+    /* Gameplay UI optimizations for taller landscape */
     .navbar {
-        min-height: 50px;
-        padding-top: max(env(safe-area-inset-top), 10px);
-        padding-bottom: 6px;
+        min-height: 45px !important;
+        padding-top: max(env(safe-area-inset-top), 6px) !important;
+        padding-bottom: 5px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
     }
     
     .navbar__title.mobile {
-        font-size: 1em;
+        font-size: 0.95em !important;
+        max-width: calc(100vw - 110px) !important;
     }
     
-    .timer {
-        top: calc(max(env(safe-area-inset-top), 10px) + 55px);
-        font-size: 0.9rem;
-        padding: 6px 12px;
+    .navbar__right {
+        gap: 5px !important;
     }
     
-    /* Stack top-right buttons vertically in landscape */
+    /* Smaller gameplay buttons */
+    .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
+        max-width: 140px !important;
+        padding: 5px 10px !important;
+        font-size: 0.75em !important;
+        min-height: 36px !important;
+    }
+    
+    .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
+        max-width: 140px !important;
+        padding: 5px 10px !important;
+        font-size: 0.75em !important;
+        min-height: 36px !important;
+    }
+    
+    .gameBtn.navBtn.backBtn {
+        padding: 5px 10px !important;
+        font-size: 0.85em !important;
+        min-height: 36px !important;
+        min-width: 36px !important;
+    }
+    
+    /* Smaller top-right buttons */
     .friendBtnFixed {
-        top: max(env(safe-area-inset-top), 10px);
+        top: max(env(safe-area-inset-top), 6px) !important;
+        right: max(env(safe-area-inset-right), 6px) !important;
+        padding: 5px 10px !important;
+        font-size: 0.75em !important;
+        min-height: 36px !important;
+        max-width: 110px !important;
     }
     
     .leagueBtn {
-        top: calc(max(env(safe-area-inset-top), 10px) + 50px);
+        top: calc(max(env(safe-area-inset-top), 6px) + 42px) !important;
+        right: max(env(safe-area-inset-right), 6px) !important;
+        padding: 5px 10px !important;
+        font-size: 0.75em !important;
+        min-height: 36px !important;
+        max-width: 110px !important;
     }
     
-    .accountBtn {
-        top: max(env(safe-area-inset-top), 10px);
-        right: calc(max(env(safe-area-inset-right), 10px) + 60px); /* Move left to avoid overlap */
+    /* Smaller timer */
+    .timer {
+        top: calc(max(env(safe-area-inset-top), 6px) + 50px) !important;
+        font-size: 0.8rem !important;
+        padding: 5px 12px !important;
+        margin-right: max(env(safe-area-inset-right), 6px) !important;
+    }
+    
+    /* Smaller mini map */
+    #miniMapArea {
+        width: 22% !important;
+        height: 32% !important;
+        bottom: 8px !important;
+        right: 8px !important;
+    }
+    
+    #miniMapArea.miniMap.shown {
+        width: 52% !important;
+        height: 65% !important;
+    }
+    
+    /* Smaller chatbox button */
+    .chatboxBtn {
+        width: 40px !important;
+        height: 40px !important;
+        bottom: max(env(safe-area-inset-bottom), 8px) !important;
+        left: max(env(safe-area-inset-left), 8px) !important;
+        font-size: 0.95em !important;
+    }
+    
+    /* Smaller guess button */
+    .miniMap__btn {
+        font-size: 0.95em !important;
+        padding: 8px 14px !important;
+        min-height: 36px !important;
+    }
+    
+    .mobile_minimap__btns {
+        bottom: max(env(safe-area-inset-bottom), 8px) !important;
+        padding: 5px !important;
+    }
+    
+    .mobile_minimap__btns.miniMapShown {
+        bottom: calc(max(env(safe-area-inset-bottom), 8px) + 65vh) !important;
     }
 }
 
