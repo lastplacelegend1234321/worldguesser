@@ -35,6 +35,7 @@ import SuggestAccountModal from "@/components/suggestAccountModal";
 import FriendsModal from "@/components/friendModal";
 import { toast, ToastContainer } from "react-toastify";
 import InfoModal from "@/components/infoModal";
+import PWAInstallButton from "@/components/pwaInstallButton";
 import { inIframe, isForbiddenIframe } from "@/components/utils/inIframe";
 import moment from 'moment-timezone';
 import MapsModal from "@/components/maps/mapsModal";
