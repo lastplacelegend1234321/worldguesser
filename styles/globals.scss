@@ -734,6 +734,23 @@ html {
     letter-spacing: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    
+    /* Responsive branding */
+    .desktop {
+        display: inline;
+    }
+    .mobile {
+        display: none;
+    }
+    
+    @media screen and (max-width: 600px) {
+        .desktop {
+            display: none;
+        }
+        .mobile {
+            display: inline;
+        }
+    }
 }
 
 /* Mobile: Reduce padding */
@@ -847,93 +864,149 @@ html {
         font-size: clamp(1.1em, 2.5vw, 1.4em) !important;
     }
     
-    /* Gameplay UI optimizations for taller landscape */
+    /* Gameplay UI optimizations for taller landscape - FIXED POSITIONING */
     .navbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
         min-height: 45px !important;
         padding-top: max(env(safe-area-inset-top), 6px) !important;
         padding-bottom: 5px !important;
         padding-left: 8px !important;
         padding-right: 8px !important;
+        z-index: 1120 !important;
+        transform: none !important; /* Prevent any transforms */
+        will-change: auto !important; /* Prevent layout shifts */
     }
     
     .navbar__title.mobile {
         font-size: 0.95em !important;
         max-width: calc(100vw - 110px) !important;
+        position: relative !important;
+        transform: none !important;
+    }
+    
+    .navbar__title.desktop {
+        position: relative !important;
+        transform: none !important;
     }
     
     .navbar__right {
         gap: 5px !important;
+        position: relative !important;
+        transform: none !important;
     }
     
-    /* Smaller gameplay buttons */
+    /* Smaller gameplay buttons - FIXED POSITIONING */
     .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
+        position: relative !important;
         max-width: 140px !important;
         padding: 5px 10px !important;
         font-size: 0.75em !important;
         min-height: 36px !important;
+        transform: none !important;
+        margin: 0 !important;
     }
     
     .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
+        position: relative !important;
         max-width: 140px !important;
         padding: 5px 10px !important;
         font-size: 0.75em !important;
         min-height: 36px !important;
+        transform: none !important;
+        margin: 0 !important;
     }
     
     .gameBtn.navBtn.backBtn {
+        position: relative !important;
         padding: 5px 10px !important;
         font-size: 0.85em !important;
         min-height: 36px !important;
         min-width: 36px !important;
+        transform: none !important;
+        margin: 0 !important;
     }
     
-    /* Smaller top-right buttons */
+    /* Smaller top-right buttons - FIXED POSITIONING */
     .friendBtnFixed {
+        position: fixed !important;
         top: max(env(safe-area-inset-top), 6px) !important;
         right: max(env(safe-area-inset-right), 6px) !important;
         padding: 5px 10px !important;
         font-size: 0.75em !important;
         min-height: 36px !important;
         max-width: 110px !important;
+        z-index: 1110 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
     }
     
     .leagueBtn {
+        position: fixed !important;
         top: calc(max(env(safe-area-inset-top), 6px) + 42px) !important;
         right: max(env(safe-area-inset-right), 6px) !important;
         padding: 5px 10px !important;
         font-size: 0.75em !important;
         min-height: 36px !important;
         max-width: 110px !important;
+        z-index: 1110 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
     }
     
-    /* Smaller timer */
+    /* Smaller timer - FIXED POSITIONING */
     .timer {
+        position: fixed !important;
         top: calc(max(env(safe-area-inset-top), 6px) + 50px) !important;
+        right: max(env(safe-area-inset-right), 6px) !important;
         font-size: 0.8rem !important;
         padding: 5px 12px !important;
-        margin-right: max(env(safe-area-inset-right), 6px) !important;
+        margin-right: 0 !important;
+        z-index: 1105 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
     }
     
-    /* Smaller mini map */
+    /* Smaller mini map - FIXED POSITIONING */
     #miniMapArea {
+        position: fixed !important;
         width: 22% !important;
         height: 32% !important;
         bottom: 8px !important;
         right: 8px !important;
+        z-index: 1000 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
     }
     
     #miniMapArea.miniMap.shown {
         width: 52% !important;
         height: 65% !important;
+        transform: none !important; /* Prevent movement */
     }
     
-    /* Smaller chatbox button */
+    /* Smaller chatbox button - FIXED POSITIONING */
     .chatboxBtn {
+        position: fixed !important;
         width: 40px !important;
         height: 40px !important;
         bottom: max(env(safe-area-inset-bottom), 8px) !important;
         left: max(env(safe-area-inset-left), 8px) !important;
         font-size: 0.95em !important;
+        z-index: 1100 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    .chatboxBtn.open {
+        transform: none !important; /* Override any transforms */
+    }
+    
+    /* Override chatbox transforms in landscape */
+    .chatboxBtn.minimap {
+        transform: none !important;
     }
     
     /* Smaller guess button */
@@ -941,15 +1014,56 @@ html {
         font-size: 0.95em !important;
         padding: 8px 14px !important;
         min-height: 36px !important;
+        transform: none !important;
     }
     
     .mobile_minimap__btns {
+        position: fixed !important;
         bottom: max(env(safe-area-inset-bottom), 8px) !important;
+        left: max(env(safe-area-inset-left), 8px) !important;
         padding: 5px !important;
+        z-index: 1101 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
     }
     
     .mobile_minimap__btns.miniMapShown {
         bottom: calc(max(env(safe-area-inset-bottom), 8px) + 65vh) !important;
+        transform: none !important;
+    }
+    
+    /* Prevent any hover transforms that cause movement */
+    .gameBtn:hover,
+    .friendBtn:hover,
+    .leagueBtn:hover,
+    .chatboxBtn:hover {
+        transform: none !important;
+    }
+    
+    /* Ensure navbar buttons don't move on click */
+    .navbar .gameBtn,
+    .navbar .friendBtn {
+        transition: none !important; /* Disable transitions that cause movement */
+    }
+    
+    /* Prevent layout shifts */
+    .navbar__right {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    /* Override chatbox parent transforms */
+    .chatboxParent {
+        transform: none !important;
+    }
+    
+    .chatboxParent.roundOverScreen .chatboxBtn {
+        transform: none !important;
+    }
+    
+    .chatboxParent.roundOverScreen .chatboxBtn.open {
+        transform: none !important;
     }
 }
 
@@ -976,118 +1090,6 @@ html {
         transform: translateY(-20px);
     }
     
-    /* Gameplay UI optimizations */
-    .navbar {
-        min-height: 40px !important;
-        padding-top: max(env(safe-area-inset-top), 5px) !important;
-        padding-bottom: 4px !important;
-        padding-left: 6px !important;
-        padding-right: 6px !important;
-    }
-    
-    .navbar__title.mobile {
-        font-size: 0.9em !important;
-        max-width: calc(100vw - 100px) !important;
-    }
-    
-    .navbar__right {
-        gap: 4px !important;
-    }
-    
-    /* Smaller gameplay buttons */
-    .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
-        max-width: 120px !important;
-        padding: 4px 8px !important;
-        font-size: 0.7em !important;
-        min-height: 32px !important;
-    }
-    
-    .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
-        max-width: 120px !important;
-        padding: 4px 8px !important;
-        font-size: 0.7em !important;
-        min-height: 32px !important;
-    }
-    
-    .gameBtn.navBtn.backBtn {
-        padding: 4px 8px !important;
-        font-size: 0.8em !important;
-        min-height: 32px !important;
-        min-width: 32px !important;
-    }
-    
-    /* Smaller top-right buttons */
-    .friendBtnFixed {
-        top: max(env(safe-area-inset-top), 5px) !important;
-        right: max(env(safe-area-inset-right), 5px) !important;
-        padding: 4px 8px !important;
-        font-size: 0.7em !important;
-        min-height: 32px !important;
-        max-width: 100px !important;
-    }
-    
-    .leagueBtn {
-        top: calc(max(env(safe-area-inset-top), 5px) + 38px) !important;
-        right: max(env(safe-area-inset-right), 5px) !important;
-        padding: 4px 8px !important;
-        font-size: 0.7em !important;
-        min-height: 32px !important;
-        max-width: 100px !important;
-    }
-    
-    /* Smaller timer */
-    .timer {
-        top: calc(max(env(safe-area-inset-top), 5px) + 45px) !important;
-        font-size: 0.75rem !important;
-        padding: 4px 10px !important;
-        margin-right: max(env(safe-area-inset-right), 5px) !important;
-    }
-    
-    /* Smaller mini map */
-    #miniMapArea {
-        width: 20% !important;
-        height: 30% !important;
-        bottom: 5px !important;
-        right: 5px !important;
-    }
-    
-    #miniMapArea.miniMap.shown {
-        width: 50% !important;
-        height: 60% !important;
-    }
-    
-    /* Smaller chatbox button */
-    .chatboxBtn {
-        width: 36px !important;
-        height: 36px !important;
-        bottom: max(env(safe-area-inset-bottom), 5px) !important;
-        left: max(env(safe-area-inset-left), 5px) !important;
-        font-size: 0.9em !important;
-    }
-    
-    /* Smaller guess button */
-    .miniMap__btn {
-        font-size: 0.9em !important;
-        padding: 6px 12px !important;
-        min-height: 32px !important;
-    }
-    
-    .mobile_minimap__btns {
-        bottom: max(env(safe-area-inset-bottom), 5px) !important;
-        padding: 4px !important;
-    }
-    
-    .mobile_minimap__btns.miniMapShown {
-        bottom: calc(max(env(safe-area-inset-bottom), 5px) + 60vh) !important;
-    }
-    
-    /* Reduce round display size if present */
-    .round-display,
-    .round-counter {
-        font-size: 0.8em !important;
-        padding: 4px 8px !important;
-    }
-    
     .home__destination_image {
         width: min(240px, 45vw);
         margin-bottom: 6px;
@@ -1098,6 +1100,217 @@ html {
         padding: 12px 20px !important;
         font-size: clamp(1em, 2vw, 1.2em) !important;
         min-height: 44px !important;
+    }
+    
+    /* Gameplay UI optimizations - FIXED POSITIONING TO PREVENT MOVEMENT */
+    .navbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        min-height: 40px !important;
+        padding-top: max(env(safe-area-inset-top), 5px) !important;
+        padding-bottom: 4px !important;
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        z-index: 1120 !important;
+        transform: none !important; /* Prevent any transforms */
+        will-change: auto !important; /* Prevent layout shifts */
+    }
+    
+    .navbar__title.mobile {
+        font-size: 0.9em !important;
+        max-width: calc(100vw - 100px) !important;
+        position: relative !important;
+        transform: none !important;
+    }
+    
+    .navbar__title.desktop {
+        position: relative !important;
+        transform: none !important;
+    }
+    
+    .navbar__right {
+        gap: 4px !important;
+        position: relative !important;
+        transform: none !important;
+    }
+    
+    /* Smaller gameplay buttons - FIXED POSITIONING */
+    .navbar.navbarColor .friendBtn:has(.friendBtnUsername) {
+        position: relative !important;
+        max-width: 120px !important;
+        padding: 4px 8px !important;
+        font-size: 0.7em !important;
+        min-height: 32px !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+    
+    .navbar.navbarColor .gameBtn.navBtn.g2_green_button.g2_lexend {
+        position: relative !important;
+        max-width: 120px !important;
+        padding: 4px 8px !important;
+        font-size: 0.7em !important;
+        min-height: 32px !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+    
+    .gameBtn.navBtn.backBtn {
+        position: relative !important;
+        padding: 4px 8px !important;
+        font-size: 0.8em !important;
+        min-height: 32px !important;
+        min-width: 32px !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+    
+    /* Top-right buttons - FIXED POSITIONING */
+    .friendBtnFixed {
+        position: fixed !important;
+        top: max(env(safe-area-inset-top), 5px) !important;
+        right: max(env(safe-area-inset-right), 5px) !important;
+        padding: 4px 8px !important;
+        font-size: 0.7em !important;
+        min-height: 32px !important;
+        max-width: 100px !important;
+        z-index: 1110 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    .leagueBtn {
+        position: fixed !important;
+        top: calc(max(env(safe-area-inset-top), 5px) + 38px) !important;
+        right: max(env(safe-area-inset-right), 5px) !important;
+        padding: 4px 8px !important;
+        font-size: 0.7em !important;
+        min-height: 32px !important;
+        max-width: 100px !important;
+        z-index: 1110 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    /* Timer - FIXED POSITIONING */
+    .timer {
+        position: fixed !important;
+        top: calc(max(env(safe-area-inset-top), 5px) + 45px) !important;
+        right: max(env(safe-area-inset-right), 5px) !important;
+        font-size: 0.75rem !important;
+        padding: 4px 10px !important;
+        margin-right: 0 !important;
+        z-index: 1105 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    /* Mini map - FIXED POSITIONING */
+    #miniMapArea {
+        position: fixed !important;
+        width: 20% !important;
+        height: 30% !important;
+        bottom: 5px !important;
+        right: 5px !important;
+        z-index: 1000 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    #miniMapArea.miniMap.shown {
+        width: 50% !important;
+        height: 60% !important;
+        transform: none !important; /* Prevent movement */
+    }
+    
+    /* Chatbox button - FIXED POSITIONING */
+    .chatboxBtn {
+        position: fixed !important;
+        width: 36px !important;
+        height: 36px !important;
+        bottom: max(env(safe-area-inset-bottom), 5px) !important;
+        left: max(env(safe-area-inset-left), 5px) !important;
+        font-size: 0.9em !important;
+        z-index: 1100 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    .chatboxBtn.open {
+        transform: none !important; /* Override any transforms */
+    }
+    
+    /* Override chatbox transforms in landscape */
+    .chatboxBtn.minimap {
+        transform: none !important;
+    }
+    
+    /* Guess button - FIXED POSITIONING */
+    .miniMap__btn {
+        font-size: 0.9em !important;
+        padding: 6px 12px !important;
+        min-height: 32px !important;
+        transform: none !important;
+    }
+    
+    .mobile_minimap__btns {
+        position: fixed !important;
+        bottom: max(env(safe-area-inset-bottom), 5px) !important;
+        left: max(env(safe-area-inset-left), 5px) !important;
+        padding: 4px !important;
+        z-index: 1101 !important;
+        transform: none !important; /* Prevent movement */
+        will-change: auto !important;
+    }
+    
+    .mobile_minimap__btns.miniMapShown {
+        bottom: calc(max(env(safe-area-inset-bottom), 5px) + 60vh) !important;
+        transform: none !important;
+    }
+    
+    /* Prevent any hover transforms that cause movement */
+    .gameBtn:hover,
+    .friendBtn:hover,
+    .leagueBtn:hover,
+    .chatboxBtn:hover {
+        transform: none !important;
+    }
+    
+    /* Round display */
+    .round-display,
+    .round-counter {
+        font-size: 0.8em !important;
+        padding: 4px 8px !important;
+        position: relative !important;
+        transform: none !important;
+    }
+    
+    /* Ensure navbar buttons don't move on click */
+    .navbar .gameBtn,
+    .navbar .friendBtn {
+        transition: none !important; /* Disable transitions that cause movement */
+    }
+    
+    /* Prevent layout shifts */
+    .navbar__right {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    /* Override chatbox parent transforms */
+    .chatboxParent {
+        transform: none !important;
+    }
+    
+    .chatboxParent.roundOverScreen .chatboxBtn {
+        transform: none !important;
+    }
+    
+    .chatboxParent.roundOverScreen .chatboxBtn.open {
+        transform: none !important;
     }
 }
 
@@ -2399,6 +2612,23 @@ h1, h2, h3, span, label {
     // font-size: 2.5em;
     font-weight: 700;
     color: white;
+    
+    /* Responsive branding */
+    .navbar-title-full {
+        display: inline;
+    }
+    .navbar-title-short {
+        display: none;
+    }
+    
+    @media screen and (max-width: 600px) {
+        .navbar-title-full {
+            display: none;
+        }
+        .navbar-title-short {
+            display: inline;
+        }
+    }
     user-select: none;
     cursor: pointer;
     transition: all 250ms ease;

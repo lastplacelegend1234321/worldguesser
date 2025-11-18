@@ -2796,7 +2796,10 @@ export default function Home({ }) {
                                         priority
                                     />
                                 </div>
-                                <h1 className="home__title_centered wg_font">Proguessr</h1>
+                                <h1 className="home__title_centered wg_font">
+                                    <span className="desktop">Proguessr.com</span>
+                                    <span className="mobile">Proguessr</span>
+                                </h1>
                                 <p className="home__subtitle">Guess street views of the world</p>
                                 
                                 <button 
