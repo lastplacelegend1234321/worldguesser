@@ -18,13 +18,7 @@
   "icons": [
     {
       "src": "/proguessr_favicon.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/proguessr_favicon.png",
-      "sizes": "512x512",
+      "sizes": "2160x2160",
       "type": "image/png",
       "purpose": "any maskable"
     }
