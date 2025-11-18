@@ -3141,4 +3141,3 @@ if(window.inCrazyGames) {
         </>
     )
 }
-}
