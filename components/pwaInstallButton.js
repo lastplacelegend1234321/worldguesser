@@ -84,29 +84,8 @@ export default function PWAInstallButton() {
 
     return (
         <button
-            className="homeBtn home__install_pwa_btn"
+            className="gameBtn pwaInstallBtn"
             onClick={handleInstallClick}
-            style={{
-                background: 'linear-gradient(135deg, #7046e3 0%, #5532c6 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '12px',
-                padding: '12px 24px',
-                fontSize: '1em',
-                fontWeight: '600',
-                cursor: 'pointer',
-                boxShadow: '0 4px 15px rgba(112, 70, 227, 0.4)',
-                transition: 'all 0.3s ease',
-                marginTop: '10px'
-            }}
-            onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(112, 70, 227, 0.5)';
-            }}
-            onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 15px rgba(112, 70, 227, 0.4)';
-            }}
         >
             📱 Install App
         </button>

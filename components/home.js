@@ -2774,6 +2774,11 @@ export default function Home({ }) {
                     )}
                 </div>
 
+                {/* PWA Install button - positioned under ELO */}
+                {screen === "home" && !mapModal && (
+                    <PWAInstallButton />
+                )}
+
                 {/* Login button - shown when not logged in */}
                 {screen === "home" && !mapModal && (!session || !session?.token?.secret) && (
                     <AccountBtn 
@@ -2869,7 +2874,6 @@ export default function Home({ }) {
                                             Custom Maps
                                         </button>
                                     )}
-                                    <PWAInstallButton />
                                 </div>
                                 )}
                             </div>
