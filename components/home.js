@@ -2866,6 +2866,7 @@ export default function Home({ }) {
                                             Custom Maps
                                         </button>
                                     )}
+                                    <PWAInstallButton />
                                 </div>
                                 )}
                             </div>
