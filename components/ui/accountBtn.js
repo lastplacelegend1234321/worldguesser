@@ -1,58 +1,42 @@
 import { signIn } from "@/components/auth/auth";
-import { FaGoogle } from "react-icons/fa";
 import { useTranslation } from '@/components/useTranslations'
 import sendEvent from "../utils/sendEvent";
 
 export default function AccountBtn({ session, openAccountModal, navbarMode, inCrazyGames }) {
   const { t: text } = useTranslation("common");
 
-  // Don't render anything when logged in - account access is via other means
-  if(session?.token?.secret) {
+  if (session?.token?.secret) {
     return null;
   }
 
-  if(inCrazyGames && (!session || !session?.token?.secret)) {
+  if (inCrazyGames && (!session || !session?.token?.secret)) {
     return null;
   }
 
   return (
     <>
-    {!session || !session?.token?.secret ? (
-        <button className={`gameBtn ${navbarMode ? 'navBtn' : 'accountBtn'}`} disabled={inCrazyGames} onClick={() => {
-          if(session === null) {
-            sendEvent("login_attempt")
-            signIn('google')
-          }
-          }}>
-
-        { !session?.token?.secret && session !== null ? '...' :
-        (
-          // <div style="margin-right: 10px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
-          <div style={{marginRight: '10px',marginLeft: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-
-            {!inCrazyGames ? (
-              <>
-            Login
-            </>
-            ): (
-              <>
-            ...
-            </>
-            )}
-          </div>
-        )}
+      {!session || !session?.token?.secret ? (
+        <button
+          className={`gameBtn ${navbarMode ? 'navBtn' : 'accountBtn'}`}
+          disabled={inCrazyGames}
+          onClick={() => {
+            if (session === null) {
+              sendEvent("login_attempt");
+              signIn('google');
+            }
+          }}
+        >
+          {!session?.token?.secret && session !== null ? '...' : (
+            <div style={{ marginRight: '10px', marginLeft: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {!inCrazyGames ? (
+                <>Login</>
+              ) : (
+                <>...</>
+              )}
+            </div>
+          )}
         </button>
-    ) : null}
+      ) : null}
     </>
   )
 }
-    ) : (
-        <button className={`gameBtn ${navbarMode ? 'navBtn' : 'accountBtn loggedIn'} ${session?.token?.supporter ? 'supporterBtn' : ''}`} onClick={() => {
-        openAccountModal()
-        }}>
-          {session?.token?.username ? <p style={{ color:'white', paddingRight: '-13px',marginLeft: '0px', fontSize: "1.4em", fontWeight: 700 }}>LOGIN/LOGOUT</p> : <p style={{ color:'white', paddingRight: '-13px',marginLeft: '0px', fontSize: "1.4em", fontWeight: 700 }}>LOGIN/LOGOUT</p>}
-
-        </button>
-    )}
-    </>
-  )

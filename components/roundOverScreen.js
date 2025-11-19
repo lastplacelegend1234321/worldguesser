@@ -1580,18 +1580,3 @@ const GameSummary = ({
     </div>
   );
 };
-
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  </div>
-                );
-              })}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
