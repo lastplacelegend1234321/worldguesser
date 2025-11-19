@@ -69,9 +69,9 @@ export default function EloView({ eloData, session }) {
 
     const statValueStyle = {
         fontSize: 'clamp(18px, 4vw, 28px)',
-        color: '#ffd700',
+        color: '#FFA500',
         fontWeight: 'bold',
-        textShadow: '0 0 10px rgba(255, 215, 0, 0.3)'
+        textShadow: '0 0 10px rgba(255, 165, 0, 0.3)'
     };
 
     const leagueContainerStyle = {
@@ -152,8 +152,8 @@ export default function EloView({ eloData, session }) {
                                     fontWeight: 'bold',
                                     position: 'relative',
                                     overflow: 'hidden',
-                                    boxShadow: isCurrentLeague ? '0 0 20px rgba(255, 215, 0, 0.5)' : '0 4px 15px rgba(0, 0, 0, 0.3)',
-                                    border: isCurrentLeague ? '3px solid #ffd700' : '2px solid rgba(255, 255, 255, 0.2)'
+                                    boxShadow: isCurrentLeague ? '0 0 20px rgba(255, 165, 0, 0.5)' : '0 4px 15px rgba(0, 0, 0, 0.3)',
+                                    border: isCurrentLeague ? '3px solid #FFA500' : '2px solid rgba(255, 255, 255, 0.2)'
                                 }}>
                                     {league.emoji}
                                     {/* Shiny Effect */}
@@ -175,9 +175,9 @@ export default function EloView({ eloData, session }) {
                                 <p style={{
                                     fontSize: 'clamp(12px, 3vw, 16px)',
                                     marginTop: 'clamp(6px, 1.5vw, 8px)',
-                                    color: isCurrentLeague ? '#ffd700' : '#e0e0e0',
+                                    color: isCurrentLeague ? '#FFA500' : '#e0e0e0',
                                     fontWeight: isCurrentLeague ? 'bold' : '600',
-                                    textShadow: isCurrentLeague ? '0px 0px 8px #ffd700' : 'none'
+                                    textShadow: isCurrentLeague ? '0px 0px 8px #FFA500' : 'none'
                                 }}>
                                     {league.name}
                                 </p>

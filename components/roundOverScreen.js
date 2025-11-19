@@ -1580,5 +1580,3 @@ const GameSummary = ({
     </div>
   );
 };
-
-export default GameSummary;

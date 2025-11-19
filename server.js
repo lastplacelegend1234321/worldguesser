@@ -215,47 +215,160 @@ for (const file of mapOverrideFiles) {
 
 
 for (const country of countries) {
-  countryLocations[country] = [];
+  countryLocations[country] = {
+    locations: [],
+    cacheUpdate: 0
+  };
 }
+
+// Pre-populate country caches from allCountriesCache on startup and periodically
+const prePopulateCountryCaches = () => {
+  if (allCountriesCache.length === 0) return;
+  
+  console.log(`[CACHE] Pre-populating country caches from allCountriesCache (${allCountriesCache.length} locations)...`);
+  const countryMap = {};
+  
+  // Group locations by country
+  for (const loc of allCountriesCache) {
+    const country = loc.country;
+    if (country && countries.includes(country)) {
+      if (!countryMap[country]) {
+        countryMap[country] = [];
+      }
+      countryMap[country].push({
+        lat: loc.lat,
+        long: loc.long || loc.lng,
+        country: country
+      });
+    }
+  }
+  
+  // Populate caches (limit to 500 per country for initial pre-population)
+  for (const country of countries) {
+    if (countryMap[country] && countryMap[country].length > 0) {
+      const shuffled = countryMap[country].sort(() => Math.random() - 0.5);
+      countryLocations[country].locations = shuffled.slice(0, Math.min(500, shuffled.length));
+      countryLocations[country].cacheUpdate = Date.now();
+      console.log(`[CACHE] Pre-populated ${country}: ${countryLocations[country].locations.length} locations`);
+    }
+  }
+  
+  console.log(`[CACHE] Pre-population complete`);
+};
+
+// Pre-populate on startup after allCountriesCache is ready
+setTimeout(() => {
+  prePopulateCountryCaches();
+}, 3000);
+
+// Re-populate every 60 seconds to keep caches fresh
+setInterval(() => {
+  prePopulateCountryCaches();
+}, 60 * 1000);
+
 app.get('/countryLocations/:country', (req, res) => {
+  const country = req.params.country;
 
-
-  if(!countryLocations[req.params.country]) {
+  if(!countryLocations[country]) {
     return res.status(404).json({ message: 'Country not found' });
   }
 
-  if(countryLocations[req.params.country].cacheUpdate && Date.now() - countryLocations[req.params.country].cacheUpdate < 60 * 1000) {
+  // Increased cache duration from 60s to 5 minutes (300s)
+  if(countryLocations[country].cacheUpdate && Date.now() - countryLocations[country].cacheUpdate < 5 * 60 * 1000) {
+    // Cache is fresh, return immediately
+    return res.json({ 
+      ready: countryLocations[country].locations.length > 0, 
+      locations: countryLocations[country].locations 
+    });
+  }
 
-    return res.json({ ready: countryLocations[req.params.country].locations.length>0, locations: countryLocations[req.params.country].locations });
-  } else {
+  // Check for manual overrides first
+  if(rawOverrides[country]) {
+    countryLocations[country].locations = rawOverrides[country].customCoordinates.sort(() => Math.random() - 0.5).slice(0, 1000).map(loc => {
+      return {
+        lat: loc.lat,
+        long: loc.lng,
+        country: country
+      }
+    });
+    countryLocations[country].cacheUpdate = Date.now();
+    return res.json({ 
+      ready: countryLocations[country].locations.length > 0, 
+      locations: countryLocations[country].locations 
+    });
+  }
 
-    if( rawOverrides[req.params.country]) {
-      countryLocations[req.params.country].locations = rawOverrides[req.params.country].customCoordinates.sort(() => Math.random() - 0.5).slice(0, 1000).map(loc => {
-        return {
-          lat: loc.lat,
-          long: loc.lng,
-          country: req.params.country
+  // If we have pre-populated locations, return them immediately while fetching fresh ones in background
+  if (countryLocations[country].locations.length > 0) {
+    // Return cached locations immediately
+    res.json({ 
+      ready: true, 
+      locations: countryLocations[country].locations 
+    });
+    
+    // Update cache in background (non-blocking)
+    // Use Promise.race with timeout for Node.js compatibility
+    const fetchPromise = fetch('http://localhost:3003/countryLocations/' + country);
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Timeout')), 3000)
+    );
+    
+    Promise.race([fetchPromise, timeoutPromise])
+      .then(response => response.json())
+      .then(data => {
+        if(data.ready && data.locations && data.locations.length > 0) {
+          countryLocations[country].locations = data.locations;
+          countryLocations[country].cacheUpdate = Date.now();
+          console.log(`[CACHE] Updated ${country} cache: ${data.locations.length} locations`);
+        }
+      })
+      .catch(error => {
+        // Silently fail - we already returned cached data
+        if (error.message !== 'Timeout') {
+          console.error(`[CACHE] Background update failed for ${country}:`, error.message);
         }
       });
+    
+    return;
+  }
 
-      countryLocations[req.params.country].cacheUpdate = Date.now();
-      return res.json({ ready: countryLocations[req.params.country].locations.length>0, locations: countryLocations[req.params.country].locations });
-    } else {
-fetch('http://localhost:3003/countryLocations/'+req.params.country)
-  .then(response => response.json())
-  .then(data => {
-    if(data.ready && data.locations.length > 0) {
-      countryLocations[req.params.country].locations = data.locations;
-      countryLocations[req.params.country].cacheUpdate = Date.now();
-    }
-    res.json(data);
-  })
-  .catch(error => {
-    console.error('Error fetching countryLocations', error, currentDate());
-    res.status(500).json({ ready: false, message: 'Error fetching countryLocations' });
-  });
-}
-}
+  // No cache available, fetch from cron service (with timeout)
+  const fetchPromise = fetch('http://localhost:3003/countryLocations/' + country);
+  const timeoutPromise = new Promise((_, reject) => 
+    setTimeout(() => reject(new Error('Timeout')), 3000)
+  );
+  
+  Promise.race([fetchPromise, timeoutPromise])
+    .then(response => response.json())
+    .then(data => {
+      if(data.ready && data.locations && data.locations.length > 0) {
+        countryLocations[country].locations = data.locations;
+        countryLocations[country].cacheUpdate = Date.now();
+      }
+      res.json(data);
+    })
+    .catch(error => {
+      console.error(`[CACHE] Error fetching countryLocations for ${country}:`, error.message);
+      
+      // Fallback: try to use allCountriesCache filtered by country
+      const fallbackLocs = allCountriesCache
+        .filter(loc => loc.country === country)
+        .slice(0, 100)
+        .map(loc => ({
+          lat: loc.lat,
+          long: loc.long || loc.lng,
+          country: country
+        }));
+      
+      if (fallbackLocs.length > 0) {
+        countryLocations[country].locations = fallbackLocs;
+        countryLocations[country].cacheUpdate = Date.now();
+        console.log(`[CACHE] Using fallback cache for ${country}: ${fallbackLocs.length} locations`);
+        res.json({ ready: true, locations: fallbackLocs });
+      } else {
+        res.status(500).json({ ready: false, message: 'Error fetching countryLocations' });
+      }
+    });
 });
 
 app.get('/mapLocations/:slug', async (req, res) => {

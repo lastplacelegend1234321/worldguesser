@@ -797,7 +797,6 @@ singlePlayerRound={singlePlayerRound} onboarding={onboarding} countryGuesser={co
       <div className="screen-critical-warning" />
     )}
   </div>
-
-    </div>
+</div>
   )
 }

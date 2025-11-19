@@ -25,7 +25,10 @@ export default function Navbar({ maintenance, joinCodePress, inCrazyGames, inCoo
         <>
             <div className={`navbar ${shown ? "" : "hidden"} ${screen == "home" ? "": "navbarColor"} ${screen === "onboarding" ? "onboarding" : ""}`}>
                 <div className={`nonHome ${screen === 'home' ? '' : 'shown'}`}>
-                    {!mapModalOpen && <h1 className="navbar__title desktop wg_font" onClick={onNavbarPress}>Proguessr</h1>}
+                    {!mapModalOpen && <h1 className="navbar__title desktop wg_font" onClick={onNavbarPress}>
+                        <span className="navbar-title-full">ProGuessr.com</span>
+                        <span className="navbar-title-short">ProGuessr</span>
+                    </h1>}
                     {!mapModalOpen && <h1 className="navbar__title mobile wg_font" onClick={onNavbarPress}>PG</h1>}
                     {!gameOptionsModalShown && !accountModalOpen && !selectCountryModalShown &&  <>
                         <button className="gameBtn navBtn backBtn g2_red_button desktop" onClick={backBtnPressed}>{text("back")}</button>
@@ -54,7 +57,7 @@ export default function Navbar({ maintenance, joinCodePress, inCrazyGames, inCoo
                 )}
                 <div className="navbar__right">
 
-                    {screen === 'singleplayer' && !accountModalOpen && (
+                    {screen === 'singleplayer' && !accountModalOpen && !mapModalOpen && !gameOptionsModalShown && (
                         <button className="gameBtn navBtn g2_green_button g2_lexend" disabled={loading} onClick={() => setGameOptionsModalShown(true)}>
                             {((gameOptions.location === "all") || !gameOptions.location) ? text("allCountries") : gameOptions?.countryMap ? nameFromCode(gameOptions.location) : gameOptions?.communityMapName}
                             {gameOptions.nm && gameOptions.npz ?

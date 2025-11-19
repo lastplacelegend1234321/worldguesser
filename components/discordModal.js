@@ -27,15 +27,45 @@ export default function DiscordModal({ shown, setOpen }) {
 <h2>{text("joinDiscord")}</h2>
       <p>{text("joinDiscordDesc")}</p>
 
-<iframe src="https://discord.com/widget?id=1229957469116301412&theme=dark" width="350"
-height="350"
-allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+      <a 
+        href="https://discord.gg/azbS3F2wmb" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        onClick={() => {
+          gameStorage.setItem("shownDiscordModal", Date.now().toString())
+          setOpen(false)
+        }}
+        style={{
+          display: 'inline-block',
+          background: 'linear-gradient(135deg, #5865F2 0%, #7289DA 100%)',
+          color: 'white',
+          padding: '14px 32px',
+          borderRadius: '12px',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: '18px',
+          fontWeight: 'bold',
+          marginTop: '24px',
+          textDecoration: 'none',
+          boxShadow: '0 8px 18px rgba(88, 101, 242, 0.4)',
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = 'translateY(-2px)';
+          e.target.style.boxShadow = '0 12px 24px rgba(88, 101, 242, 0.5)';
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = 'translateY(0)';
+          e.target.style.boxShadow = '0 8px 18px rgba(88, 101, 242, 0.4)';
+        }}
+      >
+        Join Discord Server
+      </a>
 
-<br/>
+      <br/>
 
       <button onClick={() => {
           gameStorage.setItem("shownDiscordModal", Date.now().toString())
-
         setOpen(false)
       }} style={{
           background: 'linear-gradient(135deg, rgba(154, 129, 243, 0.2) 0%, rgba(112, 70, 227, 0.12) 100%)',
@@ -46,8 +76,7 @@ allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-e
           cursor: 'pointer',
           fontSize: '16px',
           fontWeight: 'bold',
-          marginTop: '24px',
-          marginLeft: '20px',
+          marginTop: '16px',
           boxShadow: '0 8px 18px rgba(112, 70, 227, 0.35)',
           transition: 'all 0.3s ease'
       }}>

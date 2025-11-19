@@ -35,6 +35,7 @@ function App({ Component, pageProps }) {
 
         wb.addEventListener("waiting", promptUpdate);
         await wb.register();
+        console.log("[PWA] Service worker registered successfully");
       } catch (error) {
         // Silently fail in incognito mode or when service workers are unavailable
         if (process.env.NODE_ENV !== "production") {
@@ -44,6 +45,30 @@ function App({ Component, pageProps }) {
     };
 
     registerServiceWorker();
+
+    // Handle PWA install prompt
+    let deferredPrompt;
+    const handleBeforeInstallPrompt = (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later
+      deferredPrompt = e;
+      // Show install button or banner
+      window.dispatchEvent(new CustomEvent('pwa-installable', { detail: e }));
+      console.log("[PWA] Install prompt available");
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Handle successful installation
+    window.addEventListener('appinstalled', () => {
+      console.log("[PWA] App installed successfully");
+      deferredPrompt = null;
+    });
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
   }, []);
 
   useEffect(() => {

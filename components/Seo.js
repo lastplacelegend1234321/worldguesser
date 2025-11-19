@@ -4,11 +4,11 @@ import { useMemo } from "react";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://worldguessr.com";
 const DEFAULT_IMAGE = `${SITE_URL}/worldguessr-thumbnail.png`;
-const DEFAULT_TITLE = "Proguessr | Free Geography Guessing Game";
+const DEFAULT_TITLE = "ProGuessr | Free Geography Guessing Game";
 const DEFAULT_DESCRIPTION =
-    "Play Proguessr, the free geography guessing game inspired by GeoGuessr. Explore unlimited Street View locations, compete with friends, and sharpen your world knowledge.";
+    "Play ProGuessr, the free geography guessing game inspired by GeoGuessr. Explore unlimited Street View locations, compete with friends, and sharpen your world knowledge.";
 const DEFAULT_KEYWORDS = [
-    "Proguessr",
+    "ProGuessr",
     "geography game",
     "GeoGuessr alternative",
     "street view game",
@@ -21,7 +21,7 @@ const defaultSchema = [
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "Proguessr",
+        name: "ProGuessr",
         url: SITE_URL,
         description: DEFAULT_DESCRIPTION,
         potentialAction: {
@@ -33,7 +33,7 @@ const defaultSchema = [
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "Proguessr",
+        name: "ProGuessr",
         url: SITE_URL,
         logo: `${SITE_URL}/icon.png`,
         sameAs: ["https://discord.gg/azbS3F2wmb"],

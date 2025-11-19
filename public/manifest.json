@@ -1,23 +1,26 @@
 {
-  "background_color": "#092f5f",
+  "name": "ProGuessr - Play Geoguessr for free",
+  "short_name": "ProGuessr",
   "description": "The #1 free alternative to GeoGuessr, enjoy unlimited games and play to your hearts content! Engage in the fun of discovering new places and learn geography.",
-  "dir": "ltr",
-  "display": "fullscreen",
-  "name": "Proguessr",
-  "orientation": "portrait",
-  "scope": "/",
-  "short_name": "Proguessr",
   "start_url": "/",
-  "theme_color": "#164785",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "fullscreen",
+    "window-controls-overlay"
+  ],
+  "orientation": "any",
+  "background_color": "#7046e3",
+  "theme_color": "#7046e3",
+  "dir": "ltr",
+  "lang": "en",
+  "id": "proguessr",
   "icons": [
     {
       "src": "/proguessr_favicon.png",
-      "type": "image/png"
-    },
-    {
-      "src": "/proguessr_favicon.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "sizes": "2160x2160",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
@@ -26,19 +29,14 @@
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Proguessr gameplay overview"
+      "label": "ProGuessr gameplay overview"
     },
     {
       "src": "/worldguessr-thumbnail.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Proguessr gameplay overview"
+      "label": "ProGuessr gameplay overview"
     }
-  ],
-  "id": "worldguessr",
-  "display_override": [
-    "fullscreen",
-    "window-controls-overlay"
   ]
 }

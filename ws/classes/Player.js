@@ -344,5 +344,3 @@ export default class Player {
   };
   this.send(data);
 }
-
-}

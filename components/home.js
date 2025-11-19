@@ -35,6 +35,7 @@ import SuggestAccountModal from "@/components/suggestAccountModal";
 import FriendsModal from "@/components/friendModal";
 import { toast, ToastContainer } from "react-toastify";
 import InfoModal from "@/components/infoModal";
+import PWAInstallButton from "@/components/pwaInstallButton";
 import { inIframe, isForbiddenIframe } from "@/components/utils/inIframe";
 import moment from 'moment-timezone';
 import MapsModal from "@/components/maps/mapsModal";
@@ -832,7 +833,7 @@ export default function Home({ }) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play Proguessr</title>
+  <title>Play ProGuessr</title>
   <style>
     * {
       margin: 0;
@@ -889,7 +890,7 @@ export default function Home({ }) {
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Proguessr!</h1>
+    <h1>Welcome to ProGuessr!</h1>
     <a href="https://worldguessr.com" target="_blank">
       <button class="play-button">Open in New Tab ↗</button>
     </a>
@@ -1069,7 +1070,7 @@ export default function Home({ }) {
 
     // Log commit hash on app startup
     useEffect(() => {
-        console.log(`🌍 Proguessr build: ${process.env.NEXT_PUBLIC_COMMIT_HASH || 'unknown'}`);
+        console.log(`🌍 ProGuessr build: ${process.env.NEXT_PUBLIC_COMMIT_HASH || 'unknown'}`);
         console.log(`📅 Build time: ${process.env.NEXT_PUBLIC_BUILD_TIME || 'unknown'}`);
     }, [])
 
@@ -2269,12 +2270,12 @@ export default function Home({ }) {
                 
                 console.log("Fetching locations from:", url, "for map:", optionsToUse.location, "countryMap:", optionsToUse.countryMap, "official:", optionsToUse.official);
                 
-                // Create abort controller for timeout
+                // Create abort controller for timeout - reduced from 10s to 5s for faster fallback
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => {
-                    console.warn("Fetch timeout after 10 seconds for:", url);
+                    console.warn("Fetch timeout after 5 seconds for:", url);
                     controller.abort();
-                }, 10000); // 10 second timeout
+                }, 5000); // 5 second timeout for faster fallback
                 
                 fetch(url, {
                     method: 'GET',
@@ -2773,6 +2774,11 @@ export default function Home({ }) {
                     )}
                 </div>
 
+                {/* PWA Install button - positioned under ELO */}
+                {screen === "home" && !mapModal && (
+                    <PWAInstallButton />
+                )}
+
                 {/* Login button - shown when not logged in */}
                 {screen === "home" && !mapModal && (!session || !session?.token?.secret) && (
                     <AccountBtn 
@@ -2790,12 +2796,15 @@ export default function Home({ }) {
                                 <div className="home__destination_image-wrapper">
                                     <NextImage.default
                                         src={destinationImage}
-                                        alt="Proguessr Destination"
+                                        alt="ProGuessr Destination"
                                         className="home__destination_image"
                                         priority
                                     />
                                 </div>
-                                <h1 className="home__title_centered wg_font">Proguessr</h1>
+                                <h1 className="home__title_centered wg_font">
+                                    <span className="desktop">ProGuessr.com</span>
+                                    <span className="mobile">ProGuessr</span>
+                                </h1>
                                 <p className="home__subtitle">Guess street views of the world</p>
                                 
                                 <button 
