@@ -5787,6 +5787,9 @@ div[dir="ltr"] {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    min-height: 32px;
 }
 
 .pwaInstallBtn:hover {
@@ -5811,9 +5814,9 @@ div[dir="ltr"] {
 @media (max-width: 1280px) {
     .leagueBtn {
         top: calc(10px + 44px + 10px); /* Friends button height on tablet + gap */
-        font-size: 0.95em;
+        font-size: 0.8rem;
         max-width: 180px;
-        padding: 5px 10px;
+        padding: 4px 10px;
     }
     .friendBtnFixed {
         max-width: 180px;
@@ -5823,9 +5826,9 @@ div[dir="ltr"] {
 @media (max-width: 600px) {
     .leagueBtn {
         top: calc(max(env(safe-area-inset-top), 10px) + 38px + 10px); /* Friends button height on mobile + larger gap */
-        font-size: 0.85em;
+        font-size: 0.75rem;
         max-width: calc(50vw - 20px); /* Prevent overflow */
-        padding: 5px 10px;
+        padding: 4px 8px;
         min-width: 50px;
         right: max(env(safe-area-inset-right), 10px);
         min-height: 44px; /* Touch target */
