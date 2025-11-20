@@ -649,7 +649,7 @@ html {
     width: 100%;
     gap: 20px;
     padding-top: 0;
-    transform: translateY(-80px);
+    transform: translateY(-60px); /* move hero/logo slightly lower on large screens */
 }
 
 @media (max-width: 768px) {
@@ -668,7 +668,7 @@ html {
     width: min(260px, 45vw);
     max-width: 280px;
     height: auto;
-    margin-bottom: 12px;
+    margin-bottom: 6px; /* bring logo a bit closer to title */
     filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
 }
 
@@ -5775,7 +5775,7 @@ div[dir="ltr"] {
     position: fixed;
     /* Position below friends button - friends button is at top: 10px */
     /* Account for friends button height (min-height 42px + padding) + gap */
-    top: calc(10px + 50px + 12px); /* Friends button top + gap so they never touch */
+    top: calc(10px + 50px + 16px); /* slightly larger gap under friends button */
     right: 10px; /* Same right position as friends button */
     height: min-content;
     animation: bounce 0.5s;
@@ -5813,7 +5813,7 @@ div[dir="ltr"] {
 // less than 1280px
 @media (max-width: 1280px) {
     .leagueBtn {
-        top: calc(10px + 44px + 10px); /* Friends button height on tablet + gap */
+        top: calc(10px + 44px + 14px); /* Friends button height on tablet + slightly larger gap */
         font-size: 0.8rem;
         max-width: 180px;
         padding: 4px 10px;
@@ -5825,7 +5825,7 @@ div[dir="ltr"] {
 // less than 900px
 @media (max-width: 600px) {
     .leagueBtn {
-        top: calc(max(env(safe-area-inset-top), 10px) + 38px + 10px); /* Friends button height on mobile + larger gap */
+        top: calc(max(env(safe-area-inset-top), 10px) + 38px + 14px); /* Friends button height on mobile + slightly larger gap */
         font-size: 0.75rem;
         max-width: calc(50vw - 20px); /* Prevent overflow */
         padding: 4px 8px;
