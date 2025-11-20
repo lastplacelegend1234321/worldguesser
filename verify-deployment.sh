@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to verify that all recent changes are properly deployed
 
-echo "🔍 Verifying Proguessr Deployment..."
+echo "🔍 Verifying ProGuessr.com Deployment..."
 echo ""
 
 # Navigate to project directory

@@ -5,7 +5,7 @@ export default function AnimatedCounter({
   duration = 800,
   className = '',
   showIncrement = true,
-  incrementColor = '#7046e3', // Proguessr brand color
+  incrementColor = '#7046e3', // ProGuessr.com brand color
   formatNumber = true
 }) {
   const [displayValue, setDisplayValue] = useState(value);

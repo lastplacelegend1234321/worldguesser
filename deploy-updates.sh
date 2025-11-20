@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to deploy all recent changes (incognito fixes, mobile improvements, rebranding)
 
-echo "🚀 Deploying Proguessr updates..."
+echo "🚀 Deploying ProGuessr.com updates..."
 echo ""
 
 # Navigate to project directory
@@ -46,7 +46,7 @@ echo ""
 echo "🌐 Your site should now be live with all updates:"
 echo "   - Incognito mode fixes"
 echo "   - Mobile improvements"
-echo "   - Proguessr rebranding"
+echo "   - ProGuessr.com rebranding"
 echo ""
 echo "💡 If you see any issues, check logs with:"
 echo "   pm2 logs"

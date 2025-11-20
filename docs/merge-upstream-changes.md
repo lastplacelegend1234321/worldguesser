@@ -1,6 +1,6 @@
 # How to Merge Upstream Changes While Preserving Your Customizations
 
-This guide shows you how to pull updates from the original WorldGuessr repository (`codergautam/worldguessr`) while keeping all your custom changes (rebranding to Proguessr, deployment configs, etc.).
+This guide shows you how to pull updates from the original WorldGuessr repository (`codergautam/worldguessr`) while keeping all your custom changes (rebranding to ProGuessr.com, deployment configs, etc.).
 
 ## Step 1: Add Upstream Remote
 
@@ -77,7 +77,7 @@ When conflicts occur, Git will mark them in the files. You'll see:
 
 ```
 <<<<<<< HEAD
-Your custom code (Proguessr branding, etc.)
+Your custom code (ProGuessr.com branding, etc.)
 =======
 Original code from upstream
 >>>>>>> upstream/master
@@ -85,9 +85,9 @@ Original code from upstream
 
 ### Strategy for Common Conflicts:
 
-1. **Rebranding Conflicts** (WorldGuessr → Proguessr):
-   - Keep your Proguessr version
-   - Example: If upstream has "WorldGuessr" and you have "Proguessr", keep "Proguessr"
+1. **Rebranding Conflicts** (WorldGuessr → ProGuessr.com):
+   - Keep your ProGuessr.com version
+   - Example: If upstream has "WorldGuessr" and you have "ProGuessr.com", keep "ProGuessr.com"
 
 2. **Configuration Conflicts**:
    - Keep your production configs (DigitalOcean, Nginx, etc.)
@@ -205,7 +205,7 @@ Based on your changes, watch for conflicts in:
 - `styles/globals.scss` - Mobile responsiveness, overflow fixes
 - `public/manifest.json` - PWA branding
 - `components/Seo.js` - SEO titles
-- `public/locales/en/common.json` - All "Proguessr" rebranding
+- `public/locales/en/common.json` - All "ProGuessr.com" rebranding
 - `next.config.js` - PWA configuration
 - `pages/_app.js` - Service worker registration
 - `api/map/mapHome.js` - Cache durations (you just fixed this)

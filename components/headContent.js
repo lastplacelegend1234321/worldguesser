@@ -103,7 +103,7 @@ ads.js"></script>*/
   const gameSchema = {
     "@context": "https://schema.org",
     "@type": "VideoGame",
-    name: "Proguessr",
+    name: "ProGuessr.com",
     url: SITE_URL,
     image: `${SITE_URL}/worldguessr-thumbnail.png`,
     description: text("fullDescMeta"),
@@ -117,7 +117,7 @@ ads.js"></script>*/
       <Seo
         title={
           inCoolMathGames
-            ? "Proguessr - Play it now at CoolmathGames.com"
+            ? "ProGuessr.com - Play it now at CoolmathGames.com"
             : text("tabTitle")
         }
         description={text("shortDescMeta")}

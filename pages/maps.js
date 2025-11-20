@@ -61,8 +61,8 @@ function MapsPage({  }) {
 }
 
 MapsPage.seo = {
-    title: "Proguessr Custom Maps | Discover Community Creations",
-    description: "Browse spotlight, popular, and recent custom Proguessr maps created by the community, or search for a specific challenge.",
+    title: "ProGuessr.com Custom Maps | Discover Community Creations",
+    description: "Browse spotlight, popular, and recent custom ProGuessr.com maps created by the community, or search for a specific challenge.",
 };
 
 export default MapsPage;

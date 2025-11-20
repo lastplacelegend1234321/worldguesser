@@ -832,7 +832,7 @@ export default function Home({ }) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play Proguessr</title>
+  <title>Play ProGuessr.com</title>
   <style>
     * {
       margin: 0;
@@ -889,7 +889,7 @@ export default function Home({ }) {
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Proguessr!</h1>
+    <h1>Welcome to ProGuessr.com!</h1>
     <a href="https://worldguessr.com" target="_blank">
       <button class="play-button">Open in New Tab ↗</button>
     </a>
@@ -1069,7 +1069,7 @@ export default function Home({ }) {
 
     // Log commit hash on app startup
     useEffect(() => {
-        console.log(`🌍 Proguessr build: ${process.env.NEXT_PUBLIC_COMMIT_HASH || 'unknown'}`);
+        console.log(`🌍 ProGuessr.com build: ${process.env.NEXT_PUBLIC_COMMIT_HASH || 'unknown'}`);
         console.log(`📅 Build time: ${process.env.NEXT_PUBLIC_BUILD_TIME || 'unknown'}`);
     }, [])
 

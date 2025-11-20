@@ -23,7 +23,7 @@ const StreetView = ({
     }
   }, [lat, long, panoId]);
 
-  // Get Google Maps API key from environment variable (Proguessr customization)
+  // Get Google Maps API key from environment variable (ProGuessr.com customization)
   const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA2fHNuyc768n9ZJLTrfbkWLNK3sLOK-iQ";
 
   // Update iframe src when location changes (improved from upstream)
@@ -61,7 +61,7 @@ const StreetView = ({
       ref={iframeRef}
       className={`${(npz && nm && !showAnswer) ? 'nmpz' : ''} ${hidden ? "hidden" : ""} streetview`}
       src={iframeSrc}
-      referrerPolicy="origin" // Proguessr customization: fixes incognito mode
+      referrerPolicy="origin" // ProGuessr.com customization: fixes incognito mode
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
       onLoad={() => {
         setLoading(false);

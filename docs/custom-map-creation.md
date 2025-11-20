@@ -2,7 +2,7 @@
 
 ## Can Users Create Custom Maps?
 
-**Yes!** Users can create custom maps on Proguessr. Here's how it works:
+**Yes!** Users can create custom maps on ProGuessr.com. Here's how it works:
 
 ## How to Create a Custom Map
 

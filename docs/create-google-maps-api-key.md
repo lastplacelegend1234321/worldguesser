@@ -5,7 +5,7 @@
 1. Go to: https://console.cloud.google.com/
 2. Click **"Select a project"** (top bar)
 3. Click **"New Project"**
-4. Enter project name: `Proguessr` (or any name)
+4. Enter project name: `ProGuessr.com` (or any name)
 5. Click **"Create"**
 6. Wait for project creation, then select it
 
