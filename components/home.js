@@ -2805,7 +2805,7 @@ export default function Home({ }) {
                                     <span className="desktop">ProGuessr.com</span>
                                     <span className="mobile">ProGuessr.com</span>
                                 </h1>
-                                <p className="home__subtitle">Guess street views of the world</p>
+                                <p className="home__subtitle">Guess street views of the world for free</p>
                                 
                                 <button 
                                     className="homeBtn home__play_btn" 
