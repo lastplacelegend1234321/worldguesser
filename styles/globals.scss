@@ -654,13 +654,13 @@ html {
 
 @media (max-width: 768px) {
     .home__centered_content {
-        transform: translateY(-40px);
+        transform: translateY(-15px); /* small upward shift only */
     }
 }
 
 @media (max-width: 480px) {
     .home__centered_content {
-        transform: translateY(-20px);
+        transform: translateY(0); /* no upward shift on very small screens */
     }
 }
 
@@ -5775,7 +5775,7 @@ div[dir="ltr"] {
     position: fixed;
     /* Position below friends button - friends button is at top: 10px */
     /* Account for friends button height (min-height 42px + padding) + gap */
-    top: calc(10px + 40px + 10px); /* slightly closer but not touching */
+    top: calc(10px + 50px + 12px); /* Friends button top + gap so they never touch */
     right: 10px; /* Same right position as friends button */
     height: min-content;
     animation: bounce 0.5s;
