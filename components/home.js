@@ -2790,13 +2790,13 @@ export default function Home({ }) {
                                 <div className="home__destination_image-wrapper">
                                     <NextImage.default
                                         src={destinationImage}
-                                        alt="Proguessr Destination"
+                                        alt="ProGuessr.com Destination"
                                         className="home__destination_image"
                                         priority
                                     />
                                 </div>
-                                <h1 className="home__title_centered wg_font">Proguessr</h1>
-                                <p className="home__subtitle">Guess street views of the world</p>
+                                <h1 className="home__title_centered wg_font">ProGuessr.com</h1>
+                                <p className="home__subtitle">Guess street views of the world for free</p>
                                 
                                 <button 
                                     className="homeBtn home__play_btn" 

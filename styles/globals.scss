@@ -121,7 +121,7 @@ html {
     width: 100%;
     max-width: 720px;
     padding: max(env(safe-area-inset-top), 20px) 28px max(env(safe-area-inset-bottom), 20px);
-    overflow-y: auto;
+    overflow: visible; /* avoid inner scroll bar on home */
     box-sizing: border-box;
 }
 
@@ -665,8 +665,8 @@ html {
 }
 
 .home__destination_image {
-    width: min(360px, 65vw);
-    max-width: 400px;
+    width: min(260px, 45vw);
+    max-width: 280px;
     height: auto;
     margin-bottom: 12px;
     filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
@@ -726,9 +726,9 @@ html {
         font-size: min(clamp(2.5em, 5vw, 3.5em), clamp(2em, 6vh, 2.5em));
         padding: 0 20px;
         margin-bottom: 2px;
-    }
-    
-    .home__subtitle {
+}
+
+.home__subtitle {
         font-size: min(clamp(1.2em, 2vw, 1.5em), clamp(1em, 2.5vh, 1.3em));
         margin-bottom: 8px;
     }
@@ -1592,7 +1592,7 @@ html {
     max-width: 190px; /* Increased max-width */
     display: block;
     line-height: 1.2;
-}
+    }
 //less than 1280px
 @media screen and (max-width: 1280px) {
     .accountBtn {
@@ -1612,7 +1612,7 @@ html {
 }
 //less than 600px
 @media screen and (max-width: 600px) {
-    .accountBtn {
+.accountBtn {
         font-size: 0.75em;
         top: max(env(safe-area-inset-top), 10px);
         right: max(env(safe-area-inset-right), 10px);
@@ -2772,6 +2772,7 @@ h1, h2, h3, span, label {
     width: 100%;
     color: white;
     font-size: 1.5em;
+    font-weight: 700; /* emphasize Guess/Hint buttons during play */
     cursor: pointer;
     transition: background-color 0.3s;
     border: 2px solid var(--primary);
@@ -5774,14 +5775,14 @@ div[dir="ltr"] {
     position: fixed;
     /* Position below friends button - friends button is at top: 10px */
     /* Account for friends button height (min-height 42px + padding) + gap */
-    top: calc(10px + 50px + 12px); /* Friends button top + max height + gap */
+    top: calc(10px + 40px + 10px); /* slightly closer but not touching */
     right: 10px; /* Same right position as friends button */
     height: min-content;
     animation: bounce 0.5s;
     z-index: 1000;
-    width: fit-content;
-    min-width: 60px;
-    max-width: 200px; /* Reasonable max width */
+    width: auto;
+    min-width: 70px;
+    max-width: 220px; /* Reasonable max width */
     display: flex;
     align-items: center;
     justify-content: center;
