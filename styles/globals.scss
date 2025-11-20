@@ -6417,14 +6417,18 @@ div[dir="ltr"] {
     animation: bounce 0.5s;
     z-index: 1000;
     width: fit-content;
-    min-width: 60px;
-    /* Make ELO pill thinner than big home buttons */
-    font-size: 0.9rem;
-    padding: 6px 12px;
+    min-width: 80px;
+    /* Make ELO pill noticeably thinner than main buttons but still readable */
+    font-size: 0.8rem;
+    padding: 4px 10px;
     border-radius: 12px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .pwaInstallBtn {
