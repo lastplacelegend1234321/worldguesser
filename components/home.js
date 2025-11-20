@@ -46,7 +46,7 @@ import countries from "@/public/countries.json";
 import officialCountryMaps from "@/public/officialCountryMaps.json";
 
 import gameStorage from "@/components/utils/localStorage";
-import DiscordModal from "@/components/discordModal";
+// import DiscordModal from "@/components/discordModal";
 import MerchModal from "@/components/merchModal";
 import AlertModal from "@/components/ui/AlertModal";
 import WhatsNewModal from "@/components/ui/WhatsNewModal";
@@ -605,7 +605,7 @@ export default function Home({ }) {
     const [countryGuesserCorrect, setCountryGuesserCorrect] = useState(false);
 
     const [showSuggestLoginModal, setShowSuggestLoginModal] = useState(false);
-    const [showDiscordModal, setShowDiscordModal] = useState(false);
+    // const [showDiscordModal, setShowDiscordModal] = useState(false);
     const [singlePlayerRound, setSinglePlayerRound] = useState(null);
     const [partyModalShown, setPartyModalShown] = useState(false);
     const [selectCountryModalShown, setSelectCountryModalShown] = useState(false);
@@ -2559,7 +2559,8 @@ export default function Home({ }) {
             />
             <SetUsernameModal shown={session && session?.token?.secret && !session.token.username} session={session} />
             <SuggestAccountModal shown={showSuggestLoginModal} setOpen={setShowSuggestLoginModal} />
-            <DiscordModal shown={showDiscordModal && (typeof window !== 'undefined' && window.innerWidth >= 768)} setOpen={setShowDiscordModal} />
+            {/* Discord modal temporarily disabled */}
+            {/* <DiscordModal shown={showDiscordModal && (typeof window !== 'undefined' && window.innerWidth >= 768)} setOpen={setShowDiscordModal} /> */}
             {/* <MerchModal shown={merchModal} onClose={() => setMerchModal(false)} session={session} /> */}
             <MapGuessrModal isOpen={mapGuessrModal} onClose={() => setMapGuessrModal(false)} />
             {ChatboxMemo}
@@ -2924,7 +2925,7 @@ export default function Home({ }) {
                     <GameUI
                         inCoolMathGames={inCoolMathGames}
                         miniMapShown={miniMapShown} setMiniMapShown={setMiniMapShown}
-                        singlePlayerRound={singlePlayerRound} setSinglePlayerRound={setSinglePlayerRound} showDiscordModal={showDiscordModal} setShowDiscordModal={setShowDiscordModal} inCrazyGames={inCrazyGames} showPanoOnResult={showPanoOnResult} setShowPanoOnResult={setShowPanoOnResult} options={options} countryStreak={countryStreak} setCountryStreak={setCountryStreak} hintShown={hintShown} setHintShown={setHintShown} pinPoint={pinPoint} setPinPoint={setPinPoint} showAnswer={showAnswer} setShowAnswer={setShowAnswer} loading={loading} setLoading={setLoading} session={session} gameOptionsModalShown={gameOptionsModalShown} setGameOptionsModalShown={setGameOptionsModalShown} latLong={latLong} loadLocation={loadLocation} gameOptions={gameOptions} setGameOptions={setGameOptions} />
+                        singlePlayerRound={singlePlayerRound} setSinglePlayerRound={setSinglePlayerRound} showDiscordModal={false} setShowDiscordModal={() => {}} inCrazyGames={inCrazyGames} showPanoOnResult={showPanoOnResult} setShowPanoOnResult={setShowPanoOnResult} options={options} countryStreak={countryStreak} setCountryStreak={setCountryStreak} hintShown={hintShown} setHintShown={setHintShown} pinPoint={pinPoint} setPinPoint={setPinPoint} showAnswer={showAnswer} setShowAnswer={setShowAnswer} loading={loading} setLoading={setLoading} session={session} gameOptionsModalShown={gameOptionsModalShown} setGameOptionsModalShown={setGameOptionsModalShown} latLong={latLong} loadLocation={loadLocation} gameOptions={gameOptions} setGameOptions={setGameOptions} />
                 </div>}
 
                 {screen === "onboarding" && (onboarding?.round || onboarding?.completed) && <div className="home__onboarding">
