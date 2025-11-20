@@ -1,77 +1,46 @@
 {
-  "id": "/",
+  "id": "/pwa",
   "ms_start_compatible": true,
-  "name": "ProGuessr.com – Free GeoGuessr Alternative",
-  "short_name": "ProGuessr",
-  "description": "Free Geoguesser Alternative",
+  "name": "ProGuessr.com",
+  "short_name": "ProGuessr.com",
+  "description": "The #1 free alternative to GeoGuessr, enjoy unlimited games and play to your hearts content! Engage in the fun of discovering new places and learn geography.",
   "lang": "en",
   "dir": "ltr",
+
   "start_url": "/?app=pwa",
   "scope": "/",
+
   "display": "standalone",
   "display_override": [
     "fullscreen",
-    "standalone",
-    "window-controls-overlay"
+    "standalone"
   ],
-  "orientation": "any",
-  "background_color": "#7046e3",
-  "theme_color": "#7046e3",
+
+  "orientation": "landscape",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+
   "icons": [
-    {
-      "src": "/icon_144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/proguessr_favicon.png",
-      "sizes": "2160x2160",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "/favicon/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon/monochrome-512.png", "sizes": "512x512", "type": "image/png", "purpose": "monochrome" },
+    { "src": "/screenshots/wide-1920x1080.png", "sizes": "1920x1080", "type": "image/png", "purpose": "any" }
   ],
+
   "categories": [
     "games",
-    "education"
+    "entertainment"
   ],
-  "shortcuts": [
-    {
-      "name": "Play",
-      "short_name": "Play",
-      "description": "Jump straight into a ProGuessr round",
-      "url": "/"
-    },
-    {
-      "name": "Leaderboard",
-      "short_name": "Leaderboard",
-      "description": "View global ProGuessr rankings",
-      "url": "/leaderboard"
-    }
-  ],
+
   "launch_handler": {
     "client_mode": "focus-existing"
   },
+  "prefer_related_applications": false,
+
   "screenshots": [
-    {
-      "src": "/proguessr_16x9_image_manifest.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "ProGuessr.com 16:9 hero image"
-    },
-    {
-      "src": "/manifest_1280x720_proguessr.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "ProGuessr.com 1280x720 promo image"
-    }
+    { "src": "/screenshots/wide-1280x720.png", "sizes": "1280x720", "type": "image/png", "form_factor": "wide" },
+    { "src": "/screenshots/wide-1920x1080.png", "sizes": "1920x1080", "type": "image/png", "form_factor": "wide" },
+    { "src": "/screenshots/narrow-1080x1920.png", "sizes": "1080x1920", "type": "image/png", "form_factor": "narrow" }
   ]
 }
