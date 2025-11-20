@@ -1,21 +1,35 @@
 {
-  "name": "ProGuessr - Play Geoguessr for free",
+  "id": "/",
+  "ms_start_compatible": true,
+  "name": "ProGuessr.com – Free GeoGuessr Alternative",
   "short_name": "ProGuessr",
-  "description": "The #1 free alternative to GeoGuessr, enjoy unlimited games and play to your hearts content! Engage in the fun of discovering new places and learn geography.",
-  "start_url": "/",
+  "description": "Free Geoguesser Alternative",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/?app=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": [
     "fullscreen",
+    "standalone",
     "window-controls-overlay"
   ],
   "orientation": "any",
   "background_color": "#7046e3",
   "theme_color": "#7046e3",
-  "dir": "ltr",
-  "lang": "en",
-  "id": "proguessr",
   "icons": [
+    {
+      "src": "/icon_144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/proguessr_favicon.png",
       "sizes": "2160x2160",
@@ -23,20 +37,41 @@
       "purpose": "any maskable"
     }
   ],
+  "categories": [
+    "games",
+    "education"
+  ],
+  "shortcuts": [
+    {
+      "name": "Play",
+      "short_name": "Play",
+      "description": "Jump straight into a ProGuessr round",
+      "url": "/"
+    },
+    {
+      "name": "Leaderboard",
+      "short_name": "Leaderboard",
+      "description": "View global ProGuessr rankings",
+      "url": "/leaderboard"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
   "screenshots": [
     {
       "src": "/proguessr_16x9_image_manifest.png",
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "ProGuessr gameplay overview"
+      "label": "ProGuessr.com 16:9 hero image"
     },
     {
-      "src": "/worldguessr-thumbnail.png",
+      "src": "/manifest_1280x720_proguessr.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "ProGuessr gameplay overview"
+      "label": "ProGuessr.com 1280x720 promo image"
     }
   ]
 }

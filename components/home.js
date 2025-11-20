@@ -2803,7 +2803,7 @@ export default function Home({ }) {
                                 </div>
                                 <h1 className="home__title_centered wg_font">
                                     <span className="desktop">ProGuessr.com</span>
-                                    <span className="mobile">ProGuessr</span>
+                                    <span className="mobile">ProGuessr.com</span>
                                 </h1>
                                 <p className="home__subtitle">Guess street views of the world</p>
                                 
