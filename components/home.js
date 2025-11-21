@@ -605,7 +605,8 @@ export default function Home({ }) {
     const [countryGuesserCorrect, setCountryGuesserCorrect] = useState(false);
 
     const [showSuggestLoginModal, setShowSuggestLoginModal] = useState(false);
-    // const [showDiscordModal, setShowDiscordModal] = useState(false);
+    // Keep Discord modal state so references are defined, but we do not render the modal
+    const [showDiscordModal, setShowDiscordModal] = useState(false);
     const [singlePlayerRound, setSinglePlayerRound] = useState(null);
     const [partyModalShown, setPartyModalShown] = useState(false);
     const [selectCountryModalShown, setSelectCountryModalShown] = useState(false);
@@ -1465,14 +1466,17 @@ export default function Home({ }) {
 
     useEffect(() => {
         if (multiplayerState?.inGame && multiplayerState?.gameData?.state === "end") {
-            // save the final players
-            setMultiplayerState((prev) => ({
-                ...prev,
-                gameData: {
-                    ...prev.gameData,
-                    finalPlayers: prev.gameData.players
-                }
-            }))
+            // save the final players (guard against missing gameData/players)
+            setMultiplayerState((prev) => {
+                const players = prev?.gameData?.players || [];
+                return {
+                    ...prev,
+                    gameData: {
+                        ...prev.gameData,
+                        finalPlayers: players
+                    }
+                };
+            })
         }
 
         if (multiplayerState?.gameData?.state === "waiting") {
@@ -1706,7 +1710,7 @@ export default function Home({ }) {
                         ...prev,
                         gameData: {
                             ...prev.gameData,
-                            players: prev.gameData.players.filter((p) => p.id !== data.id)
+                            players: (prev?.gameData?.players || []).filter((p) => p.id !== data.id)
                         }
                     }))
                 } else if (data.action === "add") {
@@ -1714,7 +1718,7 @@ export default function Home({ }) {
                         ...prev,
                         gameData: {
                             ...prev.gameData,
-                            players: [...prev.gameData.players, data.player]
+                            players: [...(prev?.gameData?.players || []), data.player]
                         }
                     }))
                 }
@@ -1724,7 +1728,7 @@ export default function Home({ }) {
                     setMultiplayerChatEnabled(true)
                 }
 
-                const player = multiplayerState.gameData.players.find((p) => p.id === id);
+                const player = multiplayerState?.gameData?.players?.find((p) => p.id === id);
                 if (player) {
                     player.final = data.final;
                     player.latLong = data.latLong;
