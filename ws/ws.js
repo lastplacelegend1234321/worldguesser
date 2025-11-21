@@ -1199,41 +1199,25 @@ try {
     // Convert Map to an array for efficient iteration
     const entries = Array.from(duelQueue.entries()).filter(r => r[1].duel);
 
-    // Loop through each player in the queue
+    // Loop through each player in the queue and find mutual ELO-range matches.
+    // Guests are treated the same as logged-in players here; they already have
+    // a default ELO (1000) and league assigned when verified.
     for (let i = 0; i < entries.length; i++) {
-      const [id1, { min, max, elo, guest }] = entries[i];
+      const [id1, { min, max, elo }] = entries[i];
 
-      // Skip this player if already matched
       if (matchedPlayers.has(id1)) continue;
 
-      // Check if player1 is a guest
-      if (guest) {
-        // Look for another guest to pair with
-        for (let j = i + 1; j < entries.length; j++) {
-          const [id2, { min: min2, max: max2, elo: elo2, guest: guest2 }] = entries[j];
+      for (let j = i + 1; j < entries.length; j++) {
+        const [id2, { min: min2, max: max2, elo: elo2 }] = entries[j];
 
-          if (guest2 && !matchedPlayers.has(id2)) {
-            pairs.push([id1, id2]);
-            matchedPlayers.add(id1);
-            matchedPlayers.add(id2);
-            break;
-          }
-        }
-      } else {
-        // Find a suitable ELO-based pair for non-guest player1
-        for (let j = i + 1; j < entries.length; j++) {
-          const [id2, { min: min2, max: max2, elo: elo2, guest: guest2 }] = entries[j];
+        if (matchedPlayers.has(id2)) continue;
 
-          // Skip if already matched or if player2 is a guest
-          if (matchedPlayers.has(id2) || guest2) continue;
-
-          // Check if each player falls within the other's acceptable ELO range
-          if (elo >= min2 && elo <= max2 && elo2 >= min && elo2 <= max) {
-            pairs.push([id1, id2]);
-            matchedPlayers.add(id1);
-            matchedPlayers.add(id2);
-            break;
-          }
+        // Check if each player falls within the other's acceptable ELO range
+        if (elo >= min2 && elo <= max2 && elo2 >= min && elo2 <= max) {
+          pairs.push([id1, id2]);
+          matchedPlayers.add(id1);
+          matchedPlayers.add(id2);
+          break;
         }
       }
     }
