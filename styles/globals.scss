@@ -665,8 +665,9 @@ html {
 }
 
 .home__destination_image {
-    width: min(260px, 45vw);
-    max-width: 280px;
+    /* Shrink homepage destination icon ~20% */
+    width: min(208px, 36vw);
+    max-width: 224px;
     height: auto;
     margin-bottom: 0; /* minimal gap between logo and title */
     filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
@@ -677,7 +678,8 @@ html {
     font-weight: 800;
     color: white;
     text-align: center;
-    margin: -16px 0 2px 0; /* pull title further up to reduce gap from logo */
+    /* Pull title closer to logo (roughly 50% tighter than before) */
+    margin: -28px 0 0 0;
     -webkit-text-stroke: 0;
     text-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
     font-family: "Montserrat", sans-serif;
@@ -739,7 +741,8 @@ html {
     }
     
     .home__destination_image {
-        width: min(280px, 50vw);
+        /* Match ~20% shrink on medium landscape */
+        width: min(224px, 40vw);
         margin-bottom: 8px;
     }
     
@@ -803,7 +806,8 @@ html {
     }
     
     .home__destination_image {
-        width: min(240px, 45vw);
+        /* Match ~20% shrink on short landscape */
+        width: min(192px, 36vw);
         margin-bottom: 6px;
     }
     
