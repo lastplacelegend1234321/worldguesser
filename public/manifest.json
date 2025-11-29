@@ -9,6 +9,11 @@
   "short_name": "ProGuessr.com",
   "start_url": "/",
   "theme_color": "#164785",
+  "image": {
+    "src": "/proguessr_16x9_image_manifest.png",
+    "sizes": "1920x1080",
+    "type": "image/png"
+  },
   "icons": [
     {
       "src": "/proguessr_favicon.png",
