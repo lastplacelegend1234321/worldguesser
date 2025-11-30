@@ -648,13 +648,13 @@ html {
     justify-content: center;
     width: 100%;
     gap: 20px;
-    padding-top: 0;
-    transform: translateY(-60px); /* move hero/logo slightly lower on large screens */
+    padding-top: 12px; /* ensure space between icon and very top */
+    transform: translateY(0); /* avoid pulling hero upward into navbar/top edge */
 }
 
 @media (max-width: 768px) {
     .home__centered_content {
-        transform: translateY(-15px); /* small upward shift only */
+        transform: translateY(0); /* keep hero safely away from top on tablets */
     }
 }
 
@@ -736,7 +736,7 @@ html {
     }
     
     .home__centered_content {
-        transform: translateY(-30px);
+        transform: translateY(0); /* prevent logo from colliding with top on short landscape */
         gap: 10px;
     }
     
@@ -801,7 +801,7 @@ html {
     }
     
     .home__centered_content {
-        transform: translateY(-20px);
+        transform: translateY(0); /* keep hero safely within viewport on very short landscape */
         gap: 8px;
     }
     

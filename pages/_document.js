@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en" style={{ backgroundColor: '#000000' }}>
       <Head>
-	 <link rel="manifest" href="/manifest.json" />       
+	 <link rel="manifest" href="/manifest.json?v=2" />       
 	 <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
