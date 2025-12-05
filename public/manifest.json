@@ -19,6 +19,11 @@
       "src": "/proguessr_favicon.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "https://proguessr.com/proguessr_16x9_image_manifest.png",
+      "sizes": "1920x1080",
+      "type": "image/png"
     }
   ],
   "screenshots": [
