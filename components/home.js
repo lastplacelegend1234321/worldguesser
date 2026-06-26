@@ -378,7 +378,14 @@ export default function Home({ }) {
             },
             onNonOAuthError: error => {
                 console.error("Google OAuth non-OAuth error:", error);
-                toast.error(`Login configuration error. Please contact support if this persists.`);
+                // error.type from @react-oauth/google: 'popup_failed_to_open' | 'popup_closed' | 'unknown'
+                if (error?.type === 'popup_closed') {
+                    toast.info("Login cancelled");
+                } else if (error?.type === 'popup_failed_to_open') {
+                    toast.error("Couldn't open the Google sign-in window. Please allow pop-ups for this site and try again.");
+                } else {
+                    toast.error("Couldn't start Google sign-in. Allow pop-ups, or this domain may not be authorized for login — contact support if it persists.");
+                }
             },
             flow: "auth-code",
 

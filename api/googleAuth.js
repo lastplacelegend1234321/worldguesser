@@ -38,10 +38,25 @@ export default async function handler(req, res) {
 
   } else {
     // first login
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+
+    // Fail loudly when the server itself isn't configured, instead of returning
+    // an opaque 400 that looks like the user did something wrong.
+    if (!clientId || !clientSecret) {
+      console.error(
+        '[googleAuth] MISCONFIGURED — missing env:',
+        [!clientId && 'NEXT_PUBLIC_GOOGLE_CLIENT_ID', !clientSecret && 'GOOGLE_CLIENT_SECRET']
+          .filter(Boolean).join(', ')
+      );
+      return res.status(503).json({
+        error: 'Login is temporarily unavailable (server not configured)',
+        reason: 'server_oauth_not_configured',
+      });
+    }
+
     try {
       // verify the access token
-      const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-
       const { tokens } = await client.getToken(code);
       client.setCredentials(tokens);
 
@@ -74,8 +89,25 @@ export default async function handler(req, res) {
 
       return res.status(200).json(output);
     } catch (error) {
-      console.error('Google OAuth error:', error.message);
-      return res.status(400).json({ error: 'Authentication failed' });
+      // Surface the REAL Google error so misconfiguration is diagnosable from the
+      // server logs instead of being collapsed into a generic 400.
+      const googleError = error?.response?.data?.error || error?.message;
+      const googleDesc = error?.response?.data?.error_description || '';
+      console.error('[googleAuth] token exchange failed:', googleError, googleDesc);
+
+      // invalid_client / invalid_request => the SERVER's credentials are wrong:
+      //   GOOGLE_CLIENT_SECRET doesn't match NEXT_PUBLIC_GOOGLE_CLIENT_ID, or one
+      //   of them is missing/stale. This is an operator problem, not a user problem.
+      if (googleError === 'invalid_client' || googleError === 'invalid_request') {
+        return res.status(500).json({
+          error: 'Server authentication is misconfigured — please contact support',
+          reason: 'oauth_credentials_mismatch',
+          detail: googleDesc || googleError,
+        });
+      }
+
+      // invalid_grant => the auth code was reused or expired; a fresh retry works.
+      return res.status(400).json({ error: 'Authentication failed', reason: googleError });
     }
   }
 
